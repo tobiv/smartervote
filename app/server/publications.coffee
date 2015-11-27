@@ -26,3 +26,6 @@ Meteor.publish "users", ->
       status: 1
       createdAt: 1
   )
+
+Meteor.publish "questions", ->
+  Questions.find()

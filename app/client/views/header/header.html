@@ -20,16 +20,21 @@
             Home
           </a>
         </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
         {{#if isInRole 'admin'}}
+        <li class="{{activeRouteClass 'editQuestions'}}">
+          <a href="{{pathFor 'editQuestions'}}">
+            Questions
+          </a>
+        </li>
         <li class="{{activeRouteClass 'users'}}">
           <a href="{{pathFor 'users'}}">
             Users
           </a>
         </li>
-        {{/if}}
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
         {{> loginButtons}}
+        {{/if}}
       </ul>
     </div>
   </div>

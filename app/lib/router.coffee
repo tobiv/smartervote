@@ -24,6 +24,11 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe('users')
 
+  @route "editQuestions",
+    path: "editQuestions"
+    waitOn: ->
+      Meteor.subscribe('questions')
+
 
 if Meteor.isClient	
   AccountsEntry.config
