@@ -1,0 +1,71 @@
+// this is the main styling file for this page
+// overwrite bootstrap variables in bootstrap/custom.bootstrap.import.less
+@import "bootstrap/custom.bootstrap.output.import.less";
+@import "theme/simplex.import.less";
+
+// import less/css from vendored libs
+@import "lib/bs_sidedanv.import.less";
+
+@import "home.import.less";
+
+body {
+	margin: 0;
+	padding-top: 40px; //navbar
+	h2 {
+		border: none;
+	}
+}
+
+//fix reactive-table
+.reactive-table {
+	td.buttons {
+		text-align: right;
+	}
+}
+.reactive-table-navigation .page-number {
+	text-align: right;
+}
+
+////////////////////////////////
+// misc
+.truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.page-header, .page-header-small {
+  border-bottom: none;
+}
+
+#spinner {
+  height: 300px;
+}
+
+.btn-img {
+  padding: 0;
+  border: none;
+  background: none;
+  &:hover, &:focus, &:active {
+    color: inherit !important;
+    box-shadow: none;
+  }
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.a-unstyled {
+	text-decoration: none;
+	&:hover, &:active {
+		text-decoration: none;
+	}
+}
+
+.text-color {
+	color: @text-color;
+	&:hover, &:active {
+		color: @text-color;
+	}
+}
