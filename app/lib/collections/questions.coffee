@@ -7,6 +7,7 @@ class @Question
     switch @type
       when "scale"
         s.type = Number
+        s.decimal = true
         s.autoform =
           type: "noUiSlider"
           step: @step
