@@ -127,7 +127,7 @@ Template.wizzard.helpers
       questionId: questionId
 
   answerFormSchema: ->
-    schema = 
+    schema =
       _id:
         type: String
         optional: true

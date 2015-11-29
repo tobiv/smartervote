@@ -6,7 +6,7 @@ Router.configure
 # automatically render notFoundTemplate if data is null
 #Router.onBeforeAction('dataNotFound')
 Router.onBeforeAction( ->
-  AccountsEntry.signInRequired(this)	
+  AccountsEntry.signInRequired(this)
 , {only: ["users"]})
 
 previousPage = null
@@ -39,7 +39,7 @@ Router.map ->
       ]
 
 
-if Meteor.isClient	
+if Meteor.isClient
   AccountsEntry.config
     homeRoute: '/home' #redirect to this path after sign-out
     dashboardRoute: '/home'  #redirect to this path after sign-in

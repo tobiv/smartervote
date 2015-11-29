@@ -3,7 +3,7 @@ onlyIfAdmin = ->
     return true
   else
     @ready()
-    return 
+    return
 
 onlyIfUser = ->
   if @userId
@@ -41,6 +41,6 @@ Meteor.publishComposite 'answers', ->
       userId: @userId
   children: [
     find: (visit) ->
-      Answers.find 
+      Answers.find
         visitId: visit._id
   ]

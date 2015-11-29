@@ -29,8 +29,8 @@ Visits.before.update BeforeUpdateTimestampHook
 Meteor.methods
   "createVisit": ->
     throw new Meteor.Error(433, "you need to log in to init a visit") unless Meteor.userId()?
-    
-    visit = 
+
+    visit =
       userId: Meteor.userId()
       completed: false
 
