@@ -1,0 +1,41 @@
+<template name="wizzard">
+<div id="wizzard" class="container">
+  {{#HammerTouchArea gestureMap=templateGestures}}
+  {{#with visit=visit}}
+    <div class="pageOverview">
+      {{#each pages}}
+      <span class="fa-stack fa-lg cursorPointer jumpToPage {{css}}">
+        <i class="fa fa-circle fa-stack-2x activeCircle"></i>
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <strong class="fa-stack-1x">{{index}}</strong>
+      </span>
+      {{/each}}
+    </div>
+
+    <div class="questions">
+      {{#each questionsForPage}}
+      <div class="question">
+        {{#with visit=../visit question=. answer=(answerForQuestion ../visit._id _id)}}
+          {{#autoForm doc=doc schema=answerFormSchema id=question._id type="normal" class="questionAutoform" fields="value" }}
+            {{#each afFieldNames}}
+              {{> afQuickField name=this.name options=afOptionsFromSchema}}
+            {{/each}}
+          {{/autoForm}}
+        {{/with}}
+      </div>
+      <br>
+      {{else}}
+        Question not found, sorry!
+      {{/each}}
+      {{#if isOnLastPage}}
+        <button type="button" id="next" class="btn btn-success pull-right">Results <i class="fa fa-chevron-right"></i></button>
+      {{else}}
+        <button type="button" id="next" class="btn btn-primary pull-right">Next <i class="fa fa-chevron-right"></i></button>
+      {{/if}}
+      <button type="button" id="back" class="btn btn-primary"><i class="fa fa-chevron-left"></i> Previous</button>
+    </div>
+
+  {{/with}}
+  {{/HammerTouchArea}}
+</div>
+</template>

@@ -29,3 +29,18 @@ Meteor.publish "users", ->
 
 Meteor.publish "questions", ->
   Questions.find()
+
+Meteor.publish "visits", ->
+	return unless onlyIfUser.call(@)
+	Visits.find
+		userId:	@userId
+
+Meteor.publishComposite 'answers', ->
+  find: ->
+    Visits.find
+      userId: @userId
+  children: [
+    find: (visit) ->
+      Answers.find 
+        visitId: visit._id
+  ]

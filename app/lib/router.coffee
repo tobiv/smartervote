@@ -29,6 +29,15 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe('questions')
 
+  @route "wizzard",
+    path: "wizzard"
+    waitOn: ->
+      [
+        Meteor.subscribe('questions')
+        Meteor.subscribe('visits')
+        Meteor.subscribe('answers')
+      ]
+
 
 if Meteor.isClient	
   AccountsEntry.config
