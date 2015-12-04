@@ -201,3 +201,10 @@ Template.wizzard.events
     submitAllForms(null)
     _pageIndex.set @index-1
     false
+
+  "click #reset": (evt, tmpl) ->
+    Meteor.call "resetVisit", @visit._id, (error, id) ->
+      throwError error if error?
+      if Session.get('selectedVisitId')?
+        Session.set 'selectedVisitId', id
+    false

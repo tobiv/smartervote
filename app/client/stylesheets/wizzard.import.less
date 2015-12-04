@@ -1,18 +1,24 @@
 #wizzard {
-  .pageOverview {
-    margin: 10px 0px;
-    color: white;
-    i { color: grey; }
-    .active {
-      .activeCircle {
-        color: @brand-info;
-        font-size: 2.5em;
-        top: -4px;
-        left: -1.5px;
-      }
+  .controls-row {
+    padding: 15px 0px;
+    .buttons {
+      display: inline-block;
     }
-    .answered {
-      i { color: @brand-success; }
+    .pageOverview {
+      margin-top: -2px;
+      color: white;
+      i { color: grey; }
+      .active {
+        .activeCircle {
+          color: @brand-info;
+          font-size: 2.5em;
+          top: -4px;
+          left: -1.5px;
+        }
+      }
+      .answered {
+        i { color: @brand-success; }
+      }
     }
   }
   .lastCol {

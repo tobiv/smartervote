@@ -6,14 +6,21 @@
       <div class="col-md-2 hidden-xs">
       </div>
       <div class="col-md-8 col-xs-9">
-        <div class="pageOverview">
-          {{#each pages}}
-          <span class="fa-stack fa-lg cursorPointer jumpToPage {{css}}">
-            <i class="fa fa-circle fa-stack-2x activeCircle"></i>
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <strong class="fa-stack-1x">{{index}}</strong>
-          </span>
-          {{/each}}
+        <div class="controls-row">
+          <div class="buttons">
+            {{#if hasAnswers}}
+            <button type="button" id="reset" class="btn btn-primary">Reset</button>
+            {{/if}}
+          </div>
+          <div class="pageOverview pull-right">
+            {{#each pages}}
+            <span class="fa-stack fa-lg cursorPointer jumpToPage {{css}}">
+              <i class="fa fa-circle fa-stack-2x activeCircle"></i>
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <strong class="fa-stack-1x">{{index}}</strong>
+            </span>
+            {{/each}}
+          </div>
         </div>
 
         <div class="questions">

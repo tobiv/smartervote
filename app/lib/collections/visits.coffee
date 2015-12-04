@@ -68,3 +68,21 @@ Meteor.methods
 
     _id = Visits.insert visit
     _id
+
+
+  "resetVisit": (visitId) ->
+    throw new Meteor.Error(433, "you need to log to reset a visit") unless Meteor.userId()?
+    check visitId, String
+
+    visit = Visits.findOne
+      _id: visitId
+      userId: Meteor.userId()
+    throw new Meteor.Error(403, "visit not found") unless visit?
+    visit = visit.scoredDoc()
+
+    if visit.isComplete #create a new one
+      return Meteor.call "createVisit"
+    else #delete it's answers
+      Answers.remove
+        visitId: visit._id
+      return visit._id
