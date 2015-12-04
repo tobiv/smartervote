@@ -112,7 +112,12 @@ Template.wizzard.helpers
     else
       v = Visits.findOne {},
         sort: {createdAt: -1, limit: 1}
-    v.scoredDoc()
+    #console.log "visitId: #{v._id}" if v?
+    return v.scoredDoc() if v?
+    null
+
+  hasAnswers: ->
+    @visit? and @visit.numAnswered > 0
 
   questionsForPage: ->
     questionIdsForPage = _questionIdsForPage.get()[_pageIndex.get()]
