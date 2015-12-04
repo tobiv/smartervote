@@ -11,6 +11,7 @@ class @Question
         s.autoform =
           type: "noUiSlider"
           step: @step
+          start: ((@max-@min)/2)
           labelLeft: @minLabel if @minLabel?
           labelRight: @maxLabel if @maxLabel?
       when "text"
