@@ -108,10 +108,11 @@ Template.wizzard.helpers
   visit: ->
     selectedVisitId = Session.get 'selectedVisitId'
     if selectedVisitId?
-      Visits.findOne selectedVisitId
+      v = Visits.findOne selectedVisitId
     else
-      Visits.findOne {},
+      v = Visits.findOne {},
         sort: {createdAt: -1, limit: 1}
+    v.scoredDoc()
 
   questionsForPage: ->
     questionIdsForPage = _questionIdsForPage.get()[_pageIndex.get()]
@@ -145,6 +146,8 @@ Template.wizzard.helpers
       questionId: @question._id
       visitId: @visit._id if @visit?
 
+  isOnFirstPage: ->
+    _pageIndex.get() is 0
   isOnLastPage: ->
     _pageIndex.get() is _numPages.get()-1
 
@@ -158,7 +161,7 @@ Template.wizzard.helpers
         questionId: {$in: questionIds}
       .forEach (answer) ->
         answers[answer.questionId] = answer
-    console.log answers
+    #console.log answers
     activeIndex = _pageIndex.get()
     questionIdsForPage = _questionIdsForPage.get()
     pages = []

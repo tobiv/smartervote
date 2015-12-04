@@ -1,0 +1,11 @@
+<template name="progressBar">
+<div class="pp-progress-bar">
+  <p>Pro</p>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow={{score}} aria-valuemin="0" aria-valuemax="1" style="height: {{progress}}%;">
+      <span class="sr-only">{{progress}}% Complete</span>
+    </div>
+  </div>
+  <p>Contra</p>
+</div>
+</template>
