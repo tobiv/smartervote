@@ -30,6 +30,25 @@ class @Visit
     @questions = questions
     @
 
+  #stub
+  scoredDoc: ->
+    sum = 0
+    self = @validatedDoc()
+    Questions.find().forEach (question) ->
+      #only scale questions for now
+      return if question.type isnt "scale"
+      answer = Answers.findOne
+        visitId: self._id
+        questionId: question._id
+      if answer?
+        sum += answer.value
+    score = 0.5
+    if @numAnswered > 0
+      score = sum/@numAnswered
+    @score = score
+    @progress = score*100
+    @
+
 
 @Visits = new Meteor.Collection("visits",
   transform: (doc) ->
