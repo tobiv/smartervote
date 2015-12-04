@@ -18,7 +18,7 @@ class @Visit
         hasAnswers = true
         numAnswered += 1
         question.answered = true
-        question.answer = answer 
+        question.answer = answer
       else
         isComplete = false
         question.answered = false
