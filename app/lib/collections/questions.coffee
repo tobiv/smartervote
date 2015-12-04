@@ -64,11 +64,11 @@ class @Question
         minLabel:
           label: "min label"
           type: String
-          optional: false
+          optional: true
         maxLabel:
           label: "max label"
           type: String
-          optional: false
+          optional: true
         #min:
         #  label: "min"
         #  type: Number
