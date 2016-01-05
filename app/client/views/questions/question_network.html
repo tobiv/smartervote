@@ -1,14 +1,28 @@
 <template name="questionNetwork">
-<div id="questionNetwork">
-	<div class="left">
-		<div id="bubbles"></div>
-	</div>
-	<div class="devider">
-	</div>
-	<div class="right">
-		<div class="content">
-			space for question name, text, slider
-		</div>
-	</div>
-</div>
+  <div id="questionNetwork">
+    {{#with visit=visit}}
+    <div class="left">
+      <div id="bubbles"></div>
+    </div>
+    <div class="devider"></div>
+    <div class="right">
+      <div class="content">
+        <div class="question">
+          {{#with question}}
+          {{#with visit=../visit question=. answer=(answerForQuestion ../visit._id _id)}}
+            {{#autoForm doc=doc schema=answerFormSchema id="questionForm" type="normal" class="questionAutoform" fields="value"}}
+              {{#each afFieldNames}}
+                {{> afQuickField name=this.name options=afOptionsFromSchema}}
+              {{/each}}
+            <button type="submit" id="submit" class="btn btn-primary"><i class="fa fa-chevron-left"> Next</i></button>
+            {{/autoForm}}
+          {{/with}}
+          {{else}}
+            please select a question
+          {{/with}}
+        </div>
+      </div>
+    </div>
+    {{/with}}
+  </div>
 </template>
