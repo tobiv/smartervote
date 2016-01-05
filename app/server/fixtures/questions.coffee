@@ -33,10 +33,10 @@ if Questions.find().count() is 0
         minLabel: columns[5]
         maxLabel: columns[6]
         type: "scale"
-        min: 0
-        max: 1
+        min: -0.5
+        max: 0.5
         step: 0.1
-        start: 0.5
+        start: 0
     console.log question
     Questions.insert question
     return

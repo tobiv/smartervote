@@ -46,30 +46,36 @@ class @Network
       .attr("class", "node")
       .attr("cx", (d) -> d.x)
       .attr("cy", (d) -> d.y)
-      .attr("r", (d) -> 16)#d.radius)
       .style("fill", (d) -> color(1/d.rating) )
       .style("stroke-width", 0)
       .on("dblclick", @dblclick)
+      .on("click", @click)
       .call(drag)
+    node
+      .attr("r", (d) -> d.radius)
     node.exit().remove()
 
     link = linksG.selectAll("line.link").data(links, (d) -> d.id)
     #  .data(links, (d) -> "#{d.source.id}_#{d.target.id}")
     link.enter().append("line")
       .attr("class", "link")
-      .attr("stroke", "#ddd")
-      .attr("stroke-opacity", 0.8)
-      .style("stroke-width", 1.0)
+      #.attr("stroke", "#ddd")
+      #.attr("stroke-opacity", 0.8)
+      #.style("stroke-width", 1.0)
       .attr("x1", (d) -> d.source.x)
       .attr("y1", (d) -> d.source.y)
       .attr("x2", (d) -> d.target.x)
       .attr("y2", (d) -> d.target.y)
+    link
+      .attr("linkDistance", (d) -> d.linkDistance)
     link.exit().remove()
 
+    collide = @collide
     force.on 'tick', ->
       node
-      	.attr("cx", (d) -> d.x)
-      	.attr("cy", (d) -> d.y)
+        .each(collide(.5))
+        .attr("cx", (d) -> d.x = Math.max(d.radius, Math.min(width - d.radius, d.x)))# d.x)
+        .attr("cy", (d) -> d.y = Math.max(d.radius, Math.min(height - d.radius, d.y)))#d.y)
       #node.attr 'transform', (d) ->
       #  'translate(' + d.x + ',' + d.y + ')'
 
@@ -81,19 +87,27 @@ class @Network
       return
 
     # Restart the force layout.
-    force.gravity(.03)
-      .distance(50)
-      .linkDistance(100)
-      .charge(-80)
+    force
       .size([ width, height ])
+      .gravity(.0)
+      .charge(-800)
+      .linkDistance( (d) -> d.linkDistance )
       .start()
     return
+
+  _onNodeClick = null
+  onNodeClick: (f) ->
+    _onNodeClick = f
+
+  click: (d) ->
+    _onNodeClick(d) if _onNodeClick?
 
   dblclick: (d) ->
     d3.select(@).classed("fixed", d.fixed = false)
 
   dragstart: (d) ->
-    d3.select(@).classed("fixed", d.fixed = true)
+    # no fixing for now
+    #d3.select(@).classed("fixed", d.fixed = true)
 
   findNode: (id) ->
     for i of nodes
@@ -109,6 +123,14 @@ class @Network
       i++
     return
 
+  findLinkIndex: (id) ->
+    i = 0
+    while i < links.length
+      if links[i].id == id
+        return i
+      i++
+    return
+
   addNode: (node) ->
     check node.id, String
     console.log node
@@ -116,9 +138,16 @@ class @Network
     @update()
     return
 
+  changeNode: (node) ->
+    check node.id, String
+    n = nodes[@findNodeIndex(node.id)]
+    n.radius = node.radius
+    @update()
+    return
+
   removeNode: (id) ->
     i = 0
-    n = findNode(id)
+    n = @findNode(id)
     while i < links.length
       if links[i]['source'] == n or links[i]['target'] == n
         links.splice i, 1
@@ -131,7 +160,6 @@ class @Network
   addLink: (link) ->
     check link.sourceId, String
     check link.targetId, String
-    check link.value, Number
     console.log link
     link = _.extend link,
       id: "#{link.sourceId}_#{link.targetId}"
@@ -141,6 +169,15 @@ class @Network
     check link.source, Object
     check link.target, Object
     links.push link
+    @update()
+    return
+
+  changeLink: (link) ->
+    check link.sourceId, String
+    check link.targetId, String
+    l = links[@findLinkIndex("#{link.sourceId}_#{link.targetId}")]
+    l.linkDistance = link.linkDistance
+    console.log l
     @update()
     return
 
@@ -154,7 +191,7 @@ class @Network
     @update()
     return
 
-  removeallLinks: ->
+  removeAllLinks: ->
     links.splice 0, links.length
     @update()
     return
@@ -169,3 +206,35 @@ class @Network
 
   height: ->
     height
+
+  
+  # Resolves collisions between d and all other circles.
+  # http://stackoverflow.com/questions/11339348/avoid-d3-js-circles-overlapping
+  collide: (alpha) ->
+    padding = 1.5 #separation between same-color circles
+    clusterPadding = 6 #separation between different-color circles
+    maxRadius = 52
+
+    quadtree = d3.geom.quadtree(nodes)
+    (d) ->
+      r = d.radius + maxRadius + Math.max(padding, clusterPadding)
+      nx1 = d.x - r
+      nx2 = d.x + r
+      ny1 = d.y - r
+      ny2 = d.y + r
+      quadtree.visit (quad, x1, y1, x2, y2) ->
+        `var r`
+        if quad.point and quad.point != d
+          x = d.x - (quad.point.x)
+          y = d.y - (quad.point.y)
+          l = Math.sqrt(x * x + y * y)
+          r = d.radius + quad.point.radius + (if d.cluster == quad.point.cluster then padding else clusterPadding)
+          if l < r
+            l = (l - r) / l * alpha
+            d.x -= x *= l
+            d.y -= y *= l
+            quad.point.x += x
+            quad.point.y += y
+        x1 > nx2 or x2 < nx1 or y1 > ny2 or y2 < ny1
+      return
+

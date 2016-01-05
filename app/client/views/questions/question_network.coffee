@@ -33,6 +33,11 @@ Template.questionNetwork.created = ->
 
 Template.questionNetwork.rendered = ->
   network = new Network("#bubbles")
+
+  #jump to question, when clicking on node
+  network.onNodeClick (d) ->
+    _questionIndex.set d.qIndex
+    
   width = network.width()
   height = network.height()
 
@@ -53,18 +58,21 @@ Template.questionNetwork.rendered = ->
   #draw cluster nodes
   numClusters = Object.keys(clusters).length
   i = 0
+  w = width-80
   Object.keys(clusters).forEach (c) ->
-    x = width/numClusters*i
+    x = 40 + w/numClusters*i
     network.addNode
       id: c+'_max'
       fixed: true
       x: x
       y: 20
+      radius: 0
     network.addNode
       id: c+'_min'
       fixed: true
       x: x
       y: height-20
+      radius: 0
     i+=1
 
   #DRY
@@ -74,25 +82,70 @@ Template.questionNetwork.rendered = ->
   else
     v = Visits.findOne {},
       sort: {createdAt: -1, limit: 1}
+
+  rScale = d3.scale.linear()
+  rScale.domain [0, 0.5]
+  rScale.range [16, 52]
+
+  linkDistanceMax = 600
+  linkDistanceScale = d3.scale.linear()
+  linkDistanceScale.domain [-0.5, 0.5]
+  linkDistanceScale.range [0, linkDistanceMax]
+
   Answers.find
     visitId: v._id
   .observe
-    added: (doc) ->
-      question = Questions.findOne doc.questionId
+    added: (answer) ->
+      question = Questions.findOne answer.questionId
+      value = answer.value
+      if question.type is 'boolean'
+        value = -0.5 if !answer.value
+        value = 0.5 if answer.value
       node =
         id: question._id
+        qIndex: question.index
         x: width
         y: height/2
+        radius: rScale( Math.abs(value) )
       network.addNode node
 
+      ldMin = linkDistanceScale(value)
       network.addLink
         sourceId: node.id
         targetId: question.cluster+'_min'
-        value: 1
+        linkDistance: ldMin
       network.addLink
         sourceId: node.id
         targetId: question.cluster+'_max'
-        value: 1
+        linkDistance: linkDistanceMax-ldMin
+
+    changed: (answer) ->
+      question = Questions.findOne answer.questionId
+      value = answer.value
+      if question.type is 'boolean'
+        value = -0.5 if !answer.value
+        value = 0.5 if answer.value
+      network.changeNode
+        id: question._id
+        radius: rScale( Math.abs(value) )
+
+      ldMin = linkDistanceScale(value)
+      network.changeLink
+        sourceId: question._id
+        targetId: question.cluster+'_min'
+        linkDistance: ldMin
+      network.changeLink
+        sourceId: question._id
+        targetId: question.cluster+'_max'
+        linkDistance: linkDistanceMax-ldMin
+
+    removed: (answer) ->
+      question = Questions.findOne answer.questionId
+      if question?
+        network.removeNode question._id
+      else
+        network.removeAllLinks
+        network.removeAllNodes
 
   # draw links from cluster to it's questions/answers
   #Object.keys(clusters).forEach (c) ->
