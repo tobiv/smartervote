@@ -1,0 +1,24 @@
+#questionNetwork {
+  display: flex;
+  .left {
+    flex: 1 0 640px;
+    //flex: 1 1 66%;
+    //min-width: 320px;
+  }
+  .devider {
+    flex: 0 0 .6em;
+    background-color: purple;
+  }
+  .right {
+    flex: 1 0 320px;
+    //flex: 1 1 33%;
+    //min-width: 320px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    .content {
+      flex: 0 0 33%;
+    }
+  }
+}
