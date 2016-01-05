@@ -35,7 +35,7 @@ submitAllForms = (gotoNextPage) ->
       e.submit()
 
 formSubmitted = ->
-  if (_numFormsToSubmit -= 1) <= 0
+  if (_numFormsToSubmit -= 1) is 0
     if _gotoNextPage is true
       nextPage()
     if _gotoNextPage is false

@@ -49,6 +49,10 @@
       </div>
       <div class="col-md-2 col-xs-1 text-center lastCol">
         {{> progressBar progress=visit.progress score=visit.score}}
+        <br>
+        {{#if visit.isComplete}}
+          <p><a class="btn btn-primary btn-lg" href="/scores" role="button">Auswertung</a></p>
+        {{/if}}
       </div>
     </div>
   {{/with}}
