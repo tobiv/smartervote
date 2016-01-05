@@ -22,6 +22,7 @@ upsertAnswer = (insertDoc, updateDoc, currentDoc) ->
   _questionIndex.set( _questionIndex.get()+1 )
   @done()
 
+
 _numQuestions = new ReactiveVar(0)
 _questionIndex = new ReactiveVar(0)
 Template.questionNetwork.created = ->
@@ -29,30 +30,77 @@ Template.questionNetwork.created = ->
   @autorun ->
     _numQuestions.set Questions.find().count()
 
+
 Template.questionNetwork.rendered = ->
-  clusters = {}
   network = new Network("#bubbles")
+  width = network.width()
+  height = network.height()
+
+  #get clusters from questions
+  clusters = {}
   Questions.find().observe
     added: (doc) ->
       doc.id = doc._id
-      node = _.pick doc, ['id']
-      network.addNode node
-      if clusters[doc.cluster]?
-        clusters[doc.cluster].push doc
-      else
-        clusters[doc.cluster] = [doc]
+      #node = _.pick doc, ['id']
+      #network.addNode node
+      clusters[doc.cluster] ?= []
+      clusters[doc.cluster].push doc
       return
-    remove: (doc) ->
-      network.removeNode doc._id
+    #remove: (doc) ->
+    #  network.removeNode doc._id
+    #  return
 
+  #draw cluster nodes
+  numClusters = Object.keys(clusters).length
+  i = 0
   Object.keys(clusters).forEach (c) ->
+    x = width/numClusters*i
     network.addNode
-      id: c
-    clusters[c].forEach (q) ->
+      id: c+'_max'
+      fixed: true
+      x: x
+      y: 20
+    network.addNode
+      id: c+'_min'
+      fixed: true
+      x: x
+      y: height-20
+    i+=1
+
+  #DRY
+  selectedVisitId = Session.get 'selectedVisitId'
+  if selectedVisitId?
+    v = Visits.findOne selectedVisitId
+  else
+    v = Visits.findOne {},
+      sort: {createdAt: -1, limit: 1}
+  Answers.find
+    visitId: v._id
+  .observe
+    added: (doc) ->
+      question = Questions.findOne doc.questionId
+      node =
+        id: question._id
+        x: width
+        y: height/2
+      network.addNode node
+
       network.addLink
-        sourceId: q.id
-        targetId: c
+        sourceId: node.id
+        targetId: question.cluster+'_min'
         value: 1
+      network.addLink
+        sourceId: node.id
+        targetId: question.cluster+'_max'
+        value: 1
+
+  # draw links from cluster to it's questions/answers
+  #Object.keys(clusters).forEach (c) ->
+  #  clusters[c].forEach (q) ->
+  #    network.addLink
+  #      sourceId: q.id
+  #      targetId: c
+  #      value: 1
 
 Template.questionNetwork.helpers
   visit: ->
