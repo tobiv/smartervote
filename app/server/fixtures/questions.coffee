@@ -19,16 +19,24 @@ if Questions.find().count() is 0
     columns = line.split(';')
     question =
       index: parseInt(columns[0])-1
-      label: columns[1]
-      minLabel: columns[2]
-      maxLabel: columns[3]
-      type: "scale"
-      optional: true
-      min: 0
-      max: 1
-      step: 0.1
-      start: 0.5
+      cluster: columns[1]
+      title: columns[2]
+      label: columns[3]
       break: (lineCounter%5 is 0)
+      optional: true
+    boolean = columns[4].length > 0
+    if boolean
+      _.extend question,
+        type: "boolean"
+    else
+      _.extend question,
+        minLabel: columns[5]
+        maxLabel: columns[6]
+        type: "scale"
+        min: 0
+        max: 1
+        step: 0.1
+        start: 0.5
     console.log question
     Questions.insert question
     return
