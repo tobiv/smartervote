@@ -42,24 +42,19 @@ Template.questionNetwork.rendered = ->
   height = network.height()
 
   #get clusters from questions
-  clusters = {}
-  Questions.find().observe
-    added: (doc) ->
-      doc.id = doc._id
-      #node = _.pick doc, ['id']
-      #network.addNode node
-      clusters[doc.cluster] ?= []
-      clusters[doc.cluster].push doc
-      return
-    #remove: (doc) ->
-    #  network.removeNode doc._id
-    #  return
+  clusterIndices = {}
+  i = 0
+  Questions.find().forEach (q) ->
+    clusterIndices[q.cluster] ?= []
+    clusterIndices[q.cluster].push i
+    i+=4
+    return
 
   #draw cluster nodes
-  numClusters = Object.keys(clusters).length
+  numClusters = Object.keys(clusterIndices).length
   i = 0
   w = width-80
-  Object.keys(clusters).forEach (c) ->
+  Object.keys(clusterIndices).forEach (c) ->
     x = 40 + w/numClusters*i
     network.addNode
       id: c+'_max'
@@ -85,13 +80,14 @@ Template.questionNetwork.rendered = ->
 
   rScale = d3.scale.linear()
   rScale.domain [0, 0.5]
-  rScale.range [16, 52]
+  rScale.range [20, 70]
 
   linkDistanceMax = 600
   linkDistanceScale = d3.scale.linear()
   linkDistanceScale.domain [-0.5, 0.5]
   linkDistanceScale.range [0, linkDistanceMax]
 
+  color = d3.scale.category20b()
   Answers.find
     visitId: v._id
   .observe
@@ -104,9 +100,11 @@ Template.questionNetwork.rendered = ->
       node =
         id: question._id
         qIndex: question.index
+        answerValue: value
         x: width
         y: height/2
         radius: rScale( Math.abs(value) )
+        color: color(clusterIndices[question.cluster])
       network.addNode node
 
       ldMin = linkDistanceScale(value)
@@ -128,6 +126,7 @@ Template.questionNetwork.rendered = ->
       network.changeNode
         id: question._id
         radius: rScale( Math.abs(value) )
+        answerValue: value
 
       ldMin = linkDistanceScale(value)
       network.changeLink

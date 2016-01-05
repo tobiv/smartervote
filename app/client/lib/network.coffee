@@ -13,8 +13,6 @@ class @Network
   nodes = null
   links = null
 
-  color = null
-
   constructor: (element) ->
     width = $(".left").width()
     height = $(window).height()
@@ -37,8 +35,6 @@ class @Network
     nodes = force.nodes()
     links = force.links()
 
-    color = d3.scale.category20()
-
 
   update: ->
     node = nodesG.selectAll("circle.node").data(nodes, (d) -> d.id)
@@ -46,13 +42,16 @@ class @Network
       .attr("class", "node")
       .attr("cx", (d) -> d.x)
       .attr("cy", (d) -> d.y)
-      .style("fill", (d) -> color(1/d.rating) )
       .style("stroke-width", 0)
       .on("dblclick", @dblclick)
       .on("click", @click)
       .call(drag)
     node
       .attr("r", (d) -> d.radius)
+      .style("fill", (d) -> 
+        #negative values make the color darker
+        d3.rgb(d.color).brighter(d.answerValue)
+      )
     node.exit().remove()
 
     link = linksG.selectAll("line.link").data(links, (d) -> d.id)
@@ -61,7 +60,7 @@ class @Network
       .attr("class", "link")
       #.attr("stroke", "#ddd")
       #.attr("stroke-opacity", 0.8)
-      #.style("stroke-width", 1.0)
+      #.style("stroke-width", 1.5)
       .attr("x1", (d) -> d.source.x)
       .attr("y1", (d) -> d.source.y)
       .attr("x2", (d) -> d.target.x)
@@ -142,6 +141,7 @@ class @Network
     check node.id, String
     n = nodes[@findNodeIndex(node.id)]
     n.radius = node.radius
+    n.answerValue = node.answerValue
     @update()
     return
 
