@@ -18,7 +18,8 @@
               {{#if eq question.type 'boolean'}}
                 {{> booleanQuestion}}
               {{/if}}
-              <button type="submit" id="submit" class="btn btn-primary"><i class="fa fa-chevron-left"> Next</i></button>
+              <button type="button" id="back" class="btn btn-default">Zurück</button>
+              <button type="button" id="next" class="btn btn-default pull-right">Weiter</button>
             </form>
 
             {{/with}}
@@ -34,11 +35,20 @@
 
 
 <template name="scaleQuestion">
-  <div class="form-group">
+  <div class="scaleQuestion form-group">
     <label for={{question._id}} class="control-label">
       {{question.label}}
     </label>
-    <div id={{question._id}} class="at-nouislider">
+    <div class="info">
+      {{#if showInfo}}
+      <div class="hideInfo">
+        {{{question.info}}}
+      </div>
+      {{else}}
+      <a href="#" class="showInfo">mehr Informationen</a>
+      {{/if}}
+    </div>
+    <div class="at-nouislider">
       <div class="nouislider-container">
         <span class="nouislider-label">{{question.minLabel}}</span>
         <div class="nouislider"></div>
@@ -49,11 +59,20 @@
 </template>
 
 <template name="booleanQuestion">
-  <div class="form-group">
+  <div class="booleanQuestion form-group">
     <label for={{question._id}} class="control-label">
       {{question.label}}
     </label>
-    <div id={{question._id}}>
+    <div class="info">
+      {{#if showInfo}}
+      <div class="hideInfo">
+        {{{question.info}}}
+      </div>
+      {{else}}
+      <a href="#" class="showInfo">mehr Informationen</a>
+      {{/if}}
+    </div>
+    <div class="buttons">
       <button type="button" class="yes {{activeCSS true}} btn btn-success btn-lg">Ja</button>
       <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">Nein</button>
     </div>

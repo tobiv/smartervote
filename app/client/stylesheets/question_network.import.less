@@ -19,6 +19,26 @@
     justify-content: center;
     .content {
       flex: 0 0 33%;
+      padding: 0px 15px;
+      .question {
+        .control-label {
+          font-size: 1.3em;
+        }
+        .info {
+          margin: 15px 0px;
+        }
+        .booleanQuestion {
+          .buttons {
+            text-align: center;
+            button {
+              width: 80px;
+              &:first-child {
+                margin-right: 15px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

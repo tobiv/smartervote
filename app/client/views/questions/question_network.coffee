@@ -1,5 +1,6 @@
 _numQuestions = new ReactiveVar(0)
 _questionIndex = new ReactiveVar(0)
+_showInfo = new ReactiveVar(false)
 Template.questionNetwork.created = ->
   self = @
   @autorun ->
@@ -155,6 +156,31 @@ Template.questionNetwork.helpers
       visitId: visitId
       questionId: questionId
 
+Template.questionNetwork.events
+  'click #back': (evt, tmpl) ->
+    _showInfo.set false
+    qi = _questionIndex.get()-1
+    if qi < 0
+      _questionIndex.set _numQuestions.get()-1
+    else
+      _questionIndex.set qi
+
+  'click #next': (evt, tmpl) ->
+    _showInfo.set false
+    qi = _questionIndex.get()+1
+    if qi is _numQuestions.get()
+      _questionIndex.set 0
+    else
+      _questionIndex.set qi
+
+  'click .showInfo': (evt) ->
+    evt.preventDefault()
+    _showInfo.set true
+
+  'click .hideInfo': (evt) ->
+    evt.preventDefault()
+    _showInfo.set false
+
 
 Template.scaleQuestion.rendered = ->
   question = @data.question
@@ -165,6 +191,10 @@ Template.scaleQuestion.rendered = ->
       max: question.max
   )
   return
+
+Template.scaleQuestion.helpers
+  showInfo: ->
+    _showInfo.get()
 
 Template.scaleQuestion.events
   'slide': (evt, tmpl, val) ->
@@ -177,8 +207,11 @@ Template.scaleQuestion.events
 
 
 Template.booleanQuestion.helpers
-  activeCSS: (bool) ->
-    "active" if bool is @answer.value
+	activeCSS: (bool) ->
+		"active" if @answer? and bool is @answer.value
+
+	showInfo: ->
+		_showInfo.get()
 
 Template.booleanQuestion.events
   'click button': (evt, tmpl, val) ->
