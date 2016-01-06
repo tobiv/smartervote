@@ -48,10 +48,7 @@ class @Network
       .call(drag)
     node
       .attr("r", (d) -> d.radius)
-      .style("fill", (d) -> 
-        #negative values make the color darker
-        d3.rgb(d.color).brighter(d.answerValue)
-      )
+      .style("fill", (d) -> d.color)
     node.exit().remove()
 
     link = linksG.selectAll("line.link").data(links, (d) -> d.id)
@@ -140,8 +137,9 @@ class @Network
   changeNode: (node) ->
     check node.id, String
     n = nodes[@findNodeIndex(node.id)]
-    n.radius = node.radius
     n.answerValue = node.answerValue
+    n.radius = node.radius
+    n.color = node.color
     @update()
     return
 

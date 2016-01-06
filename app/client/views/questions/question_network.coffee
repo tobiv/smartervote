@@ -104,7 +104,7 @@ Template.questionNetwork.rendered = ->
         x: width
         y: height/2
         radius: rScale( Math.abs(value) )
-        color: color(clusterIndices[question.cluster])
+        color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
       network.addNode node
 
       ldMin = linkDistanceScale(value)
@@ -125,8 +125,9 @@ Template.questionNetwork.rendered = ->
         value = 0.5 if answer.value
       network.changeNode
         id: question._id
-        radius: rScale( Math.abs(value) )
         answerValue: value
+        radius: rScale( Math.abs(value) )
+        color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
 
       ldMin = linkDistanceScale(value)
       network.changeLink
