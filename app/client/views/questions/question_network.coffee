@@ -1,28 +1,3 @@
-AutoForm.addHooks 'questionForm',
-  onSubmit: (insertDoc, updateDoc, currentDoc) ->
-    self = @
-    ensureUser().then ->
-      upsertAnswer.call(self, insertDoc, updateDoc, currentDoc)
-    ,
-      (error) ->
-        console.log "ensureUser rejected"
-        throwError error if error?
-    false
-
-#this: onSubmit
-upsertAnswer = (insertDoc, updateDoc, currentDoc) ->
-  insertDoc.visitId = currentDoc.visitId  if currentDoc.visitId?
-  insertDoc.questionId = currentDoc.questionId
-  insertDoc._id = currentDoc._id if currentDoc._id?
-  #console.log "submit questionAutoform"
-  #console.log insertDoc
-  if insertDoc.value? and (!currentDoc.value? or (currentDoc.value? and currentDoc.value isnt insertDoc.value))
-    Meteor.call "upsertAnswer", insertDoc, (error) ->
-      throwError error if error?
-  _questionIndex.set( _questionIndex.get()+1 )
-  @done()
-
-
 _numQuestions = new ReactiveVar(0)
 _questionIndex = new ReactiveVar(0)
 Template.questionNetwork.created = ->
@@ -180,21 +155,37 @@ Template.questionNetwork.helpers
       visitId: visitId
       questionId: questionId
 
-  answerFormSchema: ->
-    schema =
-      _id:
-        type: String
-        optional: true
-      visitId:
-        type: String
-        optional: true
-      questionId:
-        type: String
-        optional: true
-      value: @question.getSchemaDict()
-    new SimpleSchema(schema)
 
-  doc: ->
-    @answer or
-      questionId: @question._id
-      visitId: @visit._id if @visit?
+Template.scaleQuestion.rendered = ->
+  question = @data.question
+  @$('.nouislider').noUiSlider(
+    start: question.start
+    range:
+      min: question.min
+      max: question.max
+  )
+  return
+
+Template.scaleQuestion.events
+  'slide': (evt, tmpl, val) ->
+    a = @answer || {}
+    a.visitId = @visit._id
+    a.questionId = @question._id
+    a.value = parseFloat(val)
+    Meteor.call "upsertAnswer", a, (error) ->
+      throwError error if error?
+
+
+Template.booleanQuestion.helpers
+  activeCSS: (bool) ->
+    "active" if bool is @answer.value
+
+Template.booleanQuestion.events
+  'click button': (evt, tmpl, val) ->
+    event.target.blur()
+    a = @answer || {}
+    a.visitId = @visit._id
+    a.questionId = @question._id
+    a.value = tmpl.$(evt.target).hasClass("yes")
+    Meteor.call "upsertAnswer", a, (error) ->
+      throwError error if error?

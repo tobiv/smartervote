@@ -9,14 +9,19 @@
       <div class="content">
         <div class="question">
           {{#with question}}
-          {{#with visit=../visit question=. answer=(answerForQuestion ../visit._id _id)}}
-            {{#autoForm doc=doc schema=answerFormSchema id="questionForm" type="normal" class="questionAutoform" fields="value"}}
-              {{#each afFieldNames}}
-                {{> afQuickField name=this.name options=afOptionsFromSchema}}
-              {{/each}}
-            <button type="submit" id="submit" class="btn btn-primary"><i class="fa fa-chevron-left"> Next</i></button>
-            {{/autoForm}}
-          {{/with}}
+            {{#with visit=../visit question=. answer=(answerForQuestion ../visit._id _id)}}
+
+            <form id="questionForm" class="questionAutoform" novalidate="novalidate">
+              {{#if eq question.type 'scale'}}
+                {{> scaleQuestion}}
+              {{/if}}
+              {{#if eq question.type 'boolean'}}
+                {{> booleanQuestion}}
+              {{/if}}
+              <button type="submit" id="submit" class="btn btn-primary"><i class="fa fa-chevron-left"> Next</i></button>
+            </form>
+
+            {{/with}}
           {{else}}
             please select a question
           {{/with}}
@@ -24,5 +29,33 @@
       </div>
     </div>
     {{/with}}
+  </div>
+</template>
+
+
+<template name="scaleQuestion">
+  <div class="form-group">
+    <label for={{question._id}} class="control-label">
+      {{question.label}}
+    </label>
+    <div id={{question._id}} class="at-nouislider">
+      <div class="nouislider-container">
+        <span class="nouislider-label">{{question.minLabel}}</span>
+        <div class="nouislider"></div>
+        <span class="nouislider-label">{{question.maxLabel}}</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="booleanQuestion">
+  <div class="form-group">
+    <label for={{question._id}} class="control-label">
+      {{question.label}}
+    </label>
+    <div id={{question._id}}>
+      <button type="button" class="yes {{activeCSS true}} btn btn-success btn-lg">Ja</button>
+      <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">Nein</button>
+    </div>
   </div>
 </template>
