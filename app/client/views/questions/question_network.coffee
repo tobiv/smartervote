@@ -1,6 +1,7 @@
 _numQuestions = new ReactiveVar(0)
 _questionIndex = new ReactiveVar(0)
 _showInfo = new ReactiveVar(false)
+_visitId = new ReactiveVar()
 Template.questionNetwork.created = ->
   self = @
   @autorun ->
@@ -46,100 +47,90 @@ Template.questionNetwork.rendered = ->
       radius: 0
     i+=1
 
-  #DRY
-  selectedVisitId = Session.get 'selectedVisitId'
-  if selectedVisitId?
-    v = Visits.findOne selectedVisitId
-  else
-    v = Visits.findOne {},
-      sort: {createdAt: -1, limit: 1}
-
-  rScale = d3.scale.linear()
-  rScale.domain [0, 0.5]
-  rScale.range [20, 70]
-
-  linkDistanceMax = 600
-  linkDistanceScale = d3.scale.linear()
-  linkDistanceScale.domain [-0.5, 0.5]
-  linkDistanceScale.range [0, linkDistanceMax]
-
-  color = d3.scale.category20b()
-  Answers.find
-    visitId: v._id
-  .observe
-    added: (answer) ->
-      question = Questions.findOne answer.questionId
-      value = answer.value
-      if question.type is 'boolean'
-        value = -0.5 if !answer.value
-        value = 0.5 if answer.value
-      node =
-        id: question._id
-        qIndex: question.index
-        answerValue: value
-        x: width
-        y: height/2
-        radius: rScale( Math.abs(value) )
-        color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
-      network.addNode node
-
-      ldMin = linkDistanceScale(value)
-      network.addLink
-        sourceId: node.id
-        targetId: question.cluster+'_min'
-        linkDistance: ldMin
-      network.addLink
-        sourceId: node.id
-        targetId: question.cluster+'_max'
-        linkDistance: linkDistanceMax-ldMin
-
-    changed: (answer) ->
-      question = Questions.findOne answer.questionId
-      value = answer.value
-      if question.type is 'boolean'
-        value = -0.5 if !answer.value
-        value = 0.5 if answer.value
-      network.changeNode
-        id: question._id
-        answerValue: value
-        radius: rScale( Math.abs(value) )
-        color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
-
-      ldMin = linkDistanceScale(value)
-      network.changeLink
-        sourceId: question._id
-        targetId: question.cluster+'_min'
-        linkDistance: ldMin
-      network.changeLink
-        sourceId: question._id
-        targetId: question.cluster+'_max'
-        linkDistance: linkDistanceMax-ldMin
-
-    removed: (answer) ->
-      question = Questions.findOne answer.questionId
-      if question?
-        network.removeNode question._id
-      else
-        network.removeAllLinks
-        network.removeAllNodes
-
-  # draw links from cluster to it's questions/answers
-  #Object.keys(clusters).forEach (c) ->
-  #  clusters[c].forEach (q) ->
-  #    network.addLink
-  #      sourceId: q.id
-  #      targetId: c
-  #      value: 1
-
-Template.questionNetwork.helpers
-  visit: ->
+  @autorun ->
     selectedVisitId = Session.get 'selectedVisitId'
     if selectedVisitId?
       v = Visits.findOne selectedVisitId
     else
       v = Visits.findOne {},
         sort: {createdAt: -1, limit: 1}
-    #console.log "visitId: #{v._id}" if v?
+
+    return if !v?
+
+    _visitId.set v._id
+
+    rScale = d3.scale.linear()
+    rScale.domain [0, 0.5]
+    rScale.range [20, 80]
+
+    linkDistanceMax = 600
+    linkDistanceScale = d3.scale.linear()
+    linkDistanceScale.domain [-0.5, 0.5]
+    linkDistanceScale.range [0, linkDistanceMax]
+
+    color = d3.scale.category20b()
+    Answers.find
+      visitId: v._id
+    .observe
+      added: (answer) ->
+        question = Questions.findOne answer.questionId
+        value = answer.value
+        if question.type is 'boolean'
+          value = -0.5 if !answer.value
+          value = 0.5 if answer.value
+        node =
+          id: question._id
+          qIndex: question.index
+          answerValue: value
+          x: width
+          y: height/2
+          radius: rScale( Math.abs(value) )
+          color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
+        network.addNode node
+
+        ldMin = linkDistanceScale(value)
+        network.addLink
+          sourceId: node.id
+          targetId: question.cluster+'_min'
+          linkDistance: ldMin
+        network.addLink
+          sourceId: node.id
+          targetId: question.cluster+'_max'
+          linkDistance: linkDistanceMax-ldMin
+
+      changed: (answer) ->
+        question = Questions.findOne answer.questionId
+        value = answer.value
+        if question.type is 'boolean'
+          value = -0.5 if !answer.value
+          value = 0.5 if answer.value
+        network.changeNode
+          id: question._id
+          answerValue: value
+          radius: rScale( Math.abs(value) )
+          color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
+
+        ldMin = linkDistanceScale(value)
+        network.changeLink
+          sourceId: question._id
+          targetId: question.cluster+'_min'
+          linkDistance: ldMin
+        network.changeLink
+          sourceId: question._id
+          targetId: question.cluster+'_max'
+          linkDistance: linkDistanceMax-ldMin
+
+      removed: (answer) ->
+        question = Questions.findOne answer.questionId
+        if question?
+          network.removeNode question._id
+        else
+          network.removeAllLinks
+          network.removeAllNodes
+
+Template.questionNetwork.helpers
+  visit: ->
+    v = Visits.findOne _visitId.get()
     return v.scoredDoc() if v?
     null
 
@@ -199,11 +190,12 @@ Template.scaleQuestion.helpers
 Template.scaleQuestion.events
   'slide': (evt, tmpl, val) ->
     a = @answer || {}
-    a.visitId = @visit._id
+    a.visitId = @visit._id if @visit?
     a.questionId = @question._id
     a.value = parseFloat(val)
-    Meteor.call "upsertAnswer", a, (error) ->
-      throwError error if error?
+    ensureUser().then ->
+      Meteor.call "upsertAnswer", a, (error) ->
+        throwError error if error?
 
 
 Template.booleanQuestion.helpers
@@ -217,8 +209,9 @@ Template.booleanQuestion.events
   'click button': (evt, tmpl, val) ->
     event.target.blur()
     a = @answer || {}
-    a.visitId = @visit._id
+    a.visitId = @visit._id if @visit?
     a.questionId = @question._id
     a.value = tmpl.$(evt.target).hasClass("yes")
-    Meteor.call "upsertAnswer", a, (error) ->
-      throwError error if error?
+    ensureUser().then ->
+      Meteor.call "upsertAnswer", a, (error) ->
+        throwError error if error?
