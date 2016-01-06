@@ -38,7 +38,8 @@ class @Network
 
   update: ->
     node = nodesG.selectAll("circle.node").data(nodes, (d) -> d.id)
-    node.enter().append("circle")
+    nodeEnter = node.enter()
+    nodeEnter.append("circle")
       .attr("class", "node")
       .attr("cx", (d) -> d.x)
       .attr("cy", (d) -> d.y)
@@ -46,13 +47,16 @@ class @Network
       .on("dblclick", @dblclick)
       .on("click", @click)
       .call(drag)
+    #nodeEnter.append("text")
+    #  .attr("dx", (d) -> d.x)
+    #  .attr("dy", (d) -> d.y)
+    #  .text( (d) -> d.id )
     node
       .attr("r", (d) -> d.radius)
       .style("fill", (d) -> d.color)
     node.exit().remove()
 
     link = linksG.selectAll("line.link").data(links, (d) -> d.id)
-    #  .data(links, (d) -> "#{d.source.id}_#{d.target.id}")
     link.enter().append("line")
       .attr("class", "link")
       #.attr("stroke", "#ddd")
@@ -70,8 +74,8 @@ class @Network
     force.on 'tick', ->
       node
         .each(collide(.5))
-        .attr("cx", (d) -> d.x = Math.max(d.radius, Math.min(width - d.radius, d.x)))# d.x)
-        .attr("cy", (d) -> d.y = Math.max(d.radius, Math.min(height - d.radius, d.y)))#d.y)
+        .attr("cx", (d) -> d.x = Math.max(d.radius, Math.min(width - d.radius, d.x)))
+        .attr("cy", (d) -> d.y = Math.max(d.radius, Math.min(height - d.radius, d.y)))
       #node.attr 'transform', (d) ->
       #  'translate(' + d.x + ',' + d.y + ')'
 
@@ -129,7 +133,7 @@ class @Network
 
   addNode: (node) ->
     check node.id, String
-    console.log node
+    #console.log node
     nodes.push node
     @update()
     return
@@ -158,7 +162,7 @@ class @Network
   addLink: (link) ->
     check link.sourceId, String
     check link.targetId, String
-    console.log link
+    #console.log link
     link = _.extend link,
       id: "#{link.sourceId}_#{link.targetId}"
       'source': @findNode(link.sourceId)
@@ -175,7 +179,7 @@ class @Network
     check link.targetId, String
     l = links[@findLinkIndex("#{link.sourceId}_#{link.targetId}")]
     l.linkDistance = link.linkDistance
-    console.log l
+    #console.log l
     @update()
     return
 
