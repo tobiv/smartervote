@@ -181,13 +181,31 @@ Template.questionNetwork.events
 
 
 Template.scaleQuestion.rendered = ->
-  question = @data.question
-  @$('.nouislider').noUiSlider(
-    start: question.start
-    range:
-      min: question.min
-      max: question.max
-  )
+  tmpl = @
+  prevQuestionId = null
+  @autorun ->
+    data = Template.currentData()
+    question = data.question
+    if question._id is prevQuestionId
+      return #only answer changed
+    prevQuestionId = question._id
+    answer = data.answer
+    if answer? and answer.value?
+      start = answer.value 
+    else
+      start = question.start
+    try
+      document.getElementById('nouislider').destroy()
+    catch e
+      #console.log e
+    tmpl.$('.nouislider').noUiSlider(
+      start: start
+      #step: question.step
+      range:
+        min: question.min
+        max: question.max
+    )
+    return
   return
 
 Template.scaleQuestion.helpers
