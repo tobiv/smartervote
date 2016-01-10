@@ -19,7 +19,9 @@ class @Network
     radiusMax = radiusMax
 
     width = $(".left").width()
-    height = $(window).height()
+    height = $(window).height()-45
+    width = 640 if width < 640
+    height = 800 if height < 800
 
     vis = d3.select(element).append("svg")
       .attr("width", width)
