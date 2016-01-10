@@ -95,9 +95,10 @@ class @Network
     # Restart the force layout.
     force
       .size([ width, height ])
-      .gravity(.0)
+      .gravity(.2)
       .charge(-800)
       .linkDistance( (d) -> d.linkDistance )
+      .friction(0.1)
       .start()
     return
 
@@ -219,7 +220,7 @@ class @Network
   # Resolves collisions between d and all other circles.
   # http://stackoverflow.com/questions/11339348/avoid-d3-js-circles-overlapping
   collide: (alpha) ->
-    padding = 1.5 #separation between same-color circles
+    padding = 5 #separation between same-color circles
     clusterPadding = 6 #separation between different-color circles
     maxRadius = radiusMax
 
