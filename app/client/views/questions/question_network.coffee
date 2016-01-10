@@ -51,6 +51,14 @@ Template.questionNetwork.rendered = ->
   rScale = d3.scale.linear()
   rScale.domain [0, 0.5]
   rScale.range [20, radiusMax]
+
+  #TODO get from window height
+  linkDistanceMax = 800
+  linkDistanceScale = d3.scale.linear()
+  linkDistanceScale.domain [-0.5, 0.5]
+  linkDistanceScale.range [0, linkDistanceMax]
+
+  color = d3.scale.category20b()
   @autorun ->
     selectedVisitId = Session.get 'selectedVisitId'
     if selectedVisitId?
@@ -62,14 +70,6 @@ Template.questionNetwork.rendered = ->
     return if !v?
 
     _visitId.set v._id
-
-
-    linkDistanceMax = 600
-    linkDistanceScale = d3.scale.linear()
-    linkDistanceScale.domain [-0.5, 0.5]
-    linkDistanceScale.range [0, linkDistanceMax]
-
-    color = d3.scale.category20b()
     Answers.find
       visitId: v._id
     .observe
@@ -79,13 +79,16 @@ Template.questionNetwork.rendered = ->
         if question.type is 'boolean'
           value = -0.5 if !answer.value
           value = 0.5 if answer.value
+        radius = rScale( Math.abs(value) )
+        if question.isOneSided and value is 0
+          radius = 0
         node =
           id: question._id
           qIndex: question.index
           answerValue: value
           x: width
           y: height/2
-          radius: rScale( Math.abs(value) )
+          radius: radius
           color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
         network.addNode node
 
@@ -105,10 +108,13 @@ Template.questionNetwork.rendered = ->
         if question.type is 'boolean'
           value = -0.5 if !answer.value
           value = 0.5 if answer.value
+        radius = rScale( Math.abs(value) )
+        if question.isOneSided and value is 0
+          radius = 0
         network.changeNode
           id: question._id
           answerValue: value
-          radius: rScale( Math.abs(value) )
+          radius: radius
           color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
 
         ldMin = linkDistanceScale(value)
