@@ -36,19 +36,22 @@ if Questions.find().count() is 0
       console.log "onlyNegativ: #{onlyNegativ}"
       min = -0.5
       max = 0.5
-      if leftPositiv
+      if not oneSided and leftPositiv
         min = max
         max = -0.5
-      if oneSided and onlyNegativ
-        if max > min
+      if oneSided
+        if leftPositiv
           max = 0
+          if onlyNegativ
+            min = -0.5
+          else
+            min = 0.5
         else
           min = 0
-      if oneSided and not onlyNegativ
-        if max < min
-          max = 0
-        else
-          min = 0
+          if onlyNegativ
+            max = -0.5
+          else
+            max = 0.5
       if not oneSided and onlyNegativ
         console.log "heeeeeeeeeeeeeeeeelp"
       _.extend question,
@@ -57,8 +60,9 @@ if Questions.find().count() is 0
         max: max
         minLabel: columns[8]
         maxLabel: columns[9]
-        step: 0.1
+        step: Math.abs(max-min)/10
         start: 0
+        isOneSided: oneSided
     console.log question
     Questions.insert question
     return
