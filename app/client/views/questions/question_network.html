@@ -39,6 +39,7 @@
     <label for={{question._id}} class="control-label">
       {{question.label}}
     </label>
+    {{#if question.info}}
     <div class="info">
       {{#if showInfo}}
       <div class="hideInfo">
@@ -48,6 +49,7 @@
       <a href="#" class="showInfo">mehr Informationen</a>
       {{/if}}
     </div>
+    {{/if}}
     <div class="at-nouislider">
       <div class="nouislider-container">
         <span class="nouislider-label">{{question.minLabel}}</span>
