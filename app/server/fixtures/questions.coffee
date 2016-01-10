@@ -7,7 +7,7 @@ readline = Npm.require('readline')
 
 if Questions.find().count() is 0
   i=0
-  fs.createReadStream(process.env.PWD+"/public/questions.csv").pipe( csv(
+  fs.createReadStream(process.env.PWD+"/private/questions.csv").pipe( csv(
     headers: false
     delimiter: ';'
     ignoreEmpty: true
@@ -18,24 +18,47 @@ if Questions.find().count() is 0
     question =
       index: parseInt(columns[0])-1
       cluster: columns[1]
-      title: columns[2]
+      hrid: columns[2]
       label: columns[3]
-      break: (i%5 is 0)
-      info: columns[7].replace(/"/g, '').replace(/\n/g, '<br>') if columns[7]?
+      info: columns[10].replace(/"/g, '').replace(/\n/g, '<br>') if columns[7]?
       optional: true
+      break: (i%5 is 0)
     boolean = columns[4].length > 0
     if boolean
       _.extend question,
       type: "boolean"
     else
+      leftPositiv = columns[5].length > 0
+      oneSided = columns[6].length > 0
+      onlyNegativ = columns[7].length > 0
+      console.log "leftPositiv: #{leftPositiv}"
+      console.log "oneSided: #{oneSided}"
+      console.log "onlyNegativ: #{onlyNegativ}"
+      min = -0.5
+      max = 0.5
+      if leftPositiv
+        min = max
+        max = -0.5
+      if oneSided and onlyNegativ
+        if max > min
+          max = 0
+        else
+          min = 0
+      if oneSided and not onlyNegativ
+        if max < min
+          max = 0
+        else
+          min = 0
+      if not oneSided and onlyNegativ
+        console.log "heeeeeeeeeeeeeeeeelp"
       _.extend question,
-      minLabel: columns[5]
-      maxLabel: columns[6]
-      type: "scale"
-      min: -0.5
-      max: 0.5
-      step: 0.1
-      start: 0
+        type: "scale"
+        min: min
+        max: max
+        minLabel: columns[8]
+        maxLabel: columns[9]
+        step: 0.1
+        start: 0
     console.log question
     Questions.insert question
     return
