@@ -212,8 +212,11 @@ Template.scaleQuestion.helpers
   showInfo: ->
     _showInfo.get()
 
+_pause = false
 Template.scaleQuestion.events
   'slide': (evt, tmpl, val) ->
+    return if _pause
+    _pause = true
     a = @answer || {}
     a.visitId = @visit._id if @visit?
     a.questionId = @question._id
@@ -221,6 +224,7 @@ Template.scaleQuestion.events
     ensureUser().then ->
       Meteor.call "upsertAnswer", a, (error) ->
         throwError error if error?
+        _pause = false
 
 
 Template.booleanQuestion.helpers
@@ -233,6 +237,8 @@ Template.booleanQuestion.helpers
 Template.booleanQuestion.events
   'click button': (evt, tmpl, val) ->
     event.target.blur()
+    return if _pause
+    _pause = true
     a = @answer || {}
     a.visitId = @visit._id if @visit?
     a.questionId = @question._id
@@ -240,3 +246,4 @@ Template.booleanQuestion.events
     ensureUser().then ->
       Meteor.call "upsertAnswer", a, (error) ->
         throwError error if error?
+        _pause = false
