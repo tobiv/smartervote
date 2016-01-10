@@ -9,7 +9,8 @@ Template.questionNetwork.created = ->
 
 
 Template.questionNetwork.rendered = ->
-  network = new Network("#bubbles")
+  radiusMax = 80
+  network = new Network("#bubbles", radiusMax)
 
   #jump to question, when clicking on node
   network.onNodeClick (d) ->
@@ -47,6 +48,9 @@ Template.questionNetwork.rendered = ->
       radius: 0
     i+=1
 
+  rScale = d3.scale.linear()
+  rScale.domain [0, 0.5]
+  rScale.range [20, radiusMax]
   @autorun ->
     selectedVisitId = Session.get 'selectedVisitId'
     if selectedVisitId?
@@ -59,9 +63,6 @@ Template.questionNetwork.rendered = ->
 
     _visitId.set v._id
 
-    rScale = d3.scale.linear()
-    rScale.domain [0, 0.5]
-    rScale.range [20, 80]
 
     linkDistanceMax = 600
     linkDistanceScale = d3.scale.linear()

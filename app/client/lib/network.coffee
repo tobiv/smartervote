@@ -13,7 +13,11 @@ class @Network
   nodes = null
   links = null
 
-  constructor: (element) ->
+  radiusMax = null
+
+  constructor: (element, radiusMax) ->
+    radiusMax = radiusMax
+
     width = $(".left").width()
     height = $(window).height()
 
@@ -215,7 +219,7 @@ class @Network
   collide: (alpha) ->
     padding = 1.5 #separation between same-color circles
     clusterPadding = 6 #separation between different-color circles
-    maxRadius = 52
+    maxRadius = radiusMax
 
     quadtree = d3.geom.quadtree(nodes)
     (d) ->
