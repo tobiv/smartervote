@@ -2,6 +2,7 @@ _numQuestions = new ReactiveVar(0)
 _questionIndex = new ReactiveVar(0)
 _showInfo = new ReactiveVar(false)
 _visitId = new ReactiveVar()
+_proPercent = new ReactiveVar()
 Template.questionNetwork.created = ->
   self = @
   @autorun ->
@@ -135,6 +136,34 @@ Template.questionNetwork.rendered = ->
           network.removeAllLinks
           network.removeAllNodes
 
+  @autorun ->
+    total = 0
+    pro = 0
+    visitId = _visitId.get()
+    Answers.find
+      visitId: visitId
+    .forEach (answer) ->
+      question = Questions.findOne answer.questionId
+      value = answer.value
+      if question.type is 'boolean'
+        value = -0.5 if !answer.value
+        value = 0.5 if answer.value
+      radius = rScale( Math.abs(value) )
+      if question.isOneSided and value is 0
+        radius = 0
+
+      a = 2*Math.PI*Math.pow(radius, 2)
+      total += a
+      if value > 0
+        pro += a
+      return
+
+    proPercent = 100*pro/total
+    proPercent = 0 if total is 0
+    proPercent = Math.round(proPercent)
+    _proPercent.set proPercent
+
+
 Template.questionNetwork.helpers
   visit: ->
     v = Visits.findOne _visitId.get()
@@ -153,6 +182,9 @@ Template.questionNetwork.helpers
     Answers.findOne
       visitId: visitId
       questionId: questionId
+
+  proPercent: ->
+    _proPercent.get()
 
 Template.questionNetwork.events
   'click #back': (evt, tmpl) ->
