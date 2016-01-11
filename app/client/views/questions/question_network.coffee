@@ -60,6 +60,9 @@ Template.questionNetwork.rendered = ->
   linkDistanceScale.range [0, linkDistanceMax]
 
   color = d3.scale.category20b()
+  colors = [
+    '0CFF0C', 'BBFF0C', 'FFF113', 'FFBC13', 'FF8616', 'FF6311', 'FF190B', 'FF1361', 'EE0FFF', '9A15FF', '450FFF', '1437FF', '1B79FF', '13BBFF', '19EFFF', '19FF81', 'FF74E8', 'FFB669', '85FFC8', 'FF645B', 'B3FF62', 'FF3973'
+  ]
   @autorun ->
     selectedVisitId = Session.get 'selectedVisitId'
     if selectedVisitId?
@@ -90,7 +93,8 @@ Template.questionNetwork.rendered = ->
           x: width
           y: height/2
           radius: radius
-          color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
+          #color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
+          color: "#"+colors[question.index]
         network.addNode node
 
         ldMin = linkDistanceScale(value)
@@ -116,7 +120,8 @@ Template.questionNetwork.rendered = ->
           id: question._id
           answerValue: value
           radius: radius
-          color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
+          #color: d3.rgb(color(clusterIndices[question.cluster])).brighter(value)
+          color: "#"+colors[question.index]
 
         ldMin = linkDistanceScale(value)
         network.changeLink
