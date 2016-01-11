@@ -1,5 +1,5 @@
 FROM patte/meteord:onbuild
 ENV K8S_MONGO_SERVICE_ENV_NAME BGE_MONGO
 ENV PORT 3000
-ENV ROOT_URL http://bge.patpat.org
+ENV ROOT_URL https://bge.patpat.org
 ENV DISABLE_WEBSOCKETS=1
