@@ -7,7 +7,8 @@ readline = Npm.require('readline')
 
 if Questions.find().count() is 0
   i=0
-  fs.createReadStream(process.env.PWD+"/private/questions.csv").pipe( csv(
+  #fs.createReadStream(process.env.PWD+"/private/questions.csv").pipe( csv(
+  request.get(Meteor.absoluteUrl()+'questions.csv').pipe( csv(
     headers: false
     delimiter: ';'
     ignoreEmpty: true
