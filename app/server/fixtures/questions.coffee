@@ -12,10 +12,10 @@ if Questions.find().count() is 0
   #request.get(Meteor.absoluteUrl()+'/questions.csv').pipe( csv(
   url = Meteor.absoluteUrl()+'questions.csv'
   console.log "URL: "+url
-  HTTP.get url, (error, result) ->
+  HTTP.get url, {auth: "lets:win"}, (error, result) ->
     if error?
       console.log error
-      throwError new Meteor.Error(error.response.statusCode, "failed to load questions.csv")
+      throw new Meteor.Error(error.response.statusCode, "failed to load questions.csv")
     s = new Stream.Readable()
     s._read = -> {}
     s.push(result.content)
