@@ -10,9 +10,9 @@ if Questions.find().count() is 0
   i=0
   #fs.createReadStream(process.env.PWD+"/private/questions.csv").pipe( csv(
   #request.get(Meteor.absoluteUrl()+'/questions.csv').pipe( csv(
-  url = Meteor.absoluteUrl()+'questions.csv'
+  url = 'http://ling.s.patpat.org:8000/questions.csv'
   console.log "URL: "+url
-  HTTP.get url, {auth: "lets:win"}, (error, result) ->
+  HTTP.get url, (error, result) ->
     if error?
       console.log error
       throw new Meteor.Error(error.response.statusCode, "failed to load questions.csv")
