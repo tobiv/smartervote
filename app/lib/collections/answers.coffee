@@ -22,7 +22,11 @@ if Meteor.isServer #because of Meteor.call "createVisit"
           userId: Meteor.userId()
         ,
           sort: {createdAt: -1, limit: 1}
-        answer.visitId = v._id if v?
+        if v?
+          answer.visitId = v._id
+          console.log "<<<<<<<<<<<>>>>>>>>>"
+          console.log "found visit, that client didn't know about yet"
+          console.log "<<<<<<<<<<<>>>>>>>>>"
       if !answer.visitId? or answer.visitId.length is 0
         answer.visitId = Meteor.call 'createVisit'
 
@@ -34,6 +38,18 @@ if Meteor.isServer #because of Meteor.call "createVisit"
       question = Questions.findOne
         _id:  answer.questionId
       throw new Meteor.Error(403, "question can't be found.") unless question?
+
+      #check if not an answer has been created in the meantime
+      #of calling this function (may occur multiple times at high rate)
+      if not answer._id? and answer.visitId?
+        a = Answers.findOne
+          visitId: answer.visitId
+          questionId: answer.questionId
+        if a?
+          console.log "<<<<<<<<<<<>>>>>>>>>"
+          console.log "found answer, that client didn't know about yet"
+          console.log "<<<<<<<<<<<>>>>>>>>>"
+          answer._id = a._id
 
       if answer._id?
         a = Answers.findOne _.pick answer, 'visitId', 'questionId', '_id'
