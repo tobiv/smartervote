@@ -15,8 +15,8 @@ class @Network
 
   radiusMax = null
 
-  constructor: (element, radiusMax) ->
-    radiusMax = radiusMax
+  constructor: (element, rMax) ->
+    radiusMax = rMax
 
     width = $(".left").width()
     height = $(window).height()-45
