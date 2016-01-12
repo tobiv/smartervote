@@ -115,9 +115,6 @@ Template.questionNetwork.rendered = ->
     .forEach (answer) ->
       question = Questions.findOne answer.questionId
       value = answer.value
-      if question.type is 'boolean'
-        value = -0.5 if !answer.value
-        value = 0.5 if answer.value
       radius = rScale( Math.abs(value) )
       if question.isOneSided and value is 0
         radius = 0
@@ -182,20 +179,57 @@ Template.questionNetwork.events
     _showInfo.set false
 
 
-Template.scaleQuestion.rendered = ->
+Template.questionTemplate.helpers
+  showInfo: ->
+    _showInfo.get()
+
+  showSlider: ->
+    @answer? and @answer.consent? and
+    (not @question.isOneSided or
+    @question.isOneSided and 
+    (not @question.isOnlyNegative and @answer.consent is 0.5 or
+    @question.isOnlyNegative and @answer.consent is -0.5))
+
+  activeCSS: (bool) ->
+    if @answer?
+      if bool and @answer.consent is @question.max
+        return "active"
+      if !bool and @answer.consent is @question.min
+        return "active"
+    return ""
+
+Template.questionTemplate.events
+  'click button': (evt, tmpl, val) ->
+    event.target.blur()
+    if tmpl.$(evt.target).hasClass("yes")
+      consent = @question.max
+    else
+      consent = @question.min
+    updateAnswer(consent, null, @)
+    return
+
+  'slide': (evt, tmpl, val) ->
+    importance = parseFloat val
+    updateAnswer(null, importance, @)
+    return
+
+Template.slider.rendered = ->
   tmpl = @
   prevQuestionId = null
+  prevConsent = null
   @autorun ->
     data = Template.currentData()
+    if !data.answer? or !data.answer.consent? 
+      return
+    answer = data.answer
     question = data.question
-    if question._id is prevQuestionId
+    if question._id is prevQuestionId and answer.consent is prevConsent
       return #only answer changed
     prevQuestionId = question._id
-    answer = data.answer
-    if answer? and answer.value?
-      start = answer.value 
-    else
-      start = question.start
+    prevConsent = answer.consent
+    start = 0.5
+    if answer? and answer.importance?
+      start = answer.importance 
     try
       document.getElementById('nouislider').destroy()
     catch e
@@ -204,91 +238,51 @@ Template.scaleQuestion.rendered = ->
       start: start
       #step: question.step
       range:
-        min: question.min
-        max: question.max
+        min: 0
+        max: 1
     )
     return
   return
 
-Template.scaleQuestion.helpers
-  showInfo: ->
-    _showInfo.get()
 
-_slideTimeout = null
-#_isUpsertingAnswer = false
-#_upsertAnswer = null
-Template.scaleQuestion.events
-  'slide': (evt, tmpl, val) ->
-    a = @answer || {}
-    a.visitId = @visit._id if @visit?
-    a.questionId = @question._id
-    a.value = parseFloat(val)
-    if not a._id? and (not a.added? or not a.added)
-      console.log "added"
-      a.added = true
-      @answer = a
-      answerAdded(a, @question)
-    else
-      console.log "changed"
-      answerChanged(a, @question)
-    Meteor.clearTimeout _slideTimeout if _slideTimeout?
-    _slideTimeout = Meteor.setTimeout ->
-      ensureUser().then ->
-        console.log "upsertAnswer"
-        Meteor.call "upsertAnswer", a, (error) ->
-          throwError error if error?
-    , 500
-    #if _isUpsertingAnswer
-    #  _upsertAnswer = a
-    #  console.log "return _isUpsertingAnswer"
-    #  return
-    #_isUpsertingAnswer = true
-    #console.log "upsertAnswer"
-    #ensureUser().then ->
-    #  Meteor.call "upsertAnswer", a, (error) ->
-    #    throwError error if error?
-    #    if _upsertAnswer?
-    #      console.log "level 0 done - upserting _upsertAnswer"
-    #      Meteor.call "upsertAnswer", _upsertAnswer, (error) ->
-    #        throwError error if error?
-    #        console.log "level 1 done - exit"
-    #        _upsertAnswer = null
-    #        _isUpsertingAnswer = false
-    #    else
-    #      console.log "level 0 done - exit"
-    #      _isUpsertingAnswer = false
-
-
-Template.booleanQuestion.helpers
-	activeCSS: (bool) ->
-		"active" if @answer? and bool is @answer.value
-
-	showInfo: ->
-		_showInfo.get()
-
-Template.booleanQuestion.events
-  'click button': (evt, tmpl, val) ->
-    event.target.blur()
-    return if _pause
-    if not @answer?
-      _pause = true
-    a = @answer || {}
-    a.visitId = @visit._id if @visit?
-    a.questionId = @question._id
-    a.value = tmpl.$(evt.target).hasClass("yes")
+_upsertTimeout = null
+updateAnswer = (consent, importance, data) ->
+  a = data.answer || {}
+  newConsent = consent
+  newConsent ?= a.consent
+  #consent should be provided first
+  debugger if not newConsent?
+  newImportance = importance
+  newImportance ?= a.importance
+  newImportance ?= 0.5
+  newValue = newConsent*newImportance
+  a = _.extend a,
+    visitId: data.visit._id if data.visit?
+    questionId: data.question._id
+    consent: newConsent
+    importance: newImportance
+    value: newValue
+  if not a._id? and (not a.added? or not a.added)
+    console.log "added"
+    a.added = true
+    data.answer = a #chache in template data
+    answerAdded(a, data.question)
+  else
+    console.log "changed"
+    answerChanged(a, data.question)
+  Meteor.clearTimeout _upsertTimeout if _upsertTimeout?
+  _upsertTimeout = Meteor.setTimeout ->
     ensureUser().then ->
+      console.log "upsertAnswer"
       Meteor.call "upsertAnswer", a, (error) ->
         throwError error if error?
-        _pause = false
- 
+  , 500
+
 
 answerAdded = (answer, question) ->
   value = answer.value
-  if question.type is 'boolean'
-    value = -0.5 if !answer.value
-    value = 0.5 if answer.value
   radius = rScale( Math.abs(value) )
-  if question.isOneSided and value is 0
+  if value is 0
     radius = 0
   node =
     id: question._id
@@ -313,11 +307,8 @@ answerAdded = (answer, question) ->
 
 answerChanged = (answer, question) ->
   value = answer.value
-  if question.type is 'boolean'
-    value = -0.5 if !answer.value
-    value = 0.5 if answer.value
   radius = rScale( Math.abs(value) )
-  if question.isOneSided and value is 0
+  if value is 0
     radius = 0
   _network.changeNode
     id: question._id

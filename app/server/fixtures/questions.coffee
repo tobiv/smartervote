@@ -27,7 +27,30 @@ if Questions.find().count() is 0
     ))
     .on('data', Meteor.bindEnvironment (columns) ->
       i+=1
-      return if i is 1
+      return if i is 1 #header
+      leftPositiv = columns[5].length > 0
+      oneSided = columns[6].length > 0
+      onlyNegativ = columns[7].length > 0
+      min = -0.5
+      max = 0.5
+      if not oneSided and leftPositiv
+        min = max
+        max = -0.5
+      if oneSided
+        if leftPositiv
+          max = 0
+          if onlyNegativ
+            min = -0.5
+          else
+            min = 0.5
+        else
+          min = 0
+          if onlyNegativ
+            max = -0.5
+          else
+            max = 0.5
+      if not oneSided and onlyNegativ
+        console.log "heeeeeeeeeeeeeeeeelp"
       question =
         index: parseInt(columns[0])-1
         cluster: columns[1]
@@ -36,48 +59,16 @@ if Questions.find().count() is 0
         info: columns[10].replace(/"/g, '').replace(/\n/g, '<br>') if columns[7]?
         optional: true
         break: (i%5 is 0)
-      boolean = columns[4].length > 0
-      if boolean
-        _.extend question,
-        type: "boolean"
-      else
-        leftPositiv = columns[5].length > 0
-        oneSided = columns[6].length > 0
-        onlyNegativ = columns[7].length > 0
-        console.log "leftPositiv: #{leftPositiv}"
-        console.log "oneSided: #{oneSided}"
-        console.log "onlyNegativ: #{onlyNegativ}"
-        min = -0.5
-        max = 0.5
-        if not oneSided and leftPositiv
-          min = max
-          max = -0.5
-        if oneSided
-          if leftPositiv
-            max = 0
-            if onlyNegativ
-              min = -0.5
-            else
-              min = 0.5
-          else
-            min = 0
-            if onlyNegativ
-              max = -0.5
-            else
-              max = 0.5
-        if not oneSided and onlyNegativ
-          console.log "heeeeeeeeeeeeeeeeelp"
-        _.extend question,
-          type: "scale"
-          min: min
-          max: max
-          minLabel: columns[8]
-          maxLabel: columns[9]
-          step: Math.abs(max-min)/10
-          start: 0
-          isOneSided: oneSided
-          isOnlyNegative: onlyNegativ
-          isLeftPositiv: leftPositiv
+        type: "scale"
+        min: min
+        max: max
+        minLabel: columns[8]
+        maxLabel: columns[9]
+        step: Math.abs(max-min)/10
+        start: 0
+        isOneSided: oneSided
+        isOnlyNegative: onlyNegativ
+        isLeftPositiv: leftPositiv
       console.log question
       Questions.insert question
       return

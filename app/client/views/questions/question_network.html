@@ -12,12 +12,7 @@
             {{#with visit=../visit question=. answer=(answerForQuestion ../visit._id _id)}}
 
             <form id="questionForm" class="questionAutoform" novalidate="novalidate">
-              {{#if eq question.type 'scale'}}
-                {{> scaleQuestion}}
-              {{/if}}
-              {{#if eq question.type 'boolean'}}
-                {{> booleanQuestion}}
-              {{/if}}
+              {{> questionTemplate}}
               <button type="button" id="back" class="btn btn-default">Zurück</button>
               <button type="button" id="next" class="btn btn-default pull-right">Weiter</button>
             </form>
@@ -37,8 +32,8 @@
 </template>
 
 
-<template name="scaleQuestion">
-  <div class="scaleQuestion form-group">
+<template name="questionTemplate">
+  <div class="scaleQuestion booleanQuestion form-group">
     <label for={{question._id}} class="control-label">
       {{question.label}}
     </label>
@@ -53,33 +48,24 @@
       {{/if}}
     </div>
     {{/if}}
-    <div class="at-nouislider">
-      <div class="nouislider-container">
-        <span class="nouislider-label">{{question.minLabel}}</span>
-        <div id="nouislider" class="nouislider"></div>
-        <span class="nouislider-label">{{question.maxLabel}}</span>
-      </div>
+    <div class="buttons">
+      <button type="button" class="yes {{activeCSS true}} btn btn-success btn-lg">{{question.maxLabel}}</button>
+      <br>
+      <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">{{question.minLabel}}</button>
     </div>
+    {{#if showSlider}}
+      {{> slider}}
+    {{/if}}
   </div>
 </template>
 
-<template name="booleanQuestion">
-  <div class="booleanQuestion form-group">
-    <label for={{question._id}} class="control-label">
-      {{question.label}}
-    </label>
-    <div class="info">
-      {{#if showInfo}}
-      <div class="hideInfo">
-        {{{question.info}}}
-      </div>
-      {{else}}
-      <a href="#" class="showInfo">mehr Informationen</a>
-      {{/if}}
-    </div>
-    <div class="buttons">
-      <button type="button" class="yes {{activeCSS true}} btn btn-success btn-lg">Ja</button>
-      <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">Nein</button>
+
+<template name="slider">
+  <div class="at-nouislider">
+    <div class="nouislider-container">
+      <span class="nouislider-label">total irrelevant</span>
+      <div id="nouislider" class="nouislider"></div>
+      <span class="nouislider-label">sehr wichtig</span>
     </div>
   </div>
 </template>
