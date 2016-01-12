@@ -96,7 +96,7 @@ class @Network
     force
       .size([ width, height ])
       .gravity(.2)
-      .charge(-800)
+      .charge(-900)
       .linkDistance( (d) -> d.linkDistance )
       .friction(0.1)
       .start()
