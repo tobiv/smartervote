@@ -76,6 +76,8 @@ if Questions.find().count() is 0
           step: Math.abs(max-min)/10
           start: 0
           isOneSided: oneSided
+          isOnlyNegative: onlyNegativ
+          isLeftPositiv: leftPositiv
       console.log question
       Questions.insert question
       return
