@@ -1,7 +1,7 @@
 BGE 
 ===
 
-This repository hold the bedingungsloses Grundeinkommen website.
+This repository holds the bedingungsloses Grundeinkommen website.
 
 ## Installation
 This webapp is based on [Meteor](http://meteor.com). If you haven't installed it already, this is how you get it.
