@@ -52,6 +52,8 @@ class @Network
       .style("stroke-width", 0)
       .on("dblclick", @dblclick)
       .on("click", @click)
+      .on("mouseover", @mouseover)
+      .on("mouseout", @mouseout)
       .call(drag)
     #nodeEnter.append("text")
     #  .attr("dx", (d) -> d.x)
@@ -106,11 +108,20 @@ class @Network
   onNodeClick: (f) ->
     _onNodeClick = f
 
+  _onNodeHover = null
+  onNodeHover: (f) ->
+    _onNodeHover = f
+
   click: (d) ->
     _onNodeClick(d) if _onNodeClick?
 
   dblclick: (d) ->
     d3.select(@).classed("fixed", d.fixed = false)
+
+  mouseover: (d) ->
+    _onNodeHover(d) if _onNodeHover?
+  mouseout: (d) ->
+    _onNodeHover(null) if _onNodeHover?
 
   dragstart: (d) ->
     # no fixing for now

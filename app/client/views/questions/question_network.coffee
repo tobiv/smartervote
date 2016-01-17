@@ -22,6 +22,7 @@ colors = [
 ]
 
 _network = null
+_beforeHoverIndex = null
 
 Template.questionNetwork.created = ->
   self = @
@@ -36,6 +37,16 @@ Template.questionNetwork.rendered = ->
   #jump to question, when clicking on node
   network.onNodeClick (d) ->
     _questionIndex.set d.qIndex
+    _beforeHoverIndex = null
+  
+  #jump to question, when hovering over node
+  network.onNodeHover (d) ->
+    if d?
+      _beforeHoverIndex = _questionIndex.get() if not _beforeHoverIndex?
+      _questionIndex.set d.qIndex
+    else if _beforeHoverIndex?
+      _questionIndex.set _beforeHoverIndex
+      _beforeHoverIndex = null
     
   width = network.width()
   height = network.height()
