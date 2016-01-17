@@ -211,7 +211,7 @@ Template.questionTemplate.helpers
 
 Template.questionTemplate.events
   'click button': (evt, tmpl, val) ->
-    event.target.blur()
+    evt.target.blur()
     if tmpl.$(evt.target).hasClass("yes")
       consent = @question.max
     else
