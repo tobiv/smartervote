@@ -1,63 +1,57 @@
 <template name="questionNetwork">
   <div id="questionNetwork">
-    {{#with visit=visit}}
-    <div class="left">
-      <div id="bubbles"></div>
+    <div id="bubbles">
+      <div id="bubbles-container"></div>
     </div>
-    <div class="devider"></div>
-    <div class="right">
-      <div class="content">
+    <div id="content">
+      {{#if showScore}}
         <div class="question">
-          {{#with question}}
-            {{#with visit=../visit question=. answer=(answerForQuestion ../visit._id _id)}}
-
-            <form id="questionForm" class="questionAutoform" novalidate="novalidate">
-              {{> questionTemplate}}
-              <button type="button" id="back" class="btn btn-default">Zurück</button>
-              <button type="button" id="next" class="btn btn-default pull-right">Weiter</button>
-            </form>
-
-            {{/with}}
-          {{else}}
-            please select a question
-          {{/with}}
-          <div class="text-center">
-          <h2>{{proPercent}}% pro</h2>
-          </div>
+          {{> score}}
         </div>
-      </div>
+      {{else}}
+        {{#with question=question}}
+          <div id="header">
+            {{index}}<br>
+            <label for={{question._id}} class="control-label">
+              {{question.label}}
+            </label>
+            {{#if question.info}}
+              <div class="info">
+                {{#if showInfo}}
+                <div class="hideInfo">
+                  {{{question.info}}}
+                  <br><a href="#">weniger Informationen</a>
+                </div>
+                {{else}}
+                <a href="#" class="showInfo">mehr Informationen</a>
+                {{/if}}
+              </div>
+            {{/if}}
+          </div>
+
+          <div class="footer">
+            <div class="buttons">
+              <button type="button" class="yes {{activeCSS true}} btn btn-success btn-lg">{{question.maxLabel}}</button>
+              <br>
+              <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">{{question.minLabel}}</button>
+            </div>
+            {{> slider}}
+            <button type="button" id="back" class="btn btn-default">Zurück</button>
+            <button type="button" id="next" class="btn btn-default pull-right">Weiter</button>
+            <div class="text-center">
+              <h2>{{proPercent}}% pro</h2>
+              <button type="button" id="gotoScore" class="btn btn-default">Auswertung zeigen</button>
+            </div>
+          </div>
+        {{/with}}
+      {{/if}}
     </div>
-    {{/with}}
+    <div id="chain"></div>
   </div>
 </template>
 
 
 <template name="questionTemplate">
-  <div class="scaleQuestion booleanQuestion form-group">
-    <label for={{question._id}} class="control-label">
-      {{question.label}}
-    </label>
-    {{#if question.info}}
-    <div class="info">
-      {{#if showInfo}}
-      <div class="hideInfo">
-        {{{question.info}}}
-        <br><a href="#">weniger Informationen</a>
-      </div>
-      {{else}}
-      <a href="#" class="showInfo">mehr Informationen</a>
-      {{/if}}
-    </div>
-    {{/if}}
-    <div class="buttons">
-      <button type="button" class="yes {{activeCSS true}} btn btn-success btn-lg">{{question.maxLabel}}</button>
-      <br>
-      <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">{{question.minLabel}}</button>
-    </div>
-    {{#if showSlider}}
-      {{> slider}}
-    {{/if}}
-  </div>
 </template>
 
 

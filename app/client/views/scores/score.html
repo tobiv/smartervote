@@ -1,0 +1,21 @@
+<template name="score">
+<div class="score">
+  <h2>Deine Auswertung</h2>
+  <div class="text-center">
+    <h2>{{proPercent}}% pro</h2>
+  </div>
+
+  <hr>
+  <img id="smarterBubbles"/>
+  {{>shareit shareData}}
+  <hr>
+	
+  {{#if showCreateAccount}}
+	<p>Wenn Sie ihre Antworten speichern möchten, erstellen sie jetzt einen Account oder loggen Sie sich mit Facebook ein.</p>
+  {{/if}}
+
+  <div class="text-center">
+    <button type="button" id="gotoQuestions" class="btn btn-default">Zu den Fragen</button>
+  </div>
+</div>
+</template>

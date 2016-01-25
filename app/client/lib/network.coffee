@@ -1,6 +1,7 @@
 class @Network
-  width = 800
-  height = 600
+  element = null
+  width = null
+  height = null
 
   # these will hold the svg groups for
   # accessing the nodes and links display
@@ -15,20 +16,24 @@ class @Network
 
   radiusMax = null
 
-  constructor: (element, rMax) ->
+  constructor: (ele, rMax) ->
+    element = ele
     radiusMax = rMax
 
-    width = $(".left").width()
-    height = $(window).height()-45
-    width = 640 if width < 640
-    height = 800 if height < 800
+    width = $(element).width()
+    height = $(element).height()
+    #height = $(window).height()-45
+    #width = 640 if width < 640
+    #height = 800 if height < 800
 
     vis = d3.select(element).append("svg")
+      .attr('id', 'bubblesSVG')
       .attr("width", width)
       .attr("height", height)
       .attr('pointer-events', 'all')
-      .attr('viewBox', '0 0 ' + width + ' ' + height)
-      .attr('perserveAspectRatio', 'xMinYMid')
+      #.attr('viewBox', '0 0 ' + width + ' ' + height)
+      #.attr('viewBox', '0 0 800 600')
+      #.attr('perserveAspectRatio', 'xMinYMid')
 
     linksG = vis.append("g").attr("id", "links")
     nodesG = vis.append("g").attr("id", "nodes")
@@ -45,8 +50,13 @@ class @Network
   update: ->
     node = nodesG.selectAll("circle.node").data(nodes, (d) -> d.id)
     nodeEnter = node.enter()
-    nodeEnter.append("circle")
+    nodeEnter.append("circle") #image
       .attr("class", "node")
+      #.attr("x", -50)#(d) -> d.x)
+      #.attr("y", -50)#(d) -> d.y)
+      #.attr("width", 100)#(d) -> 100)
+      #.attr("height", 100)#(d) -> 100)
+      #.attr("xlink:href", (d) -> "http://cdn-img.people.com/emstag/i/2012/pets/gallery/icancheeze/120116/new-year-660.jpg")
       .attr("cx", (d) -> d.x)
       .attr("cy", (d) -> d.y)
       .style("stroke-width", 0)
@@ -61,15 +71,19 @@ class @Network
     #  .text( (d) -> d.id )
     node
       .attr("r", (d) -> d.radius)
-      .style("fill", (d) -> d.color)
+      .style("fill", (d) -> d.fillColor)
+      .attr("stroke", (d) -> d.strokeColor)
+      .style("stroke-width", (d) -> d.strokeWidth)
     node.exit().remove()
 
     link = linksG.selectAll("line.link").data(links, (d) -> d.id)
     link.enter().append("line")
       .attr("class", "link")
-      #.attr("stroke", "#ddd")
-      #.attr("stroke-opacity", 0.8)
-      #.style("stroke-width", 1.5)
+      .attr("stroke", (d) -> d.strokeColor)#"#ddd")
+      .style("stroke-width", (d) -> d.strokeWidth)#1.5)
+      #.attr("stroke", (d) -> "#ddd")
+      #.style("stroke-width", (d) -> 1.5)
+      .attr("stroke-opacity", 0.8)
       .attr("x1", (d) -> d.source.x)
       .attr("y1", (d) -> d.source.y)
       .attr("x2", (d) -> d.target.x)
@@ -97,10 +111,10 @@ class @Network
     # Restart the force layout.
     force
       .size([ width, height ])
-      .gravity(.2)
-      .charge(-900)
+      .gravity(.0)
+      .charge(-100)
       .linkDistance( (d) -> d.linkDistance )
-      .friction(0.1)
+      #.friction(0.1)
       .start()
     return
 
@@ -151,7 +165,6 @@ class @Network
 
   addNode: (node) ->
     check node.id, String
-    #console.log node
     nodes.push node
     @update()
     return
@@ -159,9 +172,15 @@ class @Network
   changeNode: (node) ->
     check node.id, String
     n = nodes[@findNodeIndex(node.id)]
-    n.answerValue = node.answerValue
-    n.radius = node.radius
-    n.color = node.color
+    n.radius = node.radius if node.radius?
+    n.fillColor = node.fillColor if node.fillColor?
+    n.strokeWidth = node.strokeWidth if node.strokeWidth?
+    n.strokeColor = node.strokeColor if node.strokeColor?
+    n.x = node.x if node.x?
+    n.y = node.y if node.y?
+    n.px = node.px if node.px?
+    n.py = node.py if node.py?
+    n.fixed = node.fixed if node.fixed?
     @update()
     return
 
@@ -180,9 +199,9 @@ class @Network
   addLink: (link) ->
     check link.sourceId, String
     check link.targetId, String
-    #console.log link
+    check link.linkDistance, Number
     link = _.extend link,
-      id: "#{link.sourceId}_#{link.targetId}"
+      id: "#{link.sourceId}__#{link.targetId}"
       'source': @findNode(link.sourceId)
       'target': @findNode(link.targetId)
     link = _.omit link, ['sourceId', 'targetId']
@@ -195,19 +214,17 @@ class @Network
   changeLink: (link) ->
     check link.sourceId, String
     check link.targetId, String
-    l = links[@findLinkIndex("#{link.sourceId}_#{link.targetId}")]
+    l = links[@findLinkIndex("#{link.sourceId}__#{link.targetId}")]
     l.linkDistance = link.linkDistance
-    #console.log l
     @update()
     return
 
-  removeLink: (id) ->
-    i = 0
-    while i < links.length
-      if links[i].id == id
-        links.splice i, 1
-        break
-      i++
+  removeLink: (link) ->
+    check link.sourceId, String
+    check link.targetId, String
+    i = @findLinkIndex("#{link.sourceId}__#{link.targetId}")
+    if i?
+      links.splice i, 1
     @update()
     return
 
@@ -226,6 +243,15 @@ class @Network
 
   height: ->
     height
+
+  resize: () ->
+    width = $(element).width()
+    height = $(element).height()
+    svg = $('#bubblesSVG').get(0)
+    #svg.setAttribute 'viewBox', "0 0 #{w} #{h}"
+    svg.setAttribute 'width', width
+    svg.setAttribute 'height', height
+    @update()
 
   
   # Resolves collisions between d and all other circles.

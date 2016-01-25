@@ -1,45 +1,50 @@
 #questionNetwork {
   display: flex;
-  .left {
+  #bubbles {
     flex: 1 0 640px;
     //flex: 1 1 66%;
     //min-width: 320px;
     padding: 2px;
+    #bubbles-container {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
   }
-  .devider {
-    flex: 0 0 1.2px;
-    background-color: darkgrey;
-    border-radius: 20px;
-  }
-  .right {
+  #content {
     flex: 1 0 320px;
     //flex: 1 1 33%;
     //min-width: 320px;
+    z-index: 100;
 
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
-    .content {
-      flex: 0 0 33%;
+    justify-content: space-between;
+    #header {
+      flex: 1 0 200px;
+      .control-label {
+        font-size: 1.3em;
+      }
+      .info {
+        margin: 15px 0px;
+      }
+    }
+    .footer {
+      flex: 0 0 360px;
       padding: 0px 15px;
-      .question {
-        .control-label {
-          font-size: 1.3em;
-        }
-        .info {
-          margin: 15px 0px;
-        }
-        .booleanQuestion {
-          .buttons {
-            text-align: center;
-            button {
-              min-width: 80px;
-              white-space: normal;
-              margin-bottom: 20px;
-            }
-          }
+      .buttons {
+        text-align: center;
+        button {
+          min-width: 80px;
+          white-space: normal;
+          margin-bottom: 20px;
         }
       }
     }
+  }
+  #chain {
+    flex: 0 0 25px;
   }
 }
