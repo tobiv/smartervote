@@ -20,6 +20,8 @@ colors = [
   '0CFF0C', 'BBFF0C', 'FFF113', 'FFBC13', 'FF8616', 'FF6311', 'FF190B', 'FF1361', 'EE0FFF', '9A15FF', '450FFF', '1437FF', '1B79FF', '13BBFF', '19EFFF', '19FF81', 'FF74E8', 'FFB669', '85FFC8', 'FF645B', 'B3FF62', 'FF3973'
 ]
 
+_clusters = []
+
 _network = null
 _beforeHoverIndex = null
 
@@ -27,13 +29,12 @@ _chain = null
 _pitcher = null
 _field = null
 
-ResizeTimeout = null
+_resizeTimeout = null
 @resize = ->
-  Meteor.clearTimeout(ResizeTimeout) if ResizeTimeout?
-  ResizeTimeout = Meteor.setTimeout(doResize, 300)
+  Meteor.clearTimeout(_resizeTimeout) if _resizeTimeout?
+  _resizeTimeout = Meteor.setTimeout(doResize, 100)
   return
 
-_firstResize = true
 doResize = ->
   return if !_network?
   console.log "doResize"
@@ -43,9 +44,7 @@ doResize = ->
   _network.resize()
   $('#questionNetwork').css 'min-height', wHeight
 
-  if !_firstResize
-    upsertClusters()
-  _firstResize = false
+  upsertClusters()
 
   #move pitcher
   footer = $('.footer')
@@ -75,48 +74,39 @@ doResize = ->
 
 
 _clustersAdded = false
-upsertClusters = ->    
-  #get clusters from questions and draw them
-  Tracker.nonreactive ->
-    clusters = []
-    i = 0
-    Questions.find({}, {$sort: {index: 1}}).forEach (q) ->
-      clusters.indexOf q.cluster is -1
-      clusters.push q.cluster
-      return
-   
-    numClusters = clusters.length
-    bubbles = $('#bubbles')
-    width = bubbles.width()
-    height = bubbles.height()
-    w = width-80
-    i = 0
-    clusters.forEach (c) ->
-      x = 40 + w/numClusters*i
-      if !_clustersAdded
-        _network.addNode
-          id: c+'_max'
-          fixed: true
-          x: x
-          y: 5
-          radius: 0
-        _network.addNode
-          id: c+'_min'
-          fixed: true
-          x: x
-          y: height-5
-          radius: 0
-      else
-        _network.changeNode
-          id: c+'_max'
-          px: x
-          py: 5
-        _network.changeNode
-          id: c+'_min'
-          px: x
-          py: height-5
-      i+=1
-    _clustersAdded = true
+upsertClusters = ->
+  numClusters = _clusters.length
+  bubbles = $('#bubbles')
+  width = bubbles.width()-80
+  height = $(window).height()
+  i = 0
+  _clusters.forEach (c) ->
+    x = 40+Math.round(width/numClusters*i)
+    i += 1
+    if !_clustersAdded
+      _network.addNode
+        id: c+'_max'
+        fixed: true
+        x: x
+        y: 0
+        radius: 0
+        #fillColor: '#000'
+      _network.addNode
+        id: c+'_min'
+        fixed: true
+        x: x
+        y: height
+        radius: 0
+        #fillColor: '#000'
+    else
+      _network.changeNode
+        id: c+'_max'
+        px: x
+      _network.changeNode
+        id: c+'_min'
+        px: x
+        py: height
+  _clustersAdded = true
 
 Template.questionNetwork.created = ->
   @autorun ->
@@ -134,7 +124,7 @@ Template.questionNetwork.rendered = ->
   network.onNodeClick (d) ->
     gotoQuestionIndex d.qIndex
     _beforeHoverIndex = null
-  
+
   #jump to question, when hovering over node
   network.onNodeHover (d) ->
     if d?
@@ -143,14 +133,24 @@ Template.questionNetwork.rendered = ->
     else if _beforeHoverIndex?
       _questionIndex.set _beforeHoverIndex
       _beforeHoverIndex = null
- 
-  upsertClusters()
 
-  #init chain
+  #get clusters from questions and draw them
+  Tracker.nonreactive ->
+    clusters = []
+    i = 0
+    qs = Questions.find({}, {sort: {index: 1}}).forEach (q) ->
+      if clusters.indexOf(q.cluster) is -1
+        clusters.push q.cluster
+      return
+    _clusters = clusters
+
+  #init network elements
   _chain = new Chain(_network)
   _pitcher = new Pitcher(_network)
   _field = new Field(_network)
- 
+
+  upsertClusters()
+
   #subscribe to resize
   $(window).resize(resize)
   resize()
@@ -282,13 +282,14 @@ Template.slider.rendered = ->
     question = Template.currentData().question
     return if !question?
     answer = _answers[question._id]
+    return if !answer?
     if question._id is prevQuestionId and answer.consent is prevConsent
       return #only answer changed
     prevQuestionId = question._id
     prevConsent = answer.consent
     start = 0.5
     if answer? and answer.importance?
-      start = answer.importance 
+      start = answer.importance
     try
       document.getElementById('nouislider').destroy()
     catch e
@@ -513,7 +514,7 @@ class Field
     node =
       id: question._id
       qIndex: question.index
-      x: @network.width() 
+      x: @network.width()
       y: @network.height()/2
       radius: answer.radius
       fillColor: "#"+colors[question.index]
@@ -632,7 +633,7 @@ class Chain
     if nodeIds.length is 0
       @network.addLink
         sourceId: answer.question._id
-        targetId: 'chain_top' 
+        targetId: 'chain_top'
         linkDistance: linkDistance
     else
       @network.addLink
@@ -681,7 +682,7 @@ class Chain
         @network.removeLink
           sourceId: 'chain_bottom'
           targetId: nodeId
-    
+
     return items.shift()
 
   pop: ->
@@ -710,7 +711,7 @@ class Chain
         @network.removeLink
           sourceId: nodeId
           targetId: 'chain_top'
-      
+
     return items.pop()
 
   free: (answer) ->
@@ -740,7 +741,7 @@ class Chain
       nodeIds.splice index, 1
       return items.splice index, 1
 
-    
+
 @freakout1 = ->
   i = 0
   interval = Meteor.setInterval ->

@@ -96,8 +96,18 @@ class @Network
     force.on 'tick', ->
       node
         .each(collide(.5))
-        .attr("cx", (d) -> d.x = Math.max(d.radius, Math.min(width - d.radius, d.x)))
-        .attr("cy", (d) -> d.y = Math.max(d.radius, Math.min(height - d.radius, d.y)))
+        .attr("cx", (d) -> 
+          #if d.fixed? and d.fixed
+          #  d.x = d.px
+          #  return d.px
+          d.x = Math.max(d.radius, Math.min(width - d.radius, d.x))
+        )
+        .attr("cy", (d) -> 
+          #if d.fixed? and d.fixed
+          #  d.y = d.py
+          #  return d.py
+          d.y = Math.max(d.radius, Math.min(height - d.radius, d.y))
+        )
       #node.attr 'transform', (d) ->
       #  'translate(' + d.x + ',' + d.y + ')'
 
@@ -181,6 +191,9 @@ class @Network
     n.px = node.px if node.px?
     n.py = node.py if node.py?
     n.fixed = node.fixed if node.fixed?
+    if n.fixed? and n.fixed is true
+      n.x = n.px
+      n.y = n.py
     @update()
     return
 
