@@ -195,6 +195,11 @@ Template.questionNetwork.rendered = ->
           _answers[question._id] = answer
           _chain.buildAndCatch answer
       goNext()
+      Meteor.setTimeout ->
+        Tracker.nonreactive ->
+          if _questionIndex.get() is -1
+            goNext()
+      , 500
 
 
 Template.questionNetwork.helpers
