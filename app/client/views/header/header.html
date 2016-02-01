@@ -23,6 +23,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {{#if isInRole 'admin'}}
+        <li class="{{activeRouteClass 'cnc'}}">
+          <a href="{{pathFor 'cnc'}}">
+            C &amp; C
+          </a>
+        </li>
         <li class="{{activeRouteClass 'editQuestions'}}">
           <a href="{{pathFor 'editQuestions'}}">
             Questions

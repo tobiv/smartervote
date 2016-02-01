@@ -29,6 +29,11 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe('questions')
 
+  @route "cnc",
+    path: "cnc"
+    waitOn: ->
+      Meteor.subscribe('questions')
+
   @route "wizzard",
     path: "wizzard"
     waitOn: ->

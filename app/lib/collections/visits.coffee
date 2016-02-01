@@ -86,3 +86,9 @@ Meteor.methods
       Answers.remove
         visitId: visit._id
       return visit._id
+
+  "deleteAllVisits": ->
+    throw new Meteor.Error(400, "you need to log in") unless Meteor.userId()?
+    throw new Meteor.Error(403, "admin privileges required") unless Roles.userIsInRole(Meteor.userId(), 'admin')
+    Answers.remove({})
+    Visits.remove({})
