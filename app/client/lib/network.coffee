@@ -182,19 +182,22 @@ class @Network
   changeNode: (node) ->
     check node.id, String
     n = nodes[@findNodeIndex(node.id)]
-    n.radius = node.radius if node.radius?
-    n.fillColor = node.fillColor if node.fillColor?
-    n.strokeWidth = node.strokeWidth if node.strokeWidth?
-    n.strokeColor = node.strokeColor if node.strokeColor?
-    n.x = node.x if node.x?
-    n.y = node.y if node.y?
-    n.px = node.px if node.px?
-    n.py = node.py if node.py?
-    n.fixed = node.fixed if node.fixed?
-    if n.fixed? and n.fixed is true
-      n.x = n.px
-      n.y = n.py
-    @update()
+    if n?
+      n.radius = node.radius if node.radius?
+      n.fillColor = node.fillColor if node.fillColor?
+      n.strokeWidth = node.strokeWidth if node.strokeWidth?
+      n.strokeColor = node.strokeColor if node.strokeColor?
+      n.x = node.x if node.x?
+      n.y = node.y if node.y?
+      n.px = node.px if node.px?
+      n.py = node.py if node.py?
+      n.fixed = node.fixed if node.fixed?
+      if n.fixed? and n.fixed is true
+        n.x = n.px
+        n.y = n.py
+      @update()
+    else
+      console.log "Network changeNode: node (#{node.id}) not found"
     return
 
   removeNode: (id) ->
