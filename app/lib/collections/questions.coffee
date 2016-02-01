@@ -132,6 +132,8 @@ Questions.allow
 
 Meteor.methods
   insertQuestion: (question) ->
+    throw new Meteor.Error(400, "you need to log in") unless Meteor.userId()?
+    throw new Meteor.Error(403, "admin privileges required") unless Roles.userIsInRole(Meteor.userId(), 'admin')
     check(question.label, String)
     check(question.type, String)
 
@@ -143,6 +145,8 @@ Meteor.methods
 
 
   removeQuestion: (_id) ->
+    throw new Meteor.Error(400, "you need to log in") unless Meteor.userId()?
+    throw new Meteor.Error(403, "admin privileges required") unless Roles.userIsInRole(Meteor.userId(), 'admin')
     check(_id, String)
     question = Questions.findOne _id
 
@@ -157,6 +161,8 @@ Meteor.methods
 
 
   moveQuestion: (oldIndex, newIndex) ->
+    throw new Meteor.Error(400, "you need to log in") unless Meteor.userId()?
+    throw new Meteor.Error(403, "admin privileges required") unless Roles.userIsInRole(Meteor.userId(), 'admin')
     check(oldIndex, Match.Integer)
     check(newIndex, Match.Integer)
 
