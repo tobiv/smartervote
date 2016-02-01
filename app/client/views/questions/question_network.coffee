@@ -308,11 +308,10 @@ Template.slider.rendered = ->
     question = Template.currentData().question
     return if !question?
     answer = _answers[question._id]
-    return if !answer?
-    if question._id is prevQuestionId and answer.consent is prevConsent
+    if answer? and question._id is prevQuestionId and answer.consent is prevConsent
       return #only answer changed
     prevQuestionId = question._id
-    prevConsent = answer.consent
+    prevConsent = answer.consent if answer?
     start = 0.5
     if answer? and answer.importance?
       start = answer.importance

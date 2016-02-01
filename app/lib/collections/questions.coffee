@@ -4,113 +4,56 @@ class @Question
 
   getSchemaDict: ->
     s = _.pickDeep @, 'type', 'label', 'optional', 'min', 'max', 'options', 'options.label', 'options.value'
-    switch @type
-      when "scale"
-        s.type = Number
-        s.decimal = true
-        s.autoform =
-          type: "noUiSlider"
-          step: @step
-          #start: ((@max-@min)/2)
-          labelLeft: @minLabel if @minLabel?
-          labelRight: @maxLabel if @maxLabel?
-      when "text"
-        s.type = String
-        s.autoform =
-          type: "textarea"
-      when "boolean"
-        s.type = Boolean
-        s.autoform =
-          type: "boolean-radios"
-      when "multipleChoice"
-        s.autoform =
-          options: @choices
-        if @mode is "radio"
-          s.type = Number
-          s.autoform.type = "select-radio-inline"
-        else if @mode is "checkbox"
-          s.type = [Number]
-          s.autoform.type = "select-checkbox-inline"
+    s.type = Number
+    s.decimal = true
+    s.autoform =
+      type: "noUiSlider"
+      step: @step
+      #start: ((@max-@min)/2)
+      labelLeft: @minLabel if @minLabel?
+      labelRight: @maxLabel if @maxLabel?
     delete s.options
     s
 
 
   getMetaSchemaDict: ->
-    schema =
-      label:
-        label: "Question / statement"
-        type: String
-        optional: false
-        autoform:
-          type: "textarea"
-      type:
-        label: "Type"
-        type: String
-        autoform:
-          type: "select"
-          options: ->
-            [
-              {label: "Scale", value: "scale"},
-              {label: "Text", value: "text"},
-              {label: "Boolean", value: "boolean"},
-              {label: "Multiple Choice", value: "multipleChoice"},
-            ]
-      break:
-        label: "break after this question"
-        type: Boolean
-
-    if @type is "scale"
-      _.extend schema,
-        minLabel:
-          label: "min label"
-          type: String
-          optional: true
-        maxLabel:
-          label: "max label"
-          type: String
-          optional: true
-        #min:
-        #  label: "min"
-        #  type: Number
-        #  decimal: true
-        #max:
-        #  label: "max"
-        #  type: Number
-        #  decimal: true
-        #step:
-        #  label: "step"
-        #  type: Number
-        #  decimal: true
-        #start:
-        #  label: "start"
-        #  type: Number
-        #  optional: false
-        #  decimal: true
-
-    if @type is "multipleChoice"
-      _.extend schema,
-        mode:
-          label: "Mode"
-          type: String
-          autoform:
-            type: "select-radio-inline"
-            options: [
-              label: "single selection (radios)"
-              value: "radio"
-            ,
-              label: "multiple selection (checkboxes)"
-              value: "checkbox"
-            ]
-        choices:
-          type: [Object]
-          label: "Choices"
-          minCount: 1
-        'choices.$.label':
-          type: String
-          optional: true
-        'choices.$.value':
-          type: Number
-    schema
+    label:
+      label: "Question / statement"
+      type: String
+      optional: false
+      autoform:
+        type: "textarea"
+    info:
+      label: "Info"
+      type: String
+      optional: true
+      autoform:
+        type: "textarea"
+        rows: 10
+    cluster:
+      label: "Cluster"
+      type: String
+    hrid:
+      label: "HRID"
+      type: String
+      optional: true
+    minLabel:
+      label: "min label"
+      type: String
+      optional: true
+    maxLabel:
+      label: "max label"
+      type: String
+      optional: true
+    isOneSided:
+      label: "one sided"
+      type: Boolean
+    isOnlyNegative:
+      label: "only negative"
+      type: Boolean
+    isLeftPositiv:
+      label: "left positiv"
+      type: Boolean
 
 
 @Questions = new Meteor.Collection("questions",

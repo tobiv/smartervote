@@ -12,7 +12,7 @@ Template.editQuestions.rendered = ->
     qe = $("#questionEditor")
     if sq.length > 0 and qe.length > 0
       if $(document).width() > 992 #BS breakpoint
-        qe.css("margin-top", sq.offset().top-102)
+        qe.css("margin-top", sq.offset().top-62)
       else
         qe.css("margin-top", "")
 
@@ -24,17 +24,10 @@ Template.editQuestions.helpers
   hasQuestions: ->
     Questions.find().count() > 0
 
-  questionSchemas: ->
-    Questions.find(
-      {}
-    ,
+  questions: ->
+    Questions.find {},
       sort:
         index: 1
-    ).map (q) ->
-      schema = {}
-      schema[q._id.toString()] = q.getSchemaDict()
-      q.schema = new SimpleSchema(schema)
-      q
 
   selectedQuestion: ->
     id = Session.get 'selectedQuestionId'
@@ -42,9 +35,13 @@ Template.editQuestions.helpers
       _id: id
 
   #this: selectedQuestion
+  index: ->
+    @index+1
+
+  #this: selectedQuestion
   questionMetaSchema: ->
     new SimpleSchema(@getMetaSchemaDict())
-      
+ 
 
 Template.editQuestions.events
   "click #addQuestion": (evt) ->
@@ -89,20 +86,20 @@ AutoForm.hooks
 
 
 Template.editQuestion.helpers
-  #this question
+  #this question=question
   index: ->
-    @index+1
+    @question.index+1
 
-  #this question
+  #this question=question
   questionCSS: ->
-    if @_id is Session.get("selectedQuestionId")
+    if @question._id is Session.get("selectedQuestionId")
       "selectedQuestion"
     else
       ""
 
 Template.editQuestion.events
   "click .question": (evt) ->
-    Session.set 'selectedQuestionId', @_id
+    Session.set 'selectedQuestionId', @question._id
 
 
 sortableTimeout = null
