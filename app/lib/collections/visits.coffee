@@ -60,7 +60,7 @@ Visits.before.update BeforeUpdateTimestampHook
 
 Meteor.methods
   "createVisit": ->
-    throw new Meteor.Error(433, "you need to log in to init a visit") unless Meteor.userId()?
+    throw new Meteor.Error(400, "you need to log in to init a visit") unless Meteor.userId()?
 
     visit =
       userId: Meteor.userId()
@@ -71,13 +71,13 @@ Meteor.methods
 
 
   "resetVisit": (visitId) ->
-    throw new Meteor.Error(433, "you need to log to reset a visit") unless Meteor.userId()?
+    throw new Meteor.Error(400, "you need to log to reset a visit") unless Meteor.userId()?
     check visitId, String
 
     visit = Visits.findOne
       _id: visitId
       userId: Meteor.userId()
-    throw new Meteor.Error(403, "visit not found") unless visit?
+    throw new Meteor.Error(400, "visit not found") unless visit?
     visit = visit.scoredDoc()
 
     if visit.isComplete #create a new one

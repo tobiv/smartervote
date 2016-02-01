@@ -18,7 +18,7 @@ Meteor.methods
     #if Meteor.isServer
     #  Meteor._sleepForMs(4000)
 
-    throw new Meteor.Error(403, "missing user") if !Meteor.userId()?
+    throw new Meteor.Error(400, "please login") if !Meteor.userId()?
 
     if !answer.visitId? or answer.visitId.length is 0
       v = Visits.findOne
@@ -43,11 +43,11 @@ Meteor.methods
     visit = Visits.findOne
       userId: Meteor.userId()
       _id: answer.visitId
-    throw new Meteor.Error(403, "visit can't be found.") unless visit?
+    throw new Meteor.Error(400, "visit can't be found.") unless visit?
 
     question = Questions.findOne
       _id:  answer.questionId
-    throw new Meteor.Error(403, "question can't be found.") unless question?
+    throw new Meteor.Error(400, "question can't be found.") unless question?
 
     #check if not an answer has been created in the meantime
     #of calling this function (may occur multiple times at high rate)
@@ -63,7 +63,7 @@ Meteor.methods
 
     if answer._id?
       a = Answers.findOne _.pick answer, 'visitId', 'questionId', '_id'
-      throw new Meteor.Error(403, "answer to update can't be found.") unless answer?
+      throw new Meteor.Error(400, "answer to update can't be found.") unless answer?
 
       Answers.update answer._id,
         $set:

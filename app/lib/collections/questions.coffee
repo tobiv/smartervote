@@ -162,7 +162,7 @@ Meteor.methods
 
     question = Questions.findOne
       index: oldIndex
-    throw new Meteor.Error(403, "question with index #{oldIndex} not found.") unless question?
+    throw new Meteor.Error(400, "question with index #{oldIndex} not found.") unless question?
 
     Questions.update
       index: { $gt: oldIndex }
