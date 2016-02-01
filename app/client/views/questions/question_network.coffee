@@ -1,7 +1,7 @@
 _numQuestions = new ReactiveVar(0)
 _questionIndex = new ReactiveVar(-1)
 _showInfo = new ReactiveVar(false)
-_visitId = new ReactiveVar()
+_visitId = null
 _resizeTrigger = new ReactiveVar(false)
 
 radiusMax = 80
@@ -29,6 +29,7 @@ _chain = null
 _pitcher = null
 _field = null
 
+_answers = []
 _resizeTimeout = null
 @resize = ->
   Meteor.clearTimeout(_resizeTimeout) if _resizeTimeout?
@@ -135,19 +136,14 @@ Template.questionNetwork.rendered = ->
       _beforeHoverIndex = null
 
   #get clusters from questions and draw them
-  Tracker.nonreactive ->
-    clusters = []
-    i = 0
-    qs = Questions.find({}, {sort: {index: 1}}).forEach (q) ->
-      if clusters.indexOf(q.cluster) is -1
-        clusters.push q.cluster
-      return
-    _clusters = clusters
+  clusters = []
+  i = 0
+  qs = Questions.find({}, {sort: {index: 1}}).forEach (q) ->
+    if clusters.indexOf(q.cluster) is -1
+      clusters.push q.cluster
+    return
+  _clusters = clusters
 
-  #init network elements
-  _chain = new Chain(_network)
-  _pitcher = new Pitcher(_network)
-  _field = new Field(_network)
 
   upsertClusters()
 
@@ -159,47 +155,64 @@ Template.questionNetwork.rendered = ->
   @autorun ->
     selectedVisitId = Session.get 'selectedVisitId'
     if selectedVisitId?
-      v = Visits.findOne selectedVisitId
+      visit = Visits.findOne selectedVisitId
     else
-      v = Visits.findOne {},
+      visit = Visits.findOne {},
         sort: {createdAt: -1, limit: 1}
-    _visitId.set v._id if v?
+
+    if visit?
+      if _visitId? and visit._id isnt _visitId #we already had a visit
+        window.location.reload(false)
+        return
+      _visitId = visit._id
+
+    
+    #init network elements
+    _chain = new Chain(_network)
+    _pitcher = new Pitcher(_network)
+    _field = new Field(_network)
+
+    #TODO make this work to remove reload
+    #if _answers.length > 0
+    #  #remove all answers
+    #  console.log "remove all answers"
+    #  while ((answer = _answers.pop())?)
+    #    _network.removeNode answer.question._id
+    #  _answers.length = 0
+    #  return
 
     #draw all available answers and remaining questions
-    Tracker.nonreactive ->
-      _network.removeAllLinks()
-      _network.removeAllNodes()
-      #untouchedQuestions = []
-      #invalidAnswers = []
-      Questions.find({}, {sort: {index: 1}}).forEach (question) ->
-        answer = null
-        if v?
-          answer = Answers.findOne
-            visitId: v._id
-            questionId: question._id
-        if answer?
-          answer.question = question
-          if answer.status is 'valid'
-            answer.position = 'field'
-            _field.buildAndCatch answer
-          else
-            answer.position = 'chain'
-            _chain.buildAndCatch answer
+    Questions.find({}, {sort: {index: 1}}).forEach (question) ->
+      answer = null
+      if v?
+        answer = Answers.findOne
+          visitId: v._id
+          questionId: question._id
+      if answer?
+        answer.question = question
+        if answer.status is 'valid'
+          answer.position = 'field'
+          _answers[question._id] = answer
+          _field.buildAndCatch answer
         else
-          #init answer
-          answer =
-            question: question
-            position: 'chain'
-            status: 'new'
-            radius: rScale( Math.abs(0.25) )
+          answer.position = 'chain'
           _answers[question._id] = answer
           _chain.buildAndCatch answer
-      goNext()
-      Meteor.setTimeout ->
-        Tracker.nonreactive ->
-          if _questionIndex.get() is -1
-            goNext()
-      , 500
+      else
+        #init answer
+        answer =
+          question: question
+          questionId: question._id #needed on server
+          position: 'chain'
+          status: 'new'
+          radius: rScale( Math.abs(0.25) )
+        _answers[question._id] = answer
+        _chain.buildAndCatch answer
+    goNext()
+    Meteor.setTimeout ->
+      if _questionIndex.get() is -1
+        goNext()
+    , 500
 
 
 Template.questionNetwork.helpers
@@ -277,6 +290,11 @@ Template.questionNetwork.events
     evt.preventDefault()
     Session.set 'showScore', true
 
+  "click #reset": (evt, tmpl) ->
+    Meteor.call "resetVisit", _visitId, (error, id) ->
+      throwError error if error?
+      if Session.get('selectedVisitId')?
+        Session.set 'selectedVisitId', id
 
 
 Template.slider.rendered = ->
@@ -359,7 +377,6 @@ goNext = ->
     _questionIndex.set qi
     Session_.push 'questionIndices', qi
 
-_answers = {}
 _upsertTimeout = null
 updateAnswer = (consent, importance, question) ->
   answer = _answers[question._id]

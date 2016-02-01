@@ -2,51 +2,50 @@ class @Visit
   constructor: (doc) ->
     _.extend this, doc
 
-  validatedDoc: ->
-    hasAnswers = false
-    isComplete = true
-    numAnswered = 0
-    numQuestions = 0
-    self = @
-    questions = Questions.find()
-    .map (question) ->
-      answer = Answers.findOne
-        visitId: self._id
-        questionId: question._id
-      numQuestions += 1
-      if answer?
-        hasAnswers = true
-        numAnswered += 1
-        question.answered = true
-        question.answer = answer
-      else
-        isComplete = false
-        question.answered = false
-      question
-    @isComplete = isComplete
-    @hasAnswers = hasAnswers
-    @numQuestions = numQuestions
-    @numAnswered = numAnswered
-    @questions = questions
-    @
+#  validatedDoc: ->
+#    hasAnswers = false
+#    isComplete = true
+#    numAnswered = 0
+#    numQuestions = 0
+#    self = @
+#    questions = Questions.find()
+#    .map (question) ->
+#      answer = Answers.findOne
+#        visitId: self._id
+#        questionId: question._id
+#      numQuestions += 1
+#      if answer?
+#        hasAnswers = true
+#        numAnswered += 1
+#        question.answered = true
+#        question.answer = answer
+#      else
+#        isComplete = false
+#        question.answered = false
+#      question
+#    @isComplete = isComplete
+#    @hasAnswers = hasAnswers
+#    @numQuestions = numQuestions
+#    @numAnswered = numAnswered
+#    @questions = questions
+#    @
 
-  #stub
   scoredDoc: ->
-    sum = 0
-    self = @validatedDoc()
-    Questions.find().forEach (question) ->
-      #only scale questions for now
-      return if question.type isnt "scale"
-      answer = Answers.findOne
-        visitId: self._id
-        questionId: question._id
-      if answer?
-        sum += answer.value
-    score = 0.5
-    if @numAnswered > 0
-      score = sum/@numAnswered
-    @score = score
-    @progress = score*100
+    total = 0
+    pro = 0
+    Answers.find
+      visitId: @_id
+    .forEach (answer) ->
+      question = Questions.findOne answer.questionId
+      a = 2*Math.PI*Math.pow(answer.radius, 2)
+      total += a
+      if answer.value > 0
+        pro += a
+      return
+    proPercent = 100*pro/total
+    proPercent = 0 if total is 0
+    proPercent = Math.round(proPercent)
+    @proPercent = proPercent
     @
 
 
@@ -78,14 +77,17 @@ Meteor.methods
       _id: visitId
       userId: Meteor.userId()
     throw new Meteor.Error(400, "visit not found") unless visit?
-    visit = visit.scoredDoc()
 
-    if visit.isComplete #create a new one
-      return Meteor.call "createVisit"
-    else #delete it's answers
-      Answers.remove
-        visitId: visit._id
-      return visit._id
+    answerCount = Answers.find(
+      visitId: visit._id
+    ).count()
+
+    id = Meteor.call "createVisit"
+
+    if answerCount < 5
+      Visits.remove visit._id
+
+    return id
 
   "deleteAllVisits": ->
     throw new Meteor.Error(400, "you need to log in") unless Meteor.userId()?
