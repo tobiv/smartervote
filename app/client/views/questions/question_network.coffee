@@ -30,6 +30,8 @@ _pitcher = null
 _field = null
 
 _answers = []
+_answerSaver = null
+
 _resizeTimeout = null
 @resize = ->
   Meteor.clearTimeout(_resizeTimeout) if _resizeTimeout?
@@ -144,6 +146,7 @@ Template.questionNetwork.rendered = ->
     return
   _clusters = clusters
 
+  _answerSaver = new AnswerSaver()
 
   upsertClusters()
 
@@ -377,7 +380,6 @@ goNext = ->
     _questionIndex.set qi
     Session_.push 'questionIndices', qi
 
-_upsertTimeout = null
 updateAnswer = (consent, importance, question) ->
   answer = _answers[question._id]
 
@@ -471,15 +473,36 @@ updateAnswer = (consent, importance, question) ->
       _pitcher.free()
 
   _answers[question._id] = newAnswer
+  if newAnswer.status isnt 'skipped'
+    _answerSaver.upsertAnswer question._id
 
-  return
-  Meteor.clearTimeout _upsertTimeout if _upsertTimeout?
-  _upsertTimeout = Meteor.setTimeout ->
-    ensureUser().then ->
-      console.log "upsertAnswer"
-      Meteor.call "upsertAnswer", a, (error) ->
-        throwError error if error?
-  , 200
+class AnswerSaver
+  ids = []
+  saveTimeout = null
+  upsertAnswer: (id) ->
+    ids.unshift id
+    ids = _.unique ids
+    @saveAll()
+
+  saveAll: () ->
+    self = @
+    Meteor.clearTimeout(saveTimeout) if saveTimeout?
+    saveTimeout = Meteor.setTimeout ->
+      self.doSaveAll()
+    , 1000
+
+  doSaveAll: () ->
+    idsToPush = _.clone ids
+    ids.length = 0
+    while ((id = idsToPush.pop())?)
+      answer = _answers[id]
+      visitId = _visitId if _visitId?
+      answer.visitId = visitId if visitId?
+      ensureUser().then ->
+        Meteor.call "upsertAnswer", answer, (error, answerId) ->
+          throwError error if error?
+          console.log "#{answerId} saved"
+          answer._id = answerId #changes in _answers too
 
 
 class Pitcher

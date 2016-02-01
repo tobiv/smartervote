@@ -27,9 +27,7 @@ Meteor.methods
         sort: {createdAt: -1, limit: 1}
       if v?
         answer.visitId = v._id
-        console.log "<<<<<<<<<<<>>>>>>>>>"
         console.log "found visit, that client didn't know about yet"
-        console.log "<<<<<<<<<<<>>>>>>>>>"
     if !answer.visitId? or answer.visitId.length is 0
       #answer.visitId = Meteor.call 'createVisit'
       #instead of calling createVisit we directly
@@ -56,9 +54,7 @@ Meteor.methods
         visitId: answer.visitId
         questionId: answer.questionId
       if a?
-        console.log "<<<<<<<<<<<>>>>>>>>>"
         console.log "found answer, that client didn't know about yet"
-        console.log "<<<<<<<<<<<>>>>>>>>>"
         answer._id = a._id
 
     if answer._id?
@@ -70,9 +66,11 @@ Meteor.methods
           value: answer.value
           consent: answer.consent
           importance: answer.importance
+          status: answer.status
+          radius: answer.radius
       answer._id
     else
-      answer = _.pick answer, 'visitId', 'questionId', 'value', 'consent', 'importance'
+      answer = _.pick answer, 'visitId', 'questionId', 'value', 'consent', 'importance', 'status', 'radius'
       _id = Answers.insert answer
       _id
 
