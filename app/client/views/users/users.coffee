@@ -4,11 +4,12 @@ Template.users.helpers
 
   usersReactiveTableSettings: ->
     useFontAwesome: true,
-    rowsPerPage: 15,
+    rowsPerPage: 100,
     showFilter: true,
     fields: [
+      { key: '_id', label: 'ID' }
       { key: 'profile.name', label: 'name' }
-      { key: 'emails', label: 'eMail', fn: (v,o) -> o.emails[0].address }
+      { key: 'emails', label: 'eMail', fn: (v,o) -> if o.emails? then o.emails[0].address else "" }
       { key: 'roles', label: 'roles', fn: (v,o) -> if v? then v.sort().join(', ') else "" }
       { key: 'status', label: 'online', tmpl: Template.userStatusTableCell }
       { key: 'buttons', label: '', tmpl: Template.usersTableButtons }

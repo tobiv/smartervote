@@ -5,9 +5,9 @@ Router.configure
 
 # automatically render notFoundTemplate if data is null
 #Router.onBeforeAction('dataNotFound')
-Router.onBeforeAction( ->
-  AccountsEntry.signInRequired(this)
-, {only: ["users"]})
+#Router.onBeforeAction( ->
+#  AccountsEntry.signInRequired(this)
+#, {only: ["users"]})
 
 previousPage = null
 Router.map ->
