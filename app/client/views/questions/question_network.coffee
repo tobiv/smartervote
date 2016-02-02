@@ -40,7 +40,7 @@ _resizeTimeout = null
 
 doResize = ->
   return if !_network?
-  console.log "doResize"
+  #console.log "doResize"
   wWidth = $(window).width()
   wHeight = $(window).height()
 
