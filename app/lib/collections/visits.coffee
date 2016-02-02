@@ -70,7 +70,7 @@ Meteor.methods
 
 
   "resetVisit": (visitId) ->
-    throw new Meteor.Error(400, "you need to log to reset a visit") unless Meteor.userId()?
+    throw new Meteor.Error(400, "you need to login to reset a visit") unless Meteor.userId()?
     check visitId, String
 
     visit = Visits.findOne
@@ -90,7 +90,7 @@ Meteor.methods
     return id
 
   "deleteAllVisits": ->
-    throw new Meteor.Error(400, "you need to log in") unless Meteor.userId()?
+    throw new Meteor.Error(400, "you need to login") unless Meteor.userId()?
     throw new Meteor.Error(403, "admin privileges required") unless Roles.userIsInRole(Meteor.userId(), 'admin')
     Answers.remove({})
     Visits.remove({})
