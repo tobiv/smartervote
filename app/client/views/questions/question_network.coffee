@@ -190,9 +190,9 @@ Template.questionNetwork.rendered = ->
     #draw all available answers and remaining questions
     Questions.find({}, {sort: {index: 1}}).forEach (question) ->
       answer = null
-      if v?
+      if _visitId?
         answer = Answers.findOne
-          visitId: v._id
+          visitId: _visitId
           questionId: question._id
       if answer?
         answer.question = question
