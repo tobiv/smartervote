@@ -34,15 +34,6 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe('questions')
 
-  @route "wizzard",
-    path: "wizzard"
-    waitOn: ->
-      [
-        Meteor.subscribe('questions')
-        Meteor.subscribe('visits')
-        Meteor.subscribe('answers')
-      ]
-
   @route "questionNetwork",
     path: "questionNetwork"
     waitOn: ->
