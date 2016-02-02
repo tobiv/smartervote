@@ -475,6 +475,7 @@ updateAnswer = (consent, importance, question) ->
       _pitcher.free()
 
   _answers[question._id] = newAnswer
+  return #don't save answers for now
   if newAnswer.status isnt 'skipped'
     _answerSaver.upsertAnswer question._id
 
