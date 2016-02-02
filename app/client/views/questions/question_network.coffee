@@ -1,7 +1,6 @@
 _numQuestions = new ReactiveVar(0)
 _questionIndex = new ReactiveVar(-1)
 _showInfo = new ReactiveVar(false)
-_visitId = null
 _resizeTrigger = new ReactiveVar(false)
 
 radiusMax = 80
@@ -29,6 +28,7 @@ _chain = null
 _pitcher = null
 _field = null
 
+_visitId = null
 _answers = []
 _answerSaver = null
 
@@ -155,7 +155,9 @@ Template.questionNetwork.rendered = ->
   resize()
 
   #load initially and on visit change
-  @autorun ->
+  @autorun (computation)->
+    #computation.onInvalidate ->
+    #  console.trace()
     selectedVisitId = Session.get 'selectedVisitId'
     if selectedVisitId?
       visit = Visits.findOne selectedVisitId
@@ -164,26 +166,27 @@ Template.questionNetwork.rendered = ->
         sort: {createdAt: -1, limit: 1}
 
     if visit?
-      if _visitId? and visit._id isnt _visitId #we already had a visit
+      if _visitId? and visit._id isnt _visitId #we had a different visit before
         window.location.reload(false)
         return
       _visitId = visit._id
 
     
-    #init network elements
-    _chain = new Chain(_network)
-    _pitcher = new Pitcher(_network)
-    _field = new Field(_network)
+  #init network elements
+  _chain = new Chain(_network)
+  _pitcher = new Pitcher(_network)
+  _field = new Field(_network)
 
-    #TODO make this work to remove reload
-    #if _answers.length > 0
-    #  #remove all answers
-    #  console.log "remove all answers"
-    #  while ((answer = _answers.pop())?)
-    #    _network.removeNode answer.question._id
-    #  _answers.length = 0
-    #  return
+  #TODO make this work to remove reload
+  #if _answers.length > 0
+  #  #remove all answers
+  #  console.log "remove all answers"
+  #  while ((answer = _answers.pop())?)
+  #    _network.removeNode answer.question._id
+  #  _answers.length = 0
+  #  return
 
+  Tracker.nonreactive ->
     #draw all available answers and remaining questions
     Questions.find({}, {sort: {index: 1}}).forEach (question) ->
       answer = null
