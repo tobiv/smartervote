@@ -8,7 +8,6 @@ rScale = d3.scale.linear()
 rScale.domain [0, 0.5]
 rScale.range [20, radiusMax]
 
-#TODO get from window height
 linkDistanceMax = 800
 linkDistanceScale = d3.scale.linear()
 linkDistanceScale.domain [-0.5, 0.5]
@@ -45,7 +44,7 @@ doResize = ->
   wHeight = $(window).height()
 
   _network.resize()
-  $('#questionNetwork').css 'min-height', wHeight
+  $('#smartervote').css 'min-height', wHeight
 
   upsertClusters()
 
@@ -111,14 +110,14 @@ upsertClusters = ->
         py: height
   _clustersAdded = true
 
-Template.questionNetwork.created = ->
+Template.smartervote.created = ->
   @autorun ->
     _numQuestions.set Questions.find().count()
 
-Template.questionNetwork.destroyed = ->
+Template.smartervote.destroyed = ->
   $(window).off("resize", resize)
 
-Template.questionNetwork.rendered = ->
+Template.smartervote.rendered = ->
   #initialize network
   network = new Network("#bubbles-container", radiusMax)
   _network = network
@@ -221,7 +220,7 @@ Template.questionNetwork.rendered = ->
     , 500
 
 
-Template.questionNetwork.helpers
+Template.smartervote.helpers
   question: ->
     Questions.findOne
       index: _questionIndex.get()
@@ -246,7 +245,7 @@ Template.questionNetwork.helpers
         return "active"
     return ""
 
-Template.questionNetwork.events
+Template.smartervote.events
   'click .yes, click .no': (evt, tmpl, val) ->
     evt.target.blur()
     if tmpl.$(evt.target).hasClass("yes")

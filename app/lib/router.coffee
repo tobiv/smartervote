@@ -34,8 +34,8 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe('questions')
 
-  @route "questionNetwork",
-    path: "questionNetwork"
+  @route "smartervote",
+    path: "smartervote"
     waitOn: ->
       [
         Meteor.subscribe('questions')
