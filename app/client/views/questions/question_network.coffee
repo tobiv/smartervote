@@ -475,37 +475,60 @@ updateAnswer = (consent, importance, question) ->
       _pitcher.free()
 
   _answers[question._id] = newAnswer
-  return #don't save answers for now
   if newAnswer.status isnt 'skipped'
     _answerSaver.upsertAnswer question._id
 
 class AnswerSaver
   ids = []
   saveTimeout = null
+  saving = false
+  saveAgain = false
+  call = Promise.promisify(Meteor.call, Meteor)
   upsertAnswer: (id) ->
     ids.unshift id
     ids = _.unique ids
     @saveAll()
 
   saveAll: () ->
+    #console.log "saveAll"
     self = @
+    if saving
+      saveAgain = true
+      return
     Meteor.clearTimeout(saveTimeout) if saveTimeout?
     saveTimeout = Meteor.setTimeout ->
       self.doSaveAll()
     , 1000
 
   doSaveAll: () ->
+    #console.log "doSaveAll--"
     idsToPush = _.clone ids
     ids.length = 0
-    while ((id = idsToPush.pop())?)
-      answer = _answers[id]
-      visitId = _visitId if _visitId?
-      answer.visitId = visitId if visitId?
-      ensureUser().then ->
-        Meteor.call "upsertAnswer", answer, (error, answerId) ->
-          throwError error if error?
-          console.log "#{answerId} saved"
-          answer._id = answerId #changes in _answers too
+    saving = true
+    ensureUser()
+      .then( ->
+        Promise.each idsToPush, (id)->
+          answer = _answers[id]
+          answer.visitId = _visitId if _visitId?
+          #console.log "saving #{answer.question._id}"
+          call('upsertAnswer', answer).then( (answerId)->
+            #console.log "#{answerId} saved"
+            #console.log answer
+            _answers[answer.question._id]._id = answerId
+          )
+      ).catch( (e) ->
+        console.log "exception during doSaveAll"
+        console.log e
+        Promise.delay(4000).then ->
+          idsToPush.forEach (id) ->
+            _answerSaver.upsertAnswer id
+      ).finally ->
+        #console.log "all answers saved"
+        saving = false
+        if saveAgain
+          saveAgain = false
+          _answerSaver.saveAll()
+    return
 
 
 class Pitcher
