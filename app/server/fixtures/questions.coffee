@@ -6,9 +6,6 @@ Stream = Npm.require('stream')
 #Answers.remove({})
 #Visits.remove({})
 
-if Questions.find().count() is 0
-  Meteor.call 'deleteAndImportQuestions'
-
 Meteor.methods
   'deleteAndImportQuestions': ->
     Questions.remove({})
@@ -80,3 +77,7 @@ Meteor.methods
       ).on 'end', Meteor.bindEnvironment ->
         console.log Questions.find().count()+" questions imported"
         return
+
+if Questions.find().count() is 0
+  Meteor.call 'deleteAndImportQuestions'
+
