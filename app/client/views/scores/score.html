@@ -1,12 +1,13 @@
 <template name="score">
 <div id="score">
+  {{#with visit=visit}}
   <h2>Deine Auswertung</h2>
   <div class="text-center">
-    <h2>XX% pro</h2>
+    <h2>{{visit.proPercent}}% pro</h2>
   </div>
 
   <hr>
-  <img id="smarterBubbles"/>
+  <img id="mybubbles-preview"/>
   {{>shareit shareData}}
   <hr>
 	
@@ -17,5 +18,6 @@
   <div class="text-center">
     <button type="button" id="gotoQuestions" class="btn btn-default">Zu den Fragen</button>
   </div>
+  {{/with}}
 </div>
 </template>

@@ -41,6 +41,22 @@ Meteor.methods
     _id
 
 
+  "saveVisitPNG": (visitId, png) ->
+    throw new Meteor.Error(400, "you need to login to reset a visit") unless Meteor.userId()?
+
+    visit = Visits.findOne
+      _id: visitId
+      userId: Meteor.userId()
+    throw new Meteor.Error(400, "visit not found") unless visit?
+
+    Visits.update
+      _id: visitId
+    ,
+      $set:
+        png: png
+
+    return
+
   "resetVisit": (visitId) ->
     throw new Meteor.Error(400, "you need to login to reset a visit") unless Meteor.userId()?
     check visitId, String
