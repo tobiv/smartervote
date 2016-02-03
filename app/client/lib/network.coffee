@@ -1,5 +1,6 @@
 class @Network
   element = null
+  svgElementId = 'bubblesSVG'
   width = null
   height = null
 
@@ -27,7 +28,7 @@ class @Network
     #height = 800 if height < 800
 
     vis = d3.select(element).append("svg")
-      .attr('id', 'bubblesSVG')
+      .attr('id', svgElementId)
       .attr("width", width)
       .attr("height", height)
       .attr('pointer-events', 'all')
@@ -260,15 +261,20 @@ class @Network
   height: ->
     height
 
-  resize: () ->
+  resize: ->
     width = $(element).width()
     height = $(element).height()
-    svg = $('#bubblesSVG').get(0)
+    svg = $('#'+svgElementId).get(0)
     #svg.setAttribute 'viewBox', "0 0 #{w} #{h}"
     svg.setAttribute 'width', width
     svg.setAttribute 'height', height
     @update()
 
+  getElement: ->
+    element
+
+  getSVGElementId: ->
+    svgElementId
   
   # Resolves collisions between d and all other circles.
   # http://stackoverflow.com/questions/11339348/avoid-d3-js-circles-overlapping
@@ -299,4 +305,3 @@ class @Network
             quad.point.y += y
         x1 > nx2 or x2 < nx1 or y1 > ny2 or y2 < ny1
       return
-

@@ -20,7 +20,9 @@ colors = [
 
 _clusters = []
 
-_network = null
+#declared and assigned to
+#window in rendered
+#_network = null
 _beforeHoverIndex = null
 
 _chain = null
@@ -118,17 +120,17 @@ Template.smartervote.destroyed = ->
   $(window).off("resize", resize)
 
 Template.smartervote.rendered = ->
+  Session.set 'showScore', false
   #initialize network
-  network = new Network("#bubbles-container", radiusMax)
-  _network = network
+  window._network = new Network("#bubbles-container", radiusMax)
 
   #jump to question, when clicking on node
-  network.onNodeClick (d) ->
+  _network.onNodeClick (d) ->
     gotoQuestionIndex d.qIndex
     _beforeHoverIndex = null
 
   #jump to question, when hovering over node
-  network.onNodeHover (d) ->
+  _network.onNodeHover (d) ->
     if d?
       _beforeHoverIndex = _questionIndex.get() if not _beforeHoverIndex?
       _questionIndex.set d.qIndex
@@ -169,8 +171,9 @@ Template.smartervote.rendered = ->
         window.location.reload(false)
         return
       _visitId = visit._id
+      Session.set 'visitId', _visitId
 
-    
+
   #init network elements
   _chain = new Chain(_network)
   _pitcher = new Pitcher(_network)
