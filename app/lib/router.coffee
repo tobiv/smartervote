@@ -43,6 +43,13 @@ Router.map ->
         Meteor.subscribe('answers')
       ]
 
+  @route "myBubbles",
+    path: "myBubbles/:id"
+    waitOn: ->
+      [
+        Meteor.subscribe('visit', @params.id)
+      ]
+
   @route "questionOverview",
     path: "questionOverview"
     waitOn: ->

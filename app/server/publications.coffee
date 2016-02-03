@@ -35,6 +35,14 @@ Meteor.publish "visits", ->
 	Visits.find
 		userId:	@userId
 
+Meteor.publish "visit", (id)->
+  Visits.find
+    _id: id
+  ,
+    fields:
+      _id: 1
+      png: 1
+
 Meteor.publishComposite 'answers', ->
   find: ->
     Visits.find
