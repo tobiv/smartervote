@@ -13,9 +13,14 @@
   <a href="/myBubbles/{{visit._id}}" target='_blank'>link</a>
 	
   {{#if showCreateAccount}}
-	<p>Wenn Sie ihre Antworten speichern möchten, erstellen sie jetzt einen Account oder loggen Sie sich mit Facebook ein.</p>
+  <br>
+  <div class="text-center">
+    <p>Logge dich ein oder erstelle einen Account um deine Antworten zu speichern.</p>
+    {{> loginButtons}}
+  </div>
   {{/if}}
 
+  <br>
   <div class="text-center">
     <button type="button" id="gotoQuestions" class="btn btn-default">Zu den Fragen</button>
   </div>
