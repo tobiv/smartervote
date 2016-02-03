@@ -507,29 +507,27 @@ class AnswerSaver
     idsToPush = _.clone ids
     ids.length = 0
     saving = true
-    ensureUser()
-      .then( ->
-        Promise.each idsToPush, (id)->
-          answer = _answers[id]
-          answer.visitId = _visitId if _visitId?
-          #console.log "saving #{answer.question._id}"
-          call('upsertAnswer', answer).then( (answerId)->
-            #console.log "#{answerId} saved"
-            #console.log answer
-            _answers[answer.question._id]._id = answerId
-          )
-      ).catch( (e) ->
-        console.log "exception during doSaveAll"
-        console.log e
-        Promise.delay(4000).then ->
-          idsToPush.forEach (id) ->
-            _answerSaver.upsertAnswer id
-      ).finally ->
-        #console.log "all answers saved"
-        saving = false
-        if saveAgain
-          saveAgain = false
-          _answerSaver.saveAll()
+    Promise.each(idsToPush, (id)->
+      answer = _answers[id]
+      answer.visitId = _visitId if _visitId?
+      #console.log "saving #{answer.question._id}"
+      call('upsertAnswer', answer).then( (answerId)->
+        #console.log "#{answerId} saved"
+        #console.log answer
+        _answers[answer.question._id]._id = answerId
+      )
+    ).catch( (e) ->
+      #console.log "exception during doSaveAll"
+      console.log e
+      Promise.delay(4000).then ->
+        idsToPush.forEach (id) ->
+          _answerSaver.upsertAnswer id
+    ).finally ->
+      #console.log "all answers saved"
+      saving = false
+      if saveAgain
+        saveAgain = false
+        _answerSaver.saveAll()
     return
 
 
