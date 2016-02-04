@@ -228,6 +228,18 @@ Template.smartervote.helpers
     Questions.findOne
       index: _questionIndex.get()
 
+  maxLabel: ->
+    @question.maxLabel.split(',')[0] if @question?
+
+  maxLabelAffix: ->
+    @question.maxLabel.split(',')[1] if @question?
+
+  minLabel: ->
+    @question.minLabel.split(',')[0] if @question?
+
+  minLabelAffix: ->
+    @question.minLabel.split(',')[1] if @question?
+
   index: ->
     @question.index+1 if @question?
 
