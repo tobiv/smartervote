@@ -120,7 +120,7 @@ Template.smartervote.destroyed = ->
 Template.smartervote.rendered = ->
   Session.set 'showScore', false
   #initialize network
-  window._network = new Network("#smartervote", radiusMax)
+  window._network = new Network("#bubbles-container", radiusMax)
 
   #jump to question, when clicking on node
   _network.onNodeClick (d) ->
