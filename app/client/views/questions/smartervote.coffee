@@ -118,6 +118,8 @@ Template.smartervote.destroyed = ->
   $(window).off("resize", resize)
 
 Template.smartervote.rendered = ->
+  @$("#content").mCustomScrollbar()
+  
   Session.set 'showScore', false
   #initialize network
   window._network = new Network("#bubbles-container", radiusMax)
@@ -259,13 +261,14 @@ Template.smartervote.helpers
     return ""
 
 Template.smartervote.events
-  'click .yes, click .no': (evt, tmpl, val) ->
+  'click .max': (evt, tmpl) ->
     evt.target.blur()
-    if tmpl.$(evt.target).hasClass("yes")
-      consent = @question.max
-    else
-      consent = @question.min
-    updateAnswer(consent, null, @question)
+    updateAnswer(@question.max, null, @question)
+    return
+  
+  'click .min': (evt, tmpl) ->
+    evt.target.blur()
+    updateAnswer(@question.min, null, @question)
     return
 
   'slide': (evt, tmpl, val) ->
