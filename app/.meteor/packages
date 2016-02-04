@@ -55,3 +55,5 @@ brettle:accounts-anonymous
 accounts-google
 accounts-twitter
 martino:iron-router-i18n
+tap:i18n
+tap:i18n-ui

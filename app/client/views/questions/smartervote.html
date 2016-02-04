@@ -4,6 +4,11 @@
       <div id="bubbles-container"></div>
     </div>
     <div id="content">
+      <div class="languages">
+        {{#each languageKeys}}
+        <span class="pointer text-uppercase">{{this}}</span>&nbsp;
+        {{/each}}
+      </div>
       {{#if showScore}}
         <div class="question">
           {{> score}}
@@ -36,8 +41,8 @@
               <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">{{question.minLabel}}</button>
             </div>
             {{> slider}}
-            <button type="button" id="back" class="btn btn-default">Zurück</button>
-            <button type="button" id="next" class="btn btn-default pull-right">Weiter</button>
+            <button type="button" id="back" class="btn btn-default">{{_ "back"}}</button>
+            <button type="button" id="next" class="btn btn-default pull-right">{{_ "next"}}</button>
             <div class="text-center">
               <h2>XX% pro</h2>
               <a href="/questionOverview" target="_blank">alle Fragen in der Übersicht</a>
