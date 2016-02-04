@@ -2,64 +2,69 @@ Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
   notFoundTemplate: "not_found"
+  i18n:
+    exclude:
+      adminPaths: '^\/admin'
+    server:
+      exclude: 
+        sitemap: '^\/sitemap\.xml'
 
-# automatically render notFoundTemplate if data is null
-#Router.onBeforeAction('dataNotFound')
-#Router.onBeforeAction( ->
-#  AccountsEntry.signInRequired(this)
-#, {only: ["users"]})
-
-previousPage = null
-Router.map ->
-  @route "root",
-    path: "/"
-    onBeforeAction: (pause)->
-      @redirect "/home"
-
-  @route "home",
-    path: "home"
-
-  @route "users",
-    path: "users"
-    waitOn: ->
-      Meteor.subscribe('users')
-
-  @route "editQuestions",
-    path: "editQuestions"
-    waitOn: ->
-      Meteor.subscribe('questions')
-
-  @route "cnc",
-    path: "cnc"
-    waitOn: ->
-      Meteor.subscribe('questions')
-
-  @route "smartervote",
-    path: "smartervote"
-    waitOn: ->
-      [
-        Meteor.subscribe('questions')
-        Meteor.subscribe('visits')
-        Meteor.subscribe('answers')
-      ]
-
-  @route "myBubbles",
-    path: "myBubbles/:id"
-    waitOn: ->
-      [
-        Meteor.subscribe('visit', @params.id)
-      ]
-
-  @route "questionOverview",
-    path: "questionOverview"
-    waitOn: ->
-      [
-        Meteor.subscribe('questions')
-      ]
-
+Router.onBeforeAction ->
+  AccountsEntry.signInRequired(@)
+, 
+	only: ['users', 'editQuestions', 'cnc']
 
 if Meteor.isClient
   AccountsEntry.config
     homeRoute: '/home' #redirect to this path after sign-out
     dashboardRoute: '/home'  #redirect to this path after sign-in
     passwordSignupFields: 'EMAIL_ONLY'
+
+
+Router.route '/',
+	name: 'home'
+	action: ->
+		@render 'home'
+
+Router.route 'smartervote',
+	waitOn: ->
+		[
+			Meteor.subscribe('questions')
+			Meteor.subscribe('visits')
+			Meteor.subscribe('answers')
+		]
+	action: ->
+		@render 'smartervote'
+
+Router.route 'myBubbles/:id',
+	waitOn: ->
+    Meteor.subscribe('visit', @params.id)
+	action: ->
+		@render 'myBubbles'
+
+Router.route 'questionOverview',
+	waitOn: ->
+		Meteor.subscribe('questions')
+	action: ->
+		@render 'questionOverview'
+
+#admin routes
+Router.route '/admin/users',
+	waitOn: ->
+		Meteor.subscribe('users')
+	action: ->
+		@render 'users'
+
+Router.route '/admin/editQuestions',
+	waitOn: ->
+		Meteor.subscribe('questions')
+	action: ->
+		@render 'editQuestions'
+
+Router.route '/admin/cnc',
+	waitOn: ->
+		Meteor.subscribe('questions')
+	action: ->
+		@render 'cnc'
+
+
