@@ -19,6 +19,7 @@ Package.onUse(function(api) {
   api.addFiles('shared/collections/_timestamp_hooks.coffee', ['client', 'server']);
   api.addFiles('shared/collections/crumbs.coffee', ['client', 'server']);
   api.addFiles('shared/collections/posts.coffee', ['client', 'server']);
+  api.addFiles('shared/lib/slug.coffee', ['client', 'server']);
   api.addFiles('shared/router.coffee', ['client', 'server']);
   api.addFiles('server/publications.coffee', 'server');
   api.addFiles('client/views/crumbs/crumb.html', 'client');
