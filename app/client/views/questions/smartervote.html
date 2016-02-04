@@ -1,14 +1,18 @@
 <template name="smartervote">
   <div id="smartervote">
-    
-    <div id="bubbles-container"></div>
-    
-    <div id="content">
+    <div id="app-header">
+      Logo  Menü
       <div class="languages">
         {{#each languageKeys}}
         <span class="pointer text-uppercase">{{this}}</span>&nbsp;
         {{/each}}
       </div>
+    </div>
+    
+    <div id="bubbles-container"></div>
+    
+    <div id="content">
+
       {{#if showScore}}
         <div class="question">
           {{> score}}
@@ -16,7 +20,7 @@
       {{else}}
         {{#with question=question}}
           <div id="header">
-            {{index}}<br>
+            {{index}} (fav) <a id="show-all-questions" href="/questionOverview" target="_blank">alle Fragen in der Übersicht</a><br>
             <label for={{question._id}} class="control-label">
               {{{question.label}}}
             </label>
@@ -35,31 +39,33 @@
           </div>
 
           <div class="footer">
-            <div class="buttons">
+            <div class="buttons control-section">
               <button type="button" class="max {{activeCSS true}} btn btn-success btn-lg">
-                <span>{{maxLabel}}</span><br>
+                <span>{{maxLabel}}</span>
                 {{maxLabelAffix}}
               </button>
               <br>
               <button type="button" class="min {{activeCSS false}} btn btn-primary btn-lg">
-                <span>{{minLabel}}</span><br>
+                <span>{{minLabel}}</span>
                 {{minLabelAffix}}
               </button>
             </div>
             {{> slider}}
-            <button type="button" id="back" class="btn btn-default">{{_ "back"}}</button>
-            <button type="button" id="next" class="btn btn-default pull-right">{{_ "next"}}</button>
-            <div class="text-center">
-              <h2>XX% pro</h2>
-              <a href="/questionOverview" target="_blank">alle Fragen in der Übersicht</a>
-              <br><br>
-              <button type="button" id="reset" class="btn btn-danger">alle Antworten löschen</button>
-              <br>
-              <button type="button" id="gotoScore" class="btn btn-default">Auswertung zeigen</button>
+            
+            <div class="question-navigation control-section">
+              <button type="button" id="back" class="btn btn-default">&lt; <span>{{_ "back"}}</span></button>
+              <button type="button" id="gotoScore" class="btn btn-default">Auswertung</button>
+              <button type="button" id="next" class="btn btn-default"><span>{{_ "next"}}</span> &gt;</button>
             </div>
+            
+            <button type="button" id="reset" class="btn btn-danger">alle Antworten löschen</button>
           </div>
         {{/with}}
       {{/if}}
+    </div>
+    
+    <div id="score-indicator">
+      XX% pro
     </div>
 
   </div>
@@ -67,7 +73,7 @@
 
 
 <template name="slider">
-  <div class="at-nouislider">
+  <div class="at-nouislider control-section">
     <div class="nouislider-container">
       <span class="nouislider-label">total irrelevant</span>
       <div id="nouislider" class="nouislider"></div>

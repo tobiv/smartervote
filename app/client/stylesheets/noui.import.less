@@ -1,0 +1,69 @@
+/*
+ * Slider
+ */
+.at-nouislider {
+  padding: 1em 0;
+  
+  .nouislider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .nouislider-label {
+    flex: 0 0 4.5em;
+    margin: auto;
+    
+    color: black;
+    
+    &:last-child {
+      text-align: right;
+    }
+  }
+  
+  .nouislider {
+    flex: 1 0 auto;
+    margin: 0 1.5rem;
+    
+    cursor: pointer;
+  }
+  
+  .noUi-target {
+    background: black;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  
+  .noUi-horizontal {
+    height: 4px;
+  }
+  
+  .noUi-handle {
+    width: 3em;
+    height: 3em;
+    left: -1.4em;
+    top: -1.4em;
+    
+    background: black;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: none;
+    
+    transition: transform 0.1s;
+    
+    &:hover {
+      background: #444;
+    }
+    
+    &:before,
+    &:after {
+      content: none;
+    }
+  }
+  
+  .noUi-active {
+    background: black !important;
+    transform: scale(0.95);
+  }
+}
