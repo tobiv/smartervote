@@ -46,7 +46,6 @@ doResize = ->
   wHeight = $(window).height()
 
   _network.resize()
-  $('#smartervote').css 'min-height', wHeight
 
   upsertClusters()
 
@@ -80,8 +79,7 @@ doResize = ->
 _clustersAdded = false
 upsertClusters = ->
   numClusters = _clusters.length
-  bubbles = $('#bubbles')
-  width = bubbles.width()-80
+  width = $('#content').offset().left
   height = $(window).height()
   i = 0
   _clusters.forEach (c) ->
@@ -122,7 +120,7 @@ Template.smartervote.destroyed = ->
 Template.smartervote.rendered = ->
   Session.set 'showScore', false
   #initialize network
-  window._network = new Network("#bubbles-container", radiusMax)
+  window._network = new Network("#smartervote", radiusMax)
 
   #jump to question, when clicking on node
   _network.onNodeClick (d) ->
