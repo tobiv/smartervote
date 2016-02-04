@@ -36,9 +36,15 @@
 
           <div class="footer">
             <div class="buttons">
-              <button type="button" class="yes {{activeCSS true}} btn btn-success btn-lg">{{question.maxLabel}}</button>
+              <button type="button" class="yes {{activeCSS true}} btn btn-success btn-lg">
+                {{maxLabel}}
+                {{maxLabelAffix}}
+              </button>
               <br>
-              <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">{{question.minLabel}}</button>
+              <button type="button" class="no {{activeCSS false}} btn btn-primary btn-lg">
+                {{minLabel}}
+                {{minLabelAffix}}
+              </button>
             </div>
             {{> slider}}
             <button type="button" id="back" class="btn btn-default">{{_ "back"}}</button>
