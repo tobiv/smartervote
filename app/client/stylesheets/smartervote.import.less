@@ -1,26 +1,29 @@
 #smartervote {
-  display: flex;
-  #bubbles {
-    flex: 1 0 640px;
-    //flex: 1 1 66%;
-    //min-width: 320px;
-    padding: 2px;
-    #bubbles-container {
+  //display: flex;
+
+  
+  #bubbles-container {
       position: absolute;
       left: 0;
       right: 0;
       top: 0;
       bottom: 0;
     }
-  }
+  
   #content {
-    flex: 1 0 320px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 40px;
+    width: 33%;
+    
     //flex: 1 1 33%;
     //min-width: 320px;
-    z-index: 100;
+    z-index: 10000;
 
-    display: flex;
-    flex-flow: column nowrap;
+    //display: flex;
+    //flex-flow: column nowrap;
+    
     justify-content: space-between;
     #header {
       flex: 1 0 200px;
