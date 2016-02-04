@@ -118,6 +118,8 @@ Template.smartervote.destroyed = ->
   $(window).off("resize", resize)
 
 Template.smartervote.rendered = ->
+  @$("#content").mCustomScrollbar()
+  
   Session.set 'showScore', false
   #initialize network
   window._network = new Network("#bubbles-container", radiusMax)
