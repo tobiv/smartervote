@@ -27,14 +27,15 @@ Router.route '/',
 		@render 'home'
 
 Router.route 'smartervote',
-	waitOn: ->
-		[
-			Meteor.subscribe('questions')
-			Meteor.subscribe('visits')
-			Meteor.subscribe('answers')
-		]
-	action: ->
-		@render 'smartervote'
+  layoutTemplate: 'layoutSmartervote'
+  waitOn: ->
+    [
+      Meteor.subscribe('questions')
+      Meteor.subscribe('visits')
+      Meteor.subscribe('answers')
+    ]
+  action: ->
+    @render 'smartervote'
 
 Router.route 'myBubbles/:id',
 	waitOn: ->
