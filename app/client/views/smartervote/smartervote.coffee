@@ -250,6 +250,10 @@ Template.smartervote.helpers
   showEvaluation: ->
     Session.get 'showEvaluation'
 
+  proPercent: ->
+    _proPercent.get()
+
+
 Template.question.rendered = ->
   @$("#question").mCustomScrollbar({ theme: 'minimal-dark' })
   
@@ -275,9 +279,6 @@ Template.question.helpers
 
   index: ->
     @question.index+1 if @question?
-
-  proPercent: ->
-    _proPercent.get()
 
   showInfo: ->
     _showInfo.get()
