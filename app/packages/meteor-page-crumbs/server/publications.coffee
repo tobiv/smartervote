@@ -14,6 +14,7 @@ Meteor.publish "post", (slug) ->
       published: true 
       slug: slug
 
-Meteor.publish "crumbsForPost", (postId) ->
+Meteor.publish "crumbsForPost", (postId, lang) ->
   Crumbs.find
     postId: postId
+    lang: lang

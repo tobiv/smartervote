@@ -14,7 +14,7 @@ Crumbs.before.insert BeforeInsertTimestampHook
 Crumbs.before.update BeforeUpdateTimestampHook
 
 Meteor.methods
-  'createCrumb': (postId) ->
+  'createCrumb': (postId, lang) ->
     checkIfAdmin()
     check(postId, String)
 
@@ -24,10 +24,13 @@ Meteor.methods
 
     index = Crumbs.find
       postId: postId
+      lang: lang
     .count()
 
+    console.log "create crumb"
     _id = Crumbs.insert
       postId: postId
+      lang: lang
       creatorId: Meteor.userId()
       index: index
     _id
@@ -44,6 +47,7 @@ Meteor.methods
 
     Crumbs.update
       postId: crumb.postId
+      lang: crumb.lang
       index: crumb.index-1
     ,
       $inc: {index: 1}
@@ -65,6 +69,7 @@ Meteor.methods
 
     Crumbs.update
       postId: crumb.postId
+      lang: crumb.lang
       index: crumb.index+1
     ,
       $inc: {index: -1}
@@ -98,15 +103,9 @@ Meteor.methods
 
     Crumbs.update
       postId: crumb.postId
+      lang: crumb.lang
       index: {$gt: crumb.index}
     ,
       $inc: {index: -1}
     ,
       multi: true
-
-    #fix wrong indices
-    i = 0
-    Crumbs.find({postId: crumb.postId}, {sort: {index: 1}}).forEach (c) ->
-      Crumbs.update c._id,
-        $set: {index: i}
-      i += 1

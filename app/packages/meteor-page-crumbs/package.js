@@ -14,6 +14,7 @@ Package.onUse(function(api) {
   api.use('chuangbo:marked@0.3.5_1', 'client');
   api.use('jeremy:ghostdown@0.4.3', 'client');
   api.use('iron:router@1.0.12', ['client', 'server']);
+  api.use('tap:i18n@1.7.0', ['client', 'server']);
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/_timestamp_hooks.coffee', ['client', 'server']);

@@ -6,7 +6,11 @@ Template.postTitle.onRendered ->
 
 
 Template.post.onCreated ->
-  @subscribe("crumbsForPost", @data._id)
+  tmpl = @
+  @autorun ->
+    data = Template.currentData()
+    lang = TAPi18n.getLanguage()
+    tmpl.subscribe("crumbsForPost", data._id, lang)
 
 Template.post.onRendered ->
   document.title = @data.title
@@ -35,7 +39,8 @@ Template.post.events
   'submit #createCrumb': (evt) ->
     evt.preventDefault()
     if cancelCrumbEditing()
-      Meteor.call "createCrumb", @_id, (error, _id)->
+      lang = TAPi18n.getLanguage()
+      Meteor.call "createCrumb", @_id, lang, (error, _id)->
         throwError error if error?
         Session.set 'editingCrumbId', _id
     false
