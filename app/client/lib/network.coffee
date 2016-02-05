@@ -73,6 +73,7 @@ class @Network
     node
       .attr("r", (d) -> d.radius)
       .style("fill", (d) -> d.fillColor)
+      .style("fill-opacity", (d) -> if d.fillOpacity? then d.fillOpacity else 1.0)
       .attr("stroke", (d) -> d.strokeColor)
       .style("stroke-width", (d) -> d.strokeWidth)
     node.exit().remove()
@@ -185,6 +186,7 @@ class @Network
     if n?
       n.radius = node.radius if node.radius?
       n.fillColor = node.fillColor if node.fillColor?
+      n.fillOpacity = node.fillOpacity if node.fillOpacity?
       n.strokeWidth = node.strokeWidth if node.strokeWidth?
       n.strokeColor = node.strokeColor if node.strokeColor?
       n.x = node.x if node.x?

@@ -25,13 +25,14 @@ _topics = []
 #window in rendered
 #_network = null
 _beforeHoverIndex = null
+_beforeHoverShowEvaluation = null
 
 _chain = null
 _pitcher = null
 _field = null
 
 _visitId = null
-_answers = []
+_answers = {}
 _answerSaver = null
 
 _resizeTimeout = null
@@ -131,15 +132,23 @@ Template.smartervote.rendered = ->
   _network.onNodeClick (d) ->
     gotoQuestionIndex d.qIndex
     _beforeHoverIndex = null
+    _beforeHoverShowEvaluation = null
+    Session.set 'showEvaluation', false
 
   #jump to question, when hovering over node
   _network.onNodeHover (d) ->
     if d?
       _beforeHoverIndex = _questionIndex.get() if not _beforeHoverIndex?
       _questionIndex.set d.qIndex
-    else if _beforeHoverIndex?
-      _questionIndex.set _beforeHoverIndex
-      _beforeHoverIndex = null
+      _beforeHoverShowEvaluation = Session.get('showEvaluation') if not _beforeHoverShowEvaluation?
+      Session.set 'showEvaluation', false
+    else 
+      if _beforeHoverIndex?
+        _questionIndex.set _beforeHoverIndex
+        _beforeHoverIndex = null
+      if _beforeHoverShowEvaluation?
+        Session.set 'showEvaluation', _beforeHoverShowEvaluation
+        _beforeHoverShowEvaluation = null
 
   @autorun ->
     _numQuestions.set Questions.find().count()
@@ -901,3 +910,86 @@ class Chain
       Meteor.clearInterval interval
   , 50
   return
+
+
+Template.evaluation.rendered = ->
+  @$("#question").mCustomScrollbar({ theme: 'minimal-dark' })
+
+  #render SVG as PNG
+  return if !_network?
+  svgElementId = _network.getSVGElementId()
+  bubblesSVG = d3.select('#'+svgElementId)
+    .attr('version', 1.1)
+    .attr('xmlns', 'http://www.w3.org/2000/svg')
+    .node()
+  if !bubblesSVG
+    return
+  svgAsXML = bubblesSVG.parentNode.innerHTML
+  width = _network.width()
+  height = _network.height()
+  #scale aspect
+  maxWidth = 1024
+  maxHeight = 768
+  if width > maxWidth
+    height = maxWidth/width*height
+    width = maxWidth
+  if height > maxHeight
+    width = maxHeight/height*width
+    height = maxHeight
+
+  canvas = document.createElement('canvas')
+  ctx = canvas.getContext('2d')
+  loader = new Image
+  loader.width = canvas.width = width
+  loader.height = canvas.height = height
+
+  loader.onload = ->
+    ctx.drawImage loader, 0, 0, loader.width, loader.height
+    pngData = canvas.toDataURL()
+    $('#mybubbles-preview').attr 'src', pngData
+
+    visitId = Session.get('visitId')
+    if visitId?
+      Meteor.call "saveVisitPNG", visitId, pngData, (error) ->
+        throwError error if error?
+    return
+
+  loader.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML)
+
+
+Template.evaluation.helpers
+  visit: ->
+    v = Visits.findOne Session.get('visitId')
+    v.scoredDoc() if v?
+
+  showCreateAccount: ->
+    user = Meteor.user()
+    user and (not user.emails or user.emails.length is 0)
+
+  shareData: ->
+    title: 'smarterVote'
+		url: 'https://bge.patpat.org/myBubbles'+Session.get('visitId')
+    #image: ->
+    #  "https://pbs.twimg.com/media/CZKmfWBUgAAnubV.jpg:large"
+
+  topics: ->
+    _topics
+
+
+Template.evaluation.events
+  "click #gotoQuestions": (evt) ->
+    Session.set 'showEvaluation', false
+
+  "click .topic": (evt) ->
+    topic = @toString()
+    Object.keys(_answers).forEach (key) ->
+      answer = _answers[key]
+      question = answer.question
+      if question.topic isnt topic
+        _network.changeNode
+          id: question._id
+          fillOpacity: 0.05
+      else
+        _network.changeNode
+          id: question._id
+          fillOpacity: 1.0
