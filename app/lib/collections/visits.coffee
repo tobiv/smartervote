@@ -2,23 +2,11 @@ class @Visit
   constructor: (doc) ->
     _.extend this, doc
 
-  scoredDoc: ->
-    total = 0
-    pro = 0
-    Answers.find
+  proPercent: ->
+    answers = Answers.find(
       visitId: @_id
-    .forEach (answer) ->
-      question = Questions.findOne answer.questionId
-      a = 2*Math.PI*Math.pow(answer.radius, 2)
-      total += a
-      if answer.value > 0
-        pro += a
-      return
-    proPercent = 100*pro/total
-    proPercent = 0 if total is 0
-    proPercent = Math.round(proPercent)
-    @proPercent = proPercent
-    @
+    ).fetch()
+    Answer.getProPercent(answers)
 
 
 @Visits = new Meteor.Collection("visits",

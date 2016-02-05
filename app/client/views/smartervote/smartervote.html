@@ -15,10 +15,6 @@
       {{/if}}
     </div>
     
-    <div id="score-gauge">
-      XX% pro
-    </div>
-
   </div>
 </template>
 
@@ -64,6 +60,11 @@
       </div>
       
       <button type="button" id="reset" class="btn btn-danger">alle Antworten löschen</button>
+
+    <div id="score-gauge">
+      {{proPercent}}%
+    </div>
+
     </div>
   {{/with}}
 </template>
@@ -81,10 +82,9 @@
 
 <template name="evaluation">
 <div id="evaluation">
-  {{#with visit=visit}}
   <h2>Deine Auswertung</h2>
   <div class="text-center">
-    <h2>{{visit.proPercent}}% pro</h2>
+    <h2>{{proPercent}}% pro</h2>
   </div>
 
   <hr>
@@ -119,6 +119,5 @@
     <button type="button" id="gotoQuestions" class="btn btn-default">Zu den Fragen</button>
   </div>
   
-  {{/with}}
 </div>
 </template>

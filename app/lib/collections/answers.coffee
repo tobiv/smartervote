@@ -2,6 +2,21 @@ class @Answer
   constructor: (doc) ->
     _.extend this, doc
 
+  @getProPercent: (answers) ->
+    total = 0
+    pro = 0
+    answers.forEach (answer) ->
+      if answer.status is 'valid'
+        a = 2*Math.PI*Math.pow(answer.radius, 2)
+        total += a
+        if answer.value > 0
+          pro += a
+      return
+    proPercent = 100*pro/total
+    proPercent = 0 if total is 0
+    proPercent = Math.round(proPercent)
+    proPercent
+
 @Answers = new Meteor.Collection("answers",
   transform: (doc) ->
     new Answer(doc)

@@ -34,6 +34,7 @@ _field = null
 _visitId = null
 _answers = {}
 _answerSaver = null
+_proPercent = ReactiveVar(0)
 
 _resizeTimeout = null
 @resize = ->
@@ -235,6 +236,10 @@ Template.smartervote.rendered = ->
           radius: rScale( Math.abs(0.25) )
         _answers[question._id] = answer
         _chain.buildAndCatch answer
+    #init proPercent
+    _proPercent.set Answer.getProPercent( Object.keys(_answers).map (key) ->
+      _answers[key]
+    )
     goNext()
     Meteor.setTimeout ->
       if _questionIndex.get() is -1
@@ -272,7 +277,7 @@ Template.question.helpers
     @question.index+1 if @question?
 
   proPercent: ->
-    @visit.proPercent if @visit?
+    _proPercent.get()
 
   showInfo: ->
     _showInfo.get()
@@ -515,6 +520,12 @@ updateAnswer = (consent, importance, question) ->
       _pitcher.free()
 
   _answers[question._id] = newAnswer
+
+  #update proPercent
+  _proPercent.set Answer.getProPercent( Object.keys(_answers).map (key) ->
+    _answers[key]
+  )
+
   if newAnswer.status isnt 'skipped'
     _answerSaver.upsertAnswer question._id
 
@@ -958,9 +969,8 @@ Template.evaluation.rendered = ->
 
 
 Template.evaluation.helpers
-  visit: ->
-    v = Visits.findOne Session.get('visitId')
-    v.scoredDoc() if v?
+  proPercent: ->
+    _proPercent.get()
 
   showCreateAccount: ->
     user = Meteor.user()
