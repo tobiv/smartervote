@@ -1,5 +1,37 @@
+@controls-vertical-padding-base: 1.5vh;
+@controls-vertical-padding-min:  1rem;
+
+@height-answers:                 8vh;
+@height-slider:                  4em * 1.3; // Four line heights
+@height-question-nav:            6vh;
+@height-reset-button:            4vh;
+
 // Slider customisation
 @import "noui.import.less";
+
+/*
+ * Reset bootstrap buttons
+ */
+.btn {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: black;
+  
+  &:focus,
+  &:hover,
+  &:active {
+    outline: 0;
+    background: transparent;
+    box-shadow: none;
+    color: black;
+  }
+  
+  &:focus {
+    color: #444;
+    text-decoration: underline;
+  }
+}
 
 /*
  * Main app panel that contains all parts
@@ -26,6 +58,15 @@
   padding: 1em;
 }
 
+.languages {
+  display: inline-block;
+  
+  span {
+    display: inline-block;
+    padding: 0 0.5rem;
+  }
+}
+
 /*
  * Container to the main svg element
  */
@@ -49,19 +90,16 @@
   right: 46px;
   width: 33%;
   overflow: auto;
-
-  justify-content: space-between;
   
   /*
    * Question index, main text and "more info"
    * ? rename, e.g. #question?
    */
   #header {
-    flex: 1 0 200px;
     padding-top: 1em;
     
     .control-label {
-      font-size: 1.3em;
+      font-size: 2vw; // of viewport width
     }
     
     .info {
@@ -78,44 +116,29 @@
     left: 0;
     right: 0;
     bottom: 0;
-    
-    flex: 0 0 360px;
+    padding-top: @controls-vertical-padding-min;
     
     /*
      * Answer buttons (yes/no || max/min)
      * ? rename to .answers?
      */
     .buttons {
+      display: -webkit-flex;
+      display: -ms-flex;
       display: flex;
       
       button {
+        -webkit-flex: 1 0 50%;
+        -ms-flex: 1 0 50%;
         flex: 1 0 50%;
+        
+        height: @height-answers;
+        min-height: 8rem;
+        padding: 0;
+        
+        font-weight: bold;
+        font-size: 1.5vw; // of viewport width
         white-space: normal;
-        padding: 0.4em 0;
-        
-        background: transparent;
-        border: 0;
-        color: black;
-        
-        &:focus {
-          outline: 0;
-        }
-        
-        &:active {
-          color: black;
-          box-shadow: none;
-          
-          span {
-            font-size: 2.35em;
-          }
-        }
-        &.active {
-          box-shadow: none;
-          
-          span {
-            text-decoration: underline;
-          }
-        }
         
         &.max {
           text-align: left;
@@ -127,9 +150,9 @@
         
         span {
           display: block;
-          font-weight: bold;
-          font-size: 2.4em;
-          line-height: 1;
+          
+          font-size: 4vw; // of viewport width
+          line-height: 0.9;
           
           text-transform: uppercase;
         }
@@ -158,12 +181,33 @@
   float: right;
 }
 
+.showInfo,
+.hideInfo {
+  font-size: 1.2vw;
+}
+
 /*
  * Generic styles for all control groups
  */
 .control-section {
-  padding: 1rem 0;
+  -webkit-flex-flow: wrap;
+  -ms-flex-wrap: wrap;
+  flex-flow: wrap;
+  
   border-top: 1px solid gray;
+  
+  &:before,
+  &:after {
+    display: block;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    
+    height: @controls-vertical-padding-base;
+    min-height: @controls-vertical-padding-min;
+    
+    content: ' ';
+  }
 }
 
 /*
@@ -171,27 +215,19 @@
  * i.e. previous/next and go to Score
  */
 #question-navigation {
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   
   button {
+    -webkit-flex: 1 0 25%;
+    -ms-flex: 1 0 25%;
     flex: 1 0 25%;
+    
     padding: 0;
     
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    color: black;
-    
-    line-height: 2.8;
-    
-    &:hover {
-      background: transparent;
-      color: black;
-    }
-    
-    span {
-      display: inline-block;
-    }
+    line-height: @height-question-nav;
+    min-height: 4.5rem;
   }
   
   #back {
@@ -203,6 +239,8 @@
   }
   
   #gotoScore {
+    -webkit-flex: 1 0 50%;
+    -ms-flex: 1 0 50%;
     flex: 1 0 50%;
     
     border: 1px solid gray;
@@ -219,17 +257,26 @@
  */
 #reset {
   width: 100%;
-  margin-bottom: 1em;
-  padding: 1em 0;
-  
-  background: transparent;
-  border: 0;
-  color: black;
+  padding: 0;
   
   font-size: 0.9em;
+  line-height: @height-reset-button;
+  min-height: 3rem;
   
   &:hover {
     color: red;
+  }
+  
+  &:after {
+    display: block;
+    -webkit-flex: 0 0 100%;
+    -ms-flex:  0 0 100%;
+    flex: 0 0 100%;
+    
+    height: @controls-vertical-padding-base;
+    min-height: @controls-vertical-padding-min;
+    
+    content: ' ';
   }
 }
 
