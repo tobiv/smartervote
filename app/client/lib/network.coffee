@@ -125,7 +125,7 @@ class @Network
       .gravity(.0)
       .charge(-100)
       .linkDistance( (d) -> d.linkDistance )
-      #.friction(0.1)
+      .friction(0.3)
       .start()
     return
 
