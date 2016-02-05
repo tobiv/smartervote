@@ -986,6 +986,12 @@ Template.evaluation.helpers
   topics: ->
     _topics
 
+  topicCSS: ->
+    topic = Session.get 'activeTopic'
+    if @toString() is topic
+      return "active"
+    else
+      ""
 
 Template.evaluation.events
   "click #gotoQuestions": (evt) ->
@@ -993,14 +999,17 @@ Template.evaluation.events
 
   "click .topic": (evt) ->
     topic = @toString()
+    if Session.get('activeTopic') is topic
+      topic = null
+    Session.set 'activeTopic', topic
     Object.keys(_answers).forEach (key) ->
       answer = _answers[key]
       question = answer.question
-      if question.topic isnt topic
-        _network.changeNode
-          id: question._id
-          fillOpacity: 0.05
-      else
+      if question.topic is topic or topic is null
         _network.changeNode
           id: question._id
           fillOpacity: 1.0
+      else
+        _network.changeNode
+          id: question._id
+          fillOpacity: 0.05
