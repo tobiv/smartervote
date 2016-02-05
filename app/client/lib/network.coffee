@@ -95,22 +95,21 @@ class @Network
 
     collide = @collide
     force.on 'tick', ->
+      now = Date.now()
       node
         .each(collide(.5))
         .attr("cx", (d) -> 
-          #if d.fixed? and d.fixed
-          #  d.x = d.px
-          #  return d.px
+          #x with respect to width
           d.x = Math.max(d.radius, Math.min(width - d.radius, d.x))
+          #honour xMax
+          if d.xMax? and d.xMaxT < now and d.x > d.xMax
+            d.x = d.xMax
+          d.x
         )
         .attr("cy", (d) -> 
-          #if d.fixed? and d.fixed
-          #  d.y = d.py
-          #  return d.py
+          #y with respect to height
           d.y = Math.max(d.radius, Math.min(height - d.radius, d.y))
         )
-      #node.attr 'transform', (d) ->
-      #  'translate(' + d.x + ',' + d.y + ')'
 
       link
         .attr("x1", (d) -> d.source.x)
@@ -193,6 +192,11 @@ class @Network
       n.px = node.px if node.px?
       n.py = node.py if node.py?
       n.fixed = node.fixed if node.fixed?
+      n.xMax = node.xMax if node.xMax?
+      n.xMaxT = node.xMaxT if node.xMaxT?
+      if node.removeXMax
+        delete n.xMax
+        delete n.xMaxT
       if n.fixed? and n.fixed is true
         n.x = n.px
         n.y = n.py

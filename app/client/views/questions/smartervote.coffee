@@ -70,6 +70,10 @@ doResize = ->
     px: bcw
     py: bch
 
+  #refresh xMax of field
+  xMax = $('#content').offset().left
+  _field.setXMax xMax
+
   toggle = null
   Tracker.nonreactive ->
     toggle = _resizeTrigger.get()
@@ -151,10 +155,6 @@ Template.smartervote.rendered = ->
 
   upsertClusters()
 
-  #subscribe to resize
-  $(window).resize(resize)
-  resize()
-
   #load initially and on visit change
   @autorun (computation)->
     #computation.onInvalidate ->
@@ -178,6 +178,10 @@ Template.smartervote.rendered = ->
   _chain = new Chain(_network)
   _pitcher = new Pitcher(_network)
   _field = new Field(_network)
+ 
+  #subscribe to resize
+  $(window).resize(resize)
+  resize()
 
   #TODO make this work to remove reload
   #if _answers.length > 0
@@ -587,9 +591,9 @@ class Pitcher
 
 
 class Field
-  answers = []
   nodeIds = []
   network = null
+  xMax = null
   constructor: (ourNetwork) ->
     @network = ourNetwork
 
@@ -614,6 +618,8 @@ class Field
       radius: answer.radius
       fillColor: "#"+colors[question.index]
       strokeWidth: 0
+      xMax: xMax if xMax?
+      xMaxT: Date.now()+3000
 
     @network.addLink
       sourceId: question._id
@@ -623,6 +629,7 @@ class Field
       sourceId: question._id
       targetId: question.cluster+'_max'
       linkDistance: linkDistanceMax-ldMin
+    nodeIds.push question._id
     return
 
   update: (answer) ->
@@ -632,6 +639,7 @@ class Field
       radius: answer.radius
       fillColor: "#"+colors[question.index]
       strokeWidth: 0
+      xMax: xMax if xMax?
 
     ldMin = linkDistanceScale(answer.value)
     @network.changeLink
@@ -652,7 +660,21 @@ class Field
     @network.removeLink
       sourceId: question._id
       targetId: question.cluster+'_max'
+    @network.changeNode
+      id: question._id
+      removeXMax: true
+      
+    index = nodeIds.indexOf question._id
+    nodeIds.splice(index, 1)
     return
+
+  setXMax: (max) ->
+    xMax = max
+    self = @
+    nodeIds.forEach (id) ->
+      self.network.changeNode
+        id: id
+        xMax: xMax
 
 
 class Chain
