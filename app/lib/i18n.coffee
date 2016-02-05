@@ -2,10 +2,6 @@
 #https://github.com/TAPevents/tap-i18n/issues/24#issuecomment-59798528
 @LANGUAGES = ['de', 'fr', 'it'] 
 
-if Meteor.isClient
-  UI.registerHelper "languageKeys", ->
-    LANGUAGES
-
 I18NConf.configure
   defaultLanguage: 'de'
   languages: LANGUAGES

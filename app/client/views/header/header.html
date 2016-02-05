@@ -22,6 +22,11 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#">
+            {{> languageSwitcher}}
+          </a>
+        </li>
         {{#if isInRole 'admin'}}
         <li class="{{activeRouteClass 'admin.cnc'}}">
           <a href="{{pathFor 'admin.cnc'}}">

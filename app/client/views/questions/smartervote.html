@@ -2,11 +2,7 @@
   <div id="smartervote">
     <div id="app-header">
       Logo  Menü
-      <div class="languages">
-        {{#each languageKeys}}
-        <span class="pointer text-uppercase">{{this}}</span>&nbsp;
-        {{/each}}
-      </div>
+      {{> languageSwitcher}}
     </div>
     
     <div id="bubbles-container"></div>

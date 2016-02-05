@@ -317,9 +317,6 @@ Template.smartervote.events
       if Session.get('selectedVisitId')?
         Session.set 'selectedVisitId', id
 
-  'click .languages span': (evt, tmpl) ->
-    I18NConf.setLanguage @toString()
-
 
 Template.slider.rendered = ->
   tmpl = @
