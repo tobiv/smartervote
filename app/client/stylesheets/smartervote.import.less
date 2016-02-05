@@ -1,3 +1,11 @@
+@controls-vertical-padding-base: 1.5vh;
+@controls-vertical-padding-min:  1rem;
+
+@height-answers:                 8vh;
+@height-slider:                  4em * 1.3; // Four line heights
+@height-question-nav:            6vh;
+@height-reset-button:            4vh;
+
 // Slider customisation
 @import "noui.import.less";
 
@@ -61,7 +69,7 @@
     padding-top: 1em;
     
     .control-label {
-      font-size: 1.3em;
+      font-size: 2vw; // of viewport width
     }
     
     .info {
@@ -78,6 +86,7 @@
     left: 0;
     right: 0;
     bottom: 0;
+    padding-top: @controls-vertical-padding-min;
     
     flex: 0 0 360px;
     
@@ -90,12 +99,18 @@
       
       button {
         flex: 1 0 50%;
-        white-space: normal;
-        padding: 0.4em 0;
+        height: @height-answers;
+        min-height: 8rem;
+        padding: 0;
         
         background: transparent;
         border: 0;
         color: black;
+        
+        font-weight: bold;
+        font-size: 1.5vw; // of viewport width
+        white-space: normal;
+        
         
         &:focus {
           outline: 0;
@@ -127,9 +142,12 @@
         
         span {
           display: block;
-          font-weight: bold;
-          font-size: 2.4em;
-          line-height: 1;
+/*
+          position: relative;
+          top: 0.5vh;
+*/
+          font-size: 4vw; // of viewport width
+          line-height: 0.9;
           
           text-transform: uppercase;
         }
@@ -158,12 +176,27 @@
   float: right;
 }
 
+.showInfo,
+.hideInfo {
+  font-size: 1.2vw;
+}
+
 /*
  * Generic styles for all control groups
  */
 .control-section {
-  padding: 1rem 0;
+  flex-flow: wrap;
   border-top: 1px solid gray;
+  
+  &:before,
+  &:after {
+    display: block;
+    flex: 0 0 100%;
+    height: @controls-vertical-padding-base;
+    min-height: @controls-vertical-padding-min;
+    
+    content: ' ';
+  }
 }
 
 /*
@@ -182,7 +215,8 @@
     border-radius: 0;
     color: black;
     
-    line-height: 2.8;
+    line-height: @height-question-nav;
+    min-height: 4.5rem;
     
     &:hover {
       background: transparent;
@@ -219,17 +253,27 @@
  */
 #reset {
   width: 100%;
-  margin-bottom: 1em;
-  padding: 1em 0;
+  padding: 0;
   
   background: transparent;
   border: 0;
   color: black;
   
   font-size: 0.9em;
+  line-height: @height-reset-button;
+  min-height: 3rem;
   
   &:hover {
     color: red;
+  }
+  
+  &:after {
+    display: block;
+    flex: 0 0 100%;
+    height: @controls-vertical-padding-base;
+    min-height: @controls-vertical-padding-min;
+    
+    content: ' ';
   }
 }
 

@@ -74,6 +74,10 @@ doResize = ->
   Tracker.nonreactive ->
     toggle = _resizeTrigger.get()
   _resizeTrigger.set !toggle
+  
+  # recalculate content padding
+  footerHeight = @$('.footer').outerHeight()
+  @$('.mCSB_container').css( 'padding-bottom', footerHeight )
 
 
 _clustersAdded = false
@@ -119,6 +123,9 @@ Template.smartervote.destroyed = ->
 
 Template.smartervote.rendered = ->
   @$("#content").mCustomScrollbar()
+  
+  footerHeight = @$('.footer').outerHeight()
+  @$('.mCSB_container').css( 'padding-bottom', footerHeight )
   
   Session.set 'showScore', false
   #initialize network
