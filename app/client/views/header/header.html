@@ -25,6 +25,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {{#if isInRole 'admin'}}
+        <li>
+          <a href="/admin/blog">
+            Blog
+          </a>
+        </li>
         <li class="{{activeRouteClass 'admin.cnc'}}">
           <a href="{{pathFor 'admin.cnc'}}">
             C &amp; C

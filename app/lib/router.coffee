@@ -5,6 +5,7 @@ Router.configure
   i18n:
     exclude:
       adminPaths: '^\/admin'
+      blogPaths: '^\/blog'
     server:
       exclude: 
         sitemap: '^\/sitemap\.xml'
