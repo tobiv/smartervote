@@ -44,6 +44,16 @@ h1, h2, h3, h4 {
   border-bottom: @border-default;
 }
 
+#site-brand {
+  a {
+    color: black;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 .logo-circle {
   float: left;
   width: 2 * @font-size-logo-medium;
@@ -87,7 +97,11 @@ h1, h2, h3, h4 {
   
 }
 
+/*
+ * Logos on homepage
+ */
 .jumbotron {
+  margin: 0 3em 2em;
   padding-bottom: 1em;
   
   border-radius: 0 !important;
@@ -96,8 +110,16 @@ h1, h2, h3, h4 {
   p {
     font-size: 1em;
   }
+  
+  .col-md-4 {
+    padding: 0 3em;
+  }
 }
 
+
+/*
+ * svg
+ */
 .link {
     stroke-width: 0.1px !important;
 }
