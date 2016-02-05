@@ -856,9 +856,9 @@ class Chain
 
     r = Math.floor(Math.random() * 3)
     if r is 0
-      $('.yes').click()
+      $('.min').click()
     else if r is 1
-      $('.no').click()
+      $('.max').click()
     else if r is 2
       $('#next').click()
 
