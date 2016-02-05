@@ -55,7 +55,7 @@ deleteAndImportQuestions = ->
         topic: columns[2]
         hrid: columns[3]
         label: columns[4]
-        info: columns[11].replace(/"/g, '').replace(/\n/g, '<br>') if columns[8]?
+        info: columns[11].replace(/"/g, '').replace(/\n/g, '<br>') if columns[11]?
         optional: true
         type: "scale"
         min: min
