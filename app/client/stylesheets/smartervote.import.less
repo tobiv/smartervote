@@ -244,7 +244,8 @@
     min-height: 4.5rem;
   }
   
-  #back {
+  #back,
+  #gotoQuestions {
     text-align: left;
   }
   
@@ -252,7 +253,7 @@
     text-align: right;
   }
   
-  #gotoScore {
+  #gotoEvaluation {
     -webkit-flex: 1 0 50%;
     -ms-flex: 1 0 50%;
     flex: 1 0 50%;
@@ -278,7 +279,7 @@
   min-height: 3rem;
   
   &:hover {
-    color: red;
+    color: red !important;
   }
   
   &:after {
@@ -297,11 +298,28 @@
 /*
  * Score panel
  */
-#score {
-  #mybubbles-preview {
-    width: 300px;
-    height: auto;
+#evaluation {
+
+  .control-section {
+    border-top: 0;
   }
+
+}
+
+.final-score {
+  margin-bottom: 2vh;
+  text-align: center;
+  
+  span {
+    font-weight: bold;
+    font-size: 5vw;
+  }
+}
+
+.sharing {
+  background-color: white;
+  
+  text-align: center;
 }
 
 /*

@@ -82,25 +82,29 @@
 
 <template name="evaluation">
 <div id="evaluation">
-  <h2>Deine Auswertung</h2>
-  <div class="text-center">
-    <h2>{{proPercent}}% pro</h2>
+  <div id="question-navigation" class="control-section">
+    <button type="button" id="gotoQuestions" class="btn btn-default">&lt; Zu den Fragen</button>
+  </div>
+  
+  <div class="final-score">
+    Dein Ergebnis:<br>
+    <span>{{proPercent}}% pro</span>
   </div>
 
-  <hr>
-  <div class="sharing" style="background-color: white;">
+  <div class="sharing">
     <!--
     <img id="mybubbles-preview"/>
     -->
+    
+    Teile dein Ergebnis:<br>
     {{>shareit shareData}}
     <a href="/myBubbles/{{visit._id}}" target='_blank'>link</a>
   </div>
-  <hr>
 	
   {{#if showCreateAccount}}
   <br>
   <div class="text-center">
-    <p>Logge dich ein oder erstelle einen Account um deine Antworten zu speichern.</p>
+    <p>Logge dich ein oder erstelle einen Account, um deine Antworten zu speichern:</p>
     {{> loginButtons}}
   </div>
   {{/if}}
@@ -113,11 +117,6 @@
       <span>{{this}}</span>
     </button>
   {{/each}}
-
-  <br>
-  <div class="text-center">
-    <button type="button" id="gotoQuestions" class="btn btn-default">Zu den Fragen</button>
-  </div>
   
 </div>
 </template>
