@@ -45,7 +45,7 @@ Template.post.events
       title = evt.target.innerText
       Meteor.call 'changePostTitle', @_id, title, (error, slug) ->
         throwError error if error?
-        Router.go 'post',
+        Router.go 'pages/:slug',
           slug: slug
         ,
           replaceState: true
