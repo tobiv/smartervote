@@ -5,21 +5,21 @@
 
 // overwrite bootstrap variables in bootstrap/custom.bootstrap.import.less
 @import "bootstrap/custom.bootstrap.output.import.less";
-//@import "theme/simplex.import.less";
+
+// Custom variables
+@import "variables.import.less";
 
 // import less/css from vendored libs
 @import "lib/bs_sidedanv.import.less";
 
-@import "home.import.less";
+@import "viewport_border.import.less";
 @import "edit_questions.import.less";
 @import "smartervote.import.less";
 
 
-//
-@viewport-border-width: 0.9em;
-@font-size-logo-medium: 2em;
-@color-brand: #ffc800;
-
+/*
+ * Common or front page styles
+ */
 body {
 	margin: 0;
 	padding: @viewport-border-width;
@@ -36,35 +36,12 @@ h1, h2, h3, h4 {
 	font-family: 'Circular', sans-serif;
 }
 
-/*
- * Fancy border around the viewport (non-scrolling)
- */
-[id^="border-"] {
-	background: @color-brand;
-	position: fixed;
-}
-#border-left, 
-#border-right {
-	top: 0; bottom: 0;
-	width: @viewport-border-width;
-}
-#border-left { left: 0; }
-#border-right { right: 0; }
-		
-#border-top, 
-#border-bottom {
-	left: 0; right: 0;
-	height: @viewport-border-width;
-}
-#border-top { top: 41px; }
-#border-bottom { bottom: 0; }
-
 
 #site-header {
   margin-top: 40px;
   padding: 2em 1.5em 1.2em;
   
-  border-bottom: 1px solid gray;
+  border-bottom: @border-default;
 }
 
 .logo-circle {
@@ -108,6 +85,17 @@ h1, h2, h3, h4 {
 
 #main {
   
+}
+
+.jumbotron {
+  padding-bottom: 1em;
+  
+  border-radius: 0 !important;
+  border-bottom: @border-default;
+  
+  p {
+    font-size: 1em;
+  }
 }
 
 .link {

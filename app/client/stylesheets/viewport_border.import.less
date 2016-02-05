@@ -1,0 +1,22 @@
+/*
+ * Fancy border around the viewport (non-scrolling)
+ */
+[id^="border-"] {
+	background: @color-brand;
+	position: fixed;
+}
+#border-left, 
+#border-right {
+	top: 0; bottom: 0;
+	width: @viewport-border-width;
+}
+#border-left { left: 0; }
+#border-right { right: 0; }
+		
+#border-top, 
+#border-bottom {
+	left: 0; right: 0;
+	height: @viewport-border-width;
+}
+#border-top { top: 41px; }
+#border-bottom { bottom: 0; }
