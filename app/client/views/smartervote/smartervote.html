@@ -23,49 +23,51 @@
 </template>
 
 <template name="question">
-  {{#with question=question}}
-    <div id="header">
-      {{index}} (fav) <a id="show-all-questions" href="/questionOverview" target="_blank">alle Fragen in der Übersicht</a><br>
-      <label for={{question._id}} class="control-label">
-        {{{question.label}}}
-      </label>
-      {{#if question.info}}
-        <div class="info">
-          {{#if showInfo}}
-          <div class="hideInfo">
-            {{{question.info}}}
-            <br><a href="#">weniger Informationen</a>
+  <div id="question">
+    {{#with question=question}}
+      <div id="header">
+        {{index}} (fav) <a id="show-all-questions" href="/questionOverview" target="_blank">alle Fragen in der Übersicht</a><br>
+        <label for={{question._id}} class="control-label">
+          {{{question.label}}}
+        </label>
+        {{#if question.info}}
+          <div class="info">
+            {{#if showInfo}}
+            <div class="hideInfo">
+              {{{question.info}}}
+              <br><a href="#">weniger Informationen</a>
+            </div>
+            {{else}}
+            <a href="#" class="showInfo">mehr Informationen</a>
+            {{/if}}
           </div>
-          {{else}}
-          <a href="#" class="showInfo">mehr Informationen</a>
-          {{/if}}
-        </div>
-      {{/if}}
-    </div>
+        {{/if}}
+      </div>
 
-    <div class="footer">
-      <div class="buttons control-section">
-        <button type="button" class="max {{activeCSS true}} btn btn-default">
-          <span>{{maxLabel}}</span>
-          {{maxLabelAffix}}
-        </button>
-        <br>
-        <button type="button" class="min {{activeCSS false}} btn btn-default">
-          <span>{{minLabel}}</span>
-          {{minLabelAffix}}
-        </button>
+      <div class="footer">
+        <div class="buttons control-section">
+          <button type="button" class="max {{activeCSS true}} btn btn-default">
+            <span>{{maxLabel}}</span>
+            {{maxLabelAffix}}
+          </button>
+          <br>
+          <button type="button" class="min {{activeCSS false}} btn btn-default">
+            <span>{{minLabel}}</span>
+            {{minLabelAffix}}
+          </button>
+        </div>
+        {{> slider}}
+        
+        <div id="question-navigation" class="control-section">
+          <button type="button" id="back" class="btn btn-default">&lt; <span>{{_ "back"}}</span></button>
+          <button type="button" id="gotoEvaluation" class="btn btn-default">Auswertung</button>
+          <button type="button" id="next" class="btn btn-default"><span>{{_ "next"}}</span> &gt;</button>
+        </div>
+        
+        <button type="button" id="reset" class="btn btn-danger">alle Antworten löschen</button>
       </div>
-      {{> slider}}
-      
-      <div id="question-navigation" class="control-section">
-        <button type="button" id="back" class="btn btn-default">&lt; <span>{{_ "back"}}</span></button>
-        <button type="button" id="gotoEvaluation" class="btn btn-default">Auswertung</button>
-        <button type="button" id="next" class="btn btn-default"><span>{{_ "next"}}</span> &gt;</button>
-      </div>
-      
-      <button type="button" id="reset" class="btn btn-danger">alle Antworten löschen</button>
-    </div>
-  {{/with}}
+    {{/with}}
+  </div>
 </template>
 
 <template name="slider">
