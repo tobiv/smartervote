@@ -19,6 +19,7 @@ colors = [
 ]
 
 _clusters = []
+_topics = []
 
 #declared and assigned to
 #window in rendered
@@ -118,20 +119,11 @@ upsertClusters = ->
         py: height
   _clustersAdded = true
 
-Template.smartervote.created = ->
-  @autorun ->
-    _numQuestions.set Questions.find().count()
-
 Template.smartervote.destroyed = ->
   $(window).off("resize", resize)
 
 Template.smartervote.rendered = ->
-  @$("#content").mCustomScrollbar({ theme: 'minimal-dark' })
-  
-  footerHeight = @$('.footer').outerHeight()
-  @$('.mCSB_container').css( 'padding-bottom', footerHeight )
-  
-  Session.set 'showScore', false
+  Session.set 'showEvaluation', false
   #initialize network
   window._network = new Network("#bubbles-container", radiusMax)
 
@@ -149,14 +141,21 @@ Template.smartervote.rendered = ->
       _questionIndex.set _beforeHoverIndex
       _beforeHoverIndex = null
 
-  #get clusters from questions and draw them
+  @autorun ->
+    _numQuestions.set Questions.find().count()
+
+  #get clusters and topics from questions and draw them
   clusters = []
+  topics = []
   i = 0
   qs = Questions.find({}, {sort: {index: 1}}).forEach (q) ->
     if clusters.indexOf(q.cluster) is -1
       clusters.push q.cluster
+    if topics.indexOf(q.topic) is -1
+      topics.push q.topic
     return
   _clusters = clusters
+  _topics = topics
 
   _answerSaver = new AnswerSaver()
 
@@ -233,8 +232,17 @@ Template.smartervote.rendered = ->
         goNext()
     , 500
 
-
 Template.smartervote.helpers
+  showEvaluation: ->
+    Session.get 'showEvaluation'
+
+Template.question.rendered = ->
+  @$("#question").mCustomScrollbar({ theme: 'minimal-dark' })
+  
+  footerHeight = @$('.footer').outerHeight()
+  @$('.mCSB_container').css( 'padding-bottom', footerHeight )
+  
+Template.question.helpers
   question: ->
     Questions.findOne
       index: _questionIndex.get()
@@ -257,9 +265,6 @@ Template.smartervote.helpers
   proPercent: ->
     @visit.proPercent if @visit?
 
-  showScore: ->
-    Session.get 'showScore'
-
   showInfo: ->
     _showInfo.get()
 
@@ -271,7 +276,7 @@ Template.smartervote.helpers
         return "active"
     return ""
 
-Template.smartervote.events
+Template.question.events
   'click .max': (evt, tmpl) ->
     evt.target.blur()
     updateAnswer(@question.max, null, @question)
@@ -318,15 +323,15 @@ Template.smartervote.events
     _showInfo.set false
     $('#header').hide().show(0)
 
-  'click #gotoScore': (evt) ->
-    evt.preventDefault()
-    Session.set 'showScore', true
-
   "click #reset": (evt, tmpl) ->
     Meteor.call "resetVisit", _visitId, (error, id) ->
       throwError error if error?
       if Session.get('selectedVisitId')?
         Session.set 'selectedVisitId', id
+
+  'click #gotoEvaluation': (evt) ->
+    evt.preventDefault()
+    Session.set 'showEvaluation', true
 
 
 Template.slider.rendered = ->

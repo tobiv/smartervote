@@ -1,4 +1,6 @@
-Template.score.rendered = ->
+Template.evaluation.rendered = ->
+  @$("#question").mCustomScrollbar({ theme: 'minimal-dark' })
+
   #render SVG as PNG
   return if !_network?
   svgElementId = _network.getSVGElementId()
@@ -40,7 +42,7 @@ Template.score.rendered = ->
 
   loader.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML)
 
-Template.score.helpers
+Template.evaluation.helpers
   visit: ->
     v = Visits.findOne Session.get('visitId')
     v.scoredDoc() if v?
@@ -56,6 +58,6 @@ Template.score.helpers
     #  "https://pbs.twimg.com/media/CZKmfWBUgAAnubV.jpg:large"
 
 
-Template.score.events
+Template.evaluation.events
   "click #gotoQuestions": (evt) ->
-    Session.set 'showScore', false
+    Session.set 'showEvaluation', false
