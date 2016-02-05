@@ -18,7 +18,7 @@ Template.posts.events
     title = evt.target.title.value
     Meteor.call "createPost", title, (error, slug)->
       throwError error if error?
-      Router.go 'post',
+      Router.go 'pages/:slug',
         slug: slug
     evt.target.title.value = ""
     evt.target.title.blur()

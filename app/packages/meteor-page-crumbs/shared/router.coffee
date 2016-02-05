@@ -1,4 +1,4 @@
-Router.route 'post/:slug',
+Router.route 'pages/:slug',
   waitOn: ->
     Meteor.subscribe('post', @params.slug)
   data: ->
