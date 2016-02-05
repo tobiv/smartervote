@@ -14,23 +14,100 @@
 @import "edit_questions.import.less";
 @import "smartervote.import.less";
 
+
+//
+@viewport-border-width: 0.9em;
+@font-size-logo-medium: 2em;
+@color-brand: #ffc800;
+
 body {
 	margin: 0;
+	padding: @viewport-border-width;
 	
+	background: #f6f6f6;
 	color: black;
 	
 	font-family: 'Circular', sans-serif;
 	line-height: 1.3;
-	
-	h2 {
-		border: none;
-	}
-	
-	
+}
+
+h1, h2, h3, h4 {	
+  border: none;
+	font-family: 'Circular', sans-serif;
+}
+
+/*
+ * Fancy border around the viewport (non-scrolling)
+ */
+[id^="border-"] {
+	background: @color-brand;
+	position: fixed;
+}
+#border-left, 
+#border-right {
+	top: 0; bottom: 0;
+	width: @viewport-border-width;
+}
+#border-left { left: 0; }
+#border-right { right: 0; }
+		
+#border-top, 
+#border-bottom {
+	left: 0; right: 0;
+	height: @viewport-border-width;
+}
+#border-top { top: 41px; }
+#border-bottom { bottom: 0; }
+
+
+#site-header {
+  margin-top: 40px;
+  padding: 2em 1.5em 1.2em;
+  
+  border-bottom: 1px solid gray;
+}
+
+.logo-circle {
+  float: left;
+  width: 2 * @font-size-logo-medium;
+  height: 2 * @font-size-logo-medium;
+  margin-right: 1.5em;
+  
+  border-radius: 50%;
+  background: @color-brand;
+}
+
+.logo-text {
+  font-weight: bold;
+  font-size: @font-size-logo-medium;
+  line-height: 1.09;
+}
+
+#site-menu {
+  float: right;
+  
+  font-weight: bold;
+  
+  .languages {
+    display: inline-block;
+    font-size: 1.2em;
+  }
+}
+
+.site-menu-toggle {
+  width: 44px;
+  height: 24px;
+  margin: 0 1em;
+  
+  background: transparent url(/img/icon-menu.svg) 50% 50% no-repeat;
+  background-size: contain;
+  border: 0;
+  
+  text-indent: -9999em;
 }
 
 #main {
-  padding-top: 40px;
+  
 }
 
 .link {

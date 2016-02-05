@@ -9,7 +9,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{pathFor 'home'}}">BGE</a>
+      <a class="navbar-brand" href="{{pathFor 'home'}}">
+        BGE Admin
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -22,11 +24,6 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#">
-            {{> languageSwitcher}}
-          </a>
-        </li>
         {{#if isInRole 'admin'}}
         <li class="{{activeRouteClass 'admin.cnc'}}">
           <a href="{{pathFor 'admin.cnc'}}">
@@ -49,4 +46,19 @@
     </div>
   </div>
 </nav>
+
+<div id="site-header">
+  <div id="site-menu">
+    {{> languageSwitcher}}
+    <button class="site-menu-toggle">Menü</button>
+  </div>
+  
+  <div class="site-brand">
+    <div class="logo-circle"></div>
+    <div class="logo-text">
+      Volksinitiative für ein<br>
+      Bedingungsloses Grundeinkommen
+    </div>
+  </div>
+</div>
 </template>
