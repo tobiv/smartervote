@@ -9,33 +9,6 @@
 // Slider customisation
 @import "noui.import.less";
 
-body {
-
-}
-
-/*
- * Reset bootstrap buttons
- */
-.btn {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  color: black;
-  
-  &:focus,
-  &:hover,
-  &:active {
-    outline: 0;
-    background: transparent;
-    box-shadow: none;
-    color: black;
-  }
-  
-  &:focus {
-    color: #444;
-    text-decoration: underline;
-  }
-}
 
 /*
  * Main app panel that contains all parts
@@ -50,6 +23,30 @@ body {
   overflow: hidden; // prevent weird scrollbars, but be careful nothing important gets cut off
   
   background: white;
+  
+  /*
+   * Reset bootstrap buttons
+   */
+  .btn {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    color: black;
+    
+    &:focus,
+    &:hover,
+    &:active {
+      outline: 0;
+      background: transparent;
+      box-shadow: none;
+      color: black;
+    }
+    
+    &:focus {
+      color: #444;
+      text-decoration: underline;
+    }
+  }
 }
 
 /*
