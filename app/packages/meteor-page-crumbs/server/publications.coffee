@@ -1,3 +1,10 @@
+Meteor.publish "posts", ->
+  if @userId? and Roles.userIsInRole @userId, 'admin'
+    Posts.find()
+  else
+    Posts.find
+      published: true 
+
 Meteor.publish "post", (slug) ->
   if @userId? and Roles.userIsInRole @userId, 'admin'
     Posts.find
