@@ -10,6 +10,30 @@
 @import "noui.import.less";
 
 /*
+ * Reset bootstrap buttons
+ */
+.btn {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: black;
+  
+  &:focus,
+  &:hover,
+  &:active {
+    outline: 0;
+    background: transparent;
+    box-shadow: none;
+    color: black;
+  }
+  
+  &:focus {
+    color: #444;
+    text-decoration: underline;
+  }
+}
+
+/*
  * Main app panel that contains all parts
  * covers the full viewport
  */
@@ -32,6 +56,15 @@
   z-index: 11000;
   
   padding: 1em;
+}
+
+.languages {
+  display: inline-block;
+  
+  span {
+    display: inline-block;
+    padding: 0 0.5rem;
+  }
 }
 
 /*
@@ -103,34 +136,9 @@
         min-height: 8rem;
         padding: 0;
         
-        background: transparent;
-        border: 0;
-        color: black;
-        
         font-weight: bold;
         font-size: 1.5vw; // of viewport width
         white-space: normal;
-        
-        
-        &:focus {
-          outline: 0;
-        }
-        
-        &:active {
-          color: black;
-          box-shadow: none;
-          
-          span {
-            font-size: 2.35em;
-          }
-        }
-        &.active {
-          box-shadow: none;
-          
-          span {
-            text-decoration: underline;
-          }
-        }
         
         &.max {
           text-align: left;
@@ -142,10 +150,7 @@
         
         span {
           display: block;
-/*
-          position: relative;
-          top: 0.5vh;
-*/
+          
           font-size: 4vw; // of viewport width
           line-height: 0.9;
           
@@ -210,22 +215,8 @@
     flex: 1 0 25%;
     padding: 0;
     
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    color: black;
-    
     line-height: @height-question-nav;
     min-height: 4.5rem;
-    
-    &:hover {
-      background: transparent;
-      color: black;
-    }
-    
-    span {
-      display: inline-block;
-    }
   }
   
   #back {
@@ -254,10 +245,6 @@
 #reset {
   width: 100%;
   padding: 0;
-  
-  background: transparent;
-  border: 0;
-  color: black;
   
   font-size: 0.9em;
   line-height: @height-reset-button;
