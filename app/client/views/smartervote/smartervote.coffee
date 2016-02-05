@@ -913,7 +913,7 @@ class Chain
 
 
 Template.evaluation.rendered = ->
-  @$("#question").mCustomScrollbar({ theme: 'minimal-dark' })
+  @$("#evaluation").mCustomScrollbar({ theme: 'minimal-dark' })
 
   #render SVG as PNG
   return if !_network?
