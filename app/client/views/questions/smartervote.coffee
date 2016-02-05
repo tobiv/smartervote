@@ -126,7 +126,7 @@ Template.smartervote.destroyed = ->
   $(window).off("resize", resize)
 
 Template.smartervote.rendered = ->
-  @$("#content").mCustomScrollbar()
+  @$("#content").mCustomScrollbar({ theme: 'minimal-dark' })
   
   footerHeight = @$('.footer').outerHeight()
   @$('.mCSB_container').css( 'padding-bottom', footerHeight )
