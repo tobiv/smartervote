@@ -1,55 +1,34 @@
 class @Network
-  element = null
-  svgElementId = 'bubblesSVG'
-  width = null
-  height = null
-
-  # these will hold the svg groups for
-  # accessing the nodes and links display
-  nodesG = null
-  linksG = null
-
-  force = null
-  drag = null
-
-  nodes = null
-  links = null
-
-  radiusMax = null
-
   constructor: (ele, rMax) ->
-    element = ele
-    radiusMax = rMax
+    @element = ele
+    @radiusMax = rMax
 
-    width = $(element).width()
-    height = $(element).height()
-    #height = $(window).height()-45
-    #width = 640 if width < 640
-    #height = 800 if height < 800
+    #init instance vars
+    @svgElementId = 'bubblesSVG'
+    @width = $(@element).width()
+    @height = $(@element).height()
 
-    vis = d3.select(element).append("svg")
-      .attr('id', svgElementId)
-      .attr("width", width)
-      .attr("height", height)
+    vis = d3.select(@element).append("svg")
+      .attr('id', @svgElementId)
+      .attr("width", @width)
+      .attr("height", @height)
       .attr('pointer-events', 'all')
-      #.attr('viewBox', '0 0 ' + width + ' ' + height)
+      #.attr('viewBox', '0 0 ' + @width + ' ' + @height)
       #.attr('viewBox', '0 0 800 600')
       #.attr('perserveAspectRatio', 'xMinYMid')
 
-    linksG = vis.append("g").attr("id", "links")
-    nodesG = vis.append("g").attr("id", "nodes")
+    @linksG = vis.append("g").attr("id", "links")
+    @nodesG = vis.append("g").attr("id", "nodes")
 
-    force = d3.layout.force()
+    @force = d3.layout.force()
+    @drag = @force.drag()
 
-    drag = force.drag()
-      .on("dragstart", @dragstart)
-
-    nodes = force.nodes()
-    links = force.links()
+    @nodes = @force.nodes()
+    @links = @force.links()
 
 
   update: ->
-    node = nodesG.selectAll("circle.node").data(nodes, (d) -> d.id)
+    node = @nodesG.selectAll("circle.node").data(@nodes, (d) -> d.id)
     nodeEnter = node.enter()
     nodeEnter.append("circle") #image
       .attr("class", "node")
@@ -61,15 +40,10 @@ class @Network
       .attr("cx", (d) -> d.x)
       .attr("cy", (d) -> d.y)
       .style("stroke-width", 0)
-      .on("dblclick", @dblclick)
       .on("click", @click)
       .on("mouseover", @mouseover)
       .on("mouseout", @mouseout)
-      .call(drag)
-    #nodeEnter.append("text")
-    #  .attr("dx", (d) -> d.x)
-    #  .attr("dy", (d) -> d.y)
-    #  .text( (d) -> d.id )
+      .call(@drag)
     node
       .attr("r", (d) -> d.radius)
       .style("fill", (d) -> d.fillColor)
@@ -78,7 +52,7 @@ class @Network
       .style("stroke-width", (d) -> d.strokeWidth)
     node.exit().remove()
 
-    link = linksG.selectAll("line.link").data(links, (d) -> d.id)
+    link = @linksG.selectAll("line.link").data(@links, (d) -> d.id)
     link.enter().append("line")
       .attr("class", "link")
       .attr("stroke", (d) -> d.strokeColor)#"#ddd")
@@ -95,11 +69,15 @@ class @Network
     link.exit().remove()
 
     collide = @collide
-    force.on 'tick', ->
+    nodes = @nodes
+    radiusMax = @radiusMax
+    width = @width
+    height = @height
+    @force.on 'tick', ->
       now = Date.now()
       node
-        .each(collide(.5))
-        .attr("cx", (d) -> 
+        .each(collide(.5, nodes, radiusMax))
+        .attr("cx", (d) ->
           #x with respect to width
           d.x = Math.max(d.radius, Math.min(width - d.radius, d.x))
           #honour xMax
@@ -107,7 +85,7 @@ class @Network
             d.x = d.xMax
           d.x
         )
-        .attr("cy", (d) -> 
+        .attr("cy", (d) ->
           #y with respect to height
           d.y = Math.max(d.radius, Math.min(height - d.radius, d.y))
         )
@@ -120,8 +98,8 @@ class @Network
       return
 
     # Restart the force layout.
-    force
-      .size([ width, height ])
+    @force
+      .size([ @width, @height ])
       .gravity(.0)
       .charge(-100)
       .linkDistance( (d) -> d.linkDistance )
@@ -129,60 +107,51 @@ class @Network
       .start()
     return
 
-  _onNodeClick = null
   onNodeClick: (f) ->
-    _onNodeClick = f
+    @_onNodeClick = f
 
-  _onNodeHover = null
   onNodeHover: (f) ->
-    _onNodeHover = f
+    @_onNodeHover = f
 
   click: (d) ->
-    _onNodeClick(d) if _onNodeClick?
-
-  dblclick: (d) ->
-    d3.select(@).classed("fixed", d.fixed = false)
+    @_onNodeClick(d) if @_onNodeClick?
 
   mouseover: (d) ->
-    _onNodeHover(d) if _onNodeHover?
+    @_onNodeHover(d) if @_onNodeHover?
   mouseout: (d) ->
-    _onNodeHover(null) if _onNodeHover?
-
-  dragstart: (d) ->
-    # no fixing for now
-    #d3.select(@).classed("fixed", d.fixed = true)
+    @_onNodeHover(null) if @_onNodeHover?
 
   findNode: (id) ->
-    for i of nodes
-      if nodes[i]['id'] == id
-        return nodes[i]
+    for i of @nodes
+      if @nodes[i]['id'] == id
+        return @nodes[i]
     return
 
   findNodeIndex: (id) ->
     i = 0
-    while i < nodes.length
-      if nodes[i].id == id
+    while i < @nodes.length
+      if @nodes[i].id == id
         return i
       i++
     return
 
   findLinkIndex: (id) ->
     i = 0
-    while i < links.length
-      if links[i].id == id
+    while i < @links.length
+      if @links[i].id == id
         return i
       i++
     return
 
   addNode: (node) ->
     check node.id, String
-    nodes.push node
+    @nodes.push node
     @update()
     return
 
   changeNode: (node) ->
     check node.id, String
-    n = nodes[@findNodeIndex(node.id)]
+    n = @nodes[@findNodeIndex(node.id)]
     if n?
       n.radius = node.radius if node.radius?
       n.fillColor = node.fillColor if node.fillColor?
@@ -210,12 +179,12 @@ class @Network
   removeNode: (id) ->
     i = 0
     n = @findNode(id)
-    while i < links.length
-      if links[i]['source'] == n or links[i]['target'] == n
-        links.splice i, 1
+    while i < @links.length
+      if @links[i]['source'] == n or @links[i]['target'] == n
+        @links.splice i, 1
       else
         i++
-    nodes.splice @findNodeIndex(id), 1
+    @nodes.splice @findNodeIndex(id), 1
     @update()
     return
 
@@ -227,17 +196,17 @@ class @Network
       id: "#{link.sourceId}__#{link.targetId}"
       'source': @findNode(link.sourceId)
       'target': @findNode(link.targetId)
-    link = _.omit link, ['sourceId', 'targetId']
     check link.source, Object
     check link.target, Object
-    links.push link
+    link = _.omit link, ['sourceId', 'targetId']
+    @links.push link
     @update()
     return
 
   changeLink: (link) ->
     check link.sourceId, String
     check link.targetId, String
-    l = links[@findLinkIndex("#{link.sourceId}__#{link.targetId}")]
+    l = @links[@findLinkIndex("#{link.sourceId}__#{link.targetId}")]
     l.linkDistance = link.linkDistance
     @update()
     return
@@ -247,51 +216,41 @@ class @Network
     check link.targetId, String
     i = @findLinkIndex("#{link.sourceId}__#{link.targetId}")
     if i?
-      links.splice i, 1
+      @links.splice i, 1
     @update()
     return
 
   removeAllLinks: ->
-    links.splice 0, links.length
+    @links.length = 0
     @update()
     return
 
   removeAllNodes: ->
-    nodes.splice 0, links.length
+    @nodes.length = 0
     @update()
     return
 
-  width: ->
-    width
-
-  height: ->
-    height
-
   resize: ->
-    width = $(element).width()
-    height = $(element).height()
-    svg = $('#'+svgElementId).get(0)
+    @width = $(@element).width()
+    @height = $(@element).height()
+    svg = $('#'+@svgElementId).get(0)
     #svg.setAttribute 'viewBox', "0 0 #{w} #{h}"
-    svg.setAttribute 'width', width
-    svg.setAttribute 'height', height
+    svg.setAttribute 'width', @width
+    svg.setAttribute 'height', @height
     @update()
 
   getElement: ->
-    element
+    @element
 
-  getSVGElementId: ->
-    svgElementId
-  
   # Resolves collisions between d and all other circles.
   # http://stackoverflow.com/questions/11339348/avoid-d3-js-circles-overlapping
-  collide: (alpha) ->
+  collide: (alpha, nodes, radiusMax) ->
     padding = 5 #separation between same-color circles
     clusterPadding = 6 #separation between different-color circles
-    maxRadius = radiusMax
 
     quadtree = d3.geom.quadtree(nodes)
     (d) ->
-      r = d.radius + maxRadius + Math.max(padding, clusterPadding)
+      r = d.radius + radiusMax + Math.max(padding, clusterPadding)
       nx1 = d.x - r
       nx2 = d.x + r
       ny1 = d.y - r

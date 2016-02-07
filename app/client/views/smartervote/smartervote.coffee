@@ -1,8 +1,3 @@
-_numQuestions = new ReactiveVar(0)
-_questionIndex = new ReactiveVar(-1)
-_showInfo = new ReactiveVar(false)
-_resizeTrigger = new ReactiveVar(false)
-
 radiusMax = 80
 rScale = d3.scale.linear()
 rScale.domain [0, 0.5]
@@ -21,9 +16,7 @@ colors = [
 _clusters = []
 _topics = []
 
-#declared and assigned to
-#window in rendered
-#_network = null
+_network = null
 _beforeHoverIndex = null
 _beforeHoverShowEvaluation = null
 
@@ -35,6 +28,13 @@ _visitId = null
 _answers = {}
 _answerSaver = null
 _proPercent = ReactiveVar(0)
+_clustersAdded = false
+
+_numQuestions = 0
+
+_questionIndex = new ReactiveVar(-1)
+_showInfo = new ReactiveVar(false)
+
 
 _resizeTimeout = null
 @resize = ->
@@ -77,17 +77,11 @@ doResize = ->
   xMax = $('#content').offset().left
   _field.setXMax xMax
 
-  toggle = null
-  Tracker.nonreactive ->
-    toggle = _resizeTrigger.get()
-  _resizeTrigger.set !toggle
-  
   # recalculate content padding
   footerHeight = @$('.footer').outerHeight()
   @$('.mCSB_container').css( 'padding-bottom', footerHeight )
 
 
-_clustersAdded = false
 upsertClusters = ->
   numClusters = _clusters.length
   width = $('#content').offset().left
@@ -123,11 +117,25 @@ upsertClusters = ->
 
 Template.smartervote.destroyed = ->
   $(window).off("resize", resize)
+  _clusters = []
+  _topics = []
+  _network = null
+  _beforeHoverIndex = null
+  _beforeHoverShowEvaluation = null
+  _chain = null
+  _pitcher = null
+  _field = null
+  _visitId = null
+  _answers = {}
+  _answerSaver = null
+  _proPercent = ReactiveVar(0)
+  _clustersAdded = false
+  _numQuestions = 0
 
 Template.smartervote.rendered = ->
   Session.set 'showEvaluation', false
   #initialize network
-  window._network = new Network("#bubbles-container", radiusMax)
+  _network = new Network("#bubbles-container", radiusMax)
 
   #jump to question, when clicking on node
   _network.onNodeClick (d) ->
@@ -143,7 +151,7 @@ Template.smartervote.rendered = ->
       _questionIndex.set d.qIndex
       _beforeHoverShowEvaluation = Session.get('showEvaluation') if not _beforeHoverShowEvaluation?
       Session.set 'showEvaluation', false
-    else 
+    else
       if _beforeHoverIndex?
         _questionIndex.set _beforeHoverIndex
         _beforeHoverIndex = null
@@ -151,8 +159,7 @@ Template.smartervote.rendered = ->
         Session.set 'showEvaluation', _beforeHoverShowEvaluation
         _beforeHoverShowEvaluation = null
 
-  @autorun ->
-    _numQuestions.set Questions.find().count()
+  _numQuestions = Questions.find().count()
 
   #get clusters and topics from questions and draw them
   clusters = []
@@ -194,7 +201,7 @@ Template.smartervote.rendered = ->
   _chain = new Chain(_network)
   _pitcher = new Pitcher(_network)
   _field = new Field(_network)
- 
+
   #subscribe to resize
   $(window).resize(resize)
   resize()
@@ -256,10 +263,10 @@ Template.smartervote.helpers
 
 Template.question.rendered = ->
   @$("#question").mCustomScrollbar({ theme: 'minimal-dark' })
-  
+
   footerHeight = @$('.footer').outerHeight()
   @$('.mCSB_container').css( 'padding-bottom', footerHeight )
-  
+
 Template.question.helpers
   question: ->
     Questions.findOne
@@ -296,7 +303,7 @@ Template.question.events
     evt.target.blur()
     updateAnswer(@question.max, null, @question)
     return
-  
+
   'click .min': (evt, tmpl) ->
     evt.target.blur()
     updateAnswer(@question.min, null, @question)
@@ -320,7 +327,7 @@ Template.question.events
       qi = _questionIndex.get()-1
     #roundrobin
     if qi < 0
-      qi = _numQuestions.get()-1
+      qi = _numQuestions-1
     gotoQuestionIndex qi
 
   'click .showInfo': (evt) ->
@@ -423,7 +430,7 @@ goNext = ->
     Session_.push 'questionIndices', question.index
   else
     qi = _questionIndex.get()+1
-    if qi is _numQuestions.get()
+    if qi is _numQuestions
       qi = 0
     _questionIndex.set qi
     Session_.push 'questionIndices', qi
@@ -531,32 +538,36 @@ updateAnswer = (consent, importance, question) ->
     _answerSaver.upsertAnswer question._id
 
 class AnswerSaver
-  ids = []
-  saveTimeout = null
-  saving = false
-  saveAgain = false
   call = Promise.promisify(Meteor.call, Meteor)
+  constructor: ->
+    #init instance vars
+    @ids = []
+    @saveTimeout = null
+    @saving = false
+    @saveAgain = false
+
   upsertAnswer: (id) ->
-    ids.unshift id
-    ids = _.unique ids
+    @ids.unshift id
+    @ids = _.unique @ids
     @saveAll()
 
   saveAll: () ->
     #console.log "saveAll"
-    self = @
-    if saving
-      saveAgain = true
+    if @saving
+      @saveAgain = true
       return
-    Meteor.clearTimeout(saveTimeout) if saveTimeout?
-    saveTimeout = Meteor.setTimeout ->
+    Meteor.clearTimeout(@saveTimeout) if @saveTimeout?
+    self = @
+    @saveTimeout = Meteor.setTimeout ->
       self.doSaveAll()
     , 1000
 
   doSaveAll: () ->
     #console.log "doSaveAll--"
-    idsToPush = _.clone ids
-    ids.length = 0
-    saving = true
+    idsToPush = _.clone @ids
+    @ids.length = 0
+    @saving = true
+    self = @
     Promise.each(idsToPush, (id)->
       answer = _answers[id]
       answer.visitId = _visitId if _visitId?
@@ -574,18 +585,18 @@ class AnswerSaver
           _answerSaver.upsertAnswer id
     ).finally ->
       #console.log "all answers saved"
-      saving = false
-      if saveAgain
-        saveAgain = false
+      self.saving = false
+      if self.saveAgain
+        self.saveAgain = false
         _answerSaver.saveAll()
     return
 
 
 class Pitcher
-  holdingAnswer = null
-  network = null
   constructor: (ourNetwork) ->
     @network = ourNetwork
+    #init instance vars
+    @holdingAnswer = null
     #answering pitcher
     #gets repositioned by resize()
     @network.addNode
@@ -597,8 +608,8 @@ class Pitcher
       #fillColor: '#000'
 
   catch: (answer) ->
-    debugger if holdingAnswer?
-    holdingAnswer = answer
+    debugger if @holdingAnswer?
+    @holdingAnswer = answer
     @update answer
     @network.addLink
       sourceId: 'pitcher'
@@ -606,37 +617,37 @@ class Pitcher
       linkDistance: 1
 
   update: (answer) ->
-    if answer.question._id isnt holdingAnswer.question._id
+    if answer.question._id isnt @holdingAnswer.question._id
       throw new Error 'answer is not on pitcher'
     @network.changeNode
-      id: holdingAnswer.question._id
+      id: @holdingAnswer.question._id
       radius: answer.radius
       fillColor: "#"+colors[answer.question.index]
 
   free: ->
     @network.removeLink
       sourceId: 'pitcher'
-      targetId: holdingAnswer.question._id
-    holdingAnswer = null
+      targetId: @holdingAnswer.question._id
+    @holdingAnswer = null
 
   getAnswer: ->
-    holdingAnswer
+    @holdingAnswer
 
 
 class Field
-  nodeIds = []
-  network = null
-  xMax = null
   constructor: (ourNetwork) ->
     @network = ourNetwork
+    #init instance vars
+    @nodeIds = []
+    @xMax = null
 
   buildAndCatch: (answer) ->
     question = answer.question
     node =
       id: question._id
       qIndex: question.index
-      x: @network.width()
-      y: @network.height()/2
+      x: @network.width
+      y: @network.height/2
       radius: answer.radius
       fillColor: "#"+colors[question.index]
     @network.addNode node
@@ -651,7 +662,7 @@ class Field
       radius: answer.radius
       fillColor: "#"+colors[question.index]
       strokeWidth: 0
-      xMax: xMax if xMax?
+      xMax: @xMax if @xMax?
       xMaxT: Date.now()+3000
 
     @network.addLink
@@ -662,7 +673,7 @@ class Field
       sourceId: question._id
       targetId: question.cluster+'_max'
       linkDistance: linkDistanceMax-ldMin
-    nodeIds.push question._id
+    @nodeIds.push question._id
     return
 
   update: (answer) ->
@@ -672,7 +683,7 @@ class Field
       radius: answer.radius
       fillColor: "#"+colors[question.index]
       strokeWidth: 0
-      xMax: xMax if xMax?
+      xMax: @xMax if @xMax?
 
     ldMin = linkDistanceScale(answer.value)
     @network.changeLink
@@ -696,43 +707,43 @@ class Field
     @network.changeNode
       id: question._id
       removeXMax: true
-      
-    index = nodeIds.indexOf question._id
-    nodeIds.splice(index, 1)
+
+    index = @nodeIds.indexOf question._id
+    @nodeIds.splice(index, 1)
     return
 
   setXMax: (max) ->
-    xMax = max
+    @xMax = max
     self = @
-    nodeIds.forEach (id) ->
+    @nodeIds.forEach (id) ->
       self.network.changeNode
         id: id
-        xMax: xMax
+        xMax: @xMax
 
 
 class Chain
-  items = []
-  nodeIds = []
-  network = null
-  radius = 12
-  linkDistance = 1
-  strokeWidth = 2
-  strokeColor = '#000'
+  radius: 12
+  linkDistance: 1
+  strokeWidth:2
+  strokeColor:'#000'
   constructor: (ourNetwork) ->
     @network = ourNetwork
+    #init instance vars
+    @items = []
+    @nodeIds = []
     #draw chain top & bottom
     @network.addNode
       id: 'chain_top'
       fixed: true
-      x: @network.width()#-radius/2
+      x: @network.width#-@radius/2
       y: 0
       radius: 0
       #fillColor: '#000'
     @network.addNode
       id: 'chain_bottom'
       fixed: true
-      x: @network.width()#-radius/2
-      y: @network.height()#-radius/2
+      x: @network.width#-@radius/2
+      y: @network.height#-@radius/2
       radius: 0
       #fillColor: '#000'
 
@@ -741,8 +752,8 @@ class Chain
     node =
       id: answer.question._id
       qIndex: answer.question.index
-      x: @network.width()-(radius/2)
-      y: radius*2*linkDistance*2*nodeIds.length
+      x: @network.width-(@radius/2)
+      y: @radius*2*@linkDistance*2*@nodeIds.length
     @network.addNode node
     @catch answer
 
@@ -750,65 +761,65 @@ class Chain
     if answer.status is 'new'
       @network.changeNode
         id: answer.question._id
-        radius: radius
+        radius: @radius
         fillColor: "#"+colors[answer.question.index]
         strokeWidth: 0
     else if answer.status is 'skipped'
       @network.changeNode
         id: answer.question._id
-        radius: radius
+        radius: @radius
         fillColor: d3.rgb("#"+colors[answer.question.index]).darker(2)
         strokeWidth: 0
     else if answer.status is 'dead'
       @network.changeNode
         id: answer.question._id
-        radius: radius-2.5
+        radius: @radius-2.5
         fillColor: "#fff"
         strokeColor: "#"+colors[answer.question.index]
         strokeWidth: 5
 
     #link up
     targetId = null
-    if nodeIds.length is 0
+    if @nodeIds.length is 0
       @network.addLink
         sourceId: answer.question._id
         targetId: 'chain_top'
-        linkDistance: linkDistance
+        linkDistance: @linkDistance
     else
       @network.addLink
         sourceId: answer.question._id
-        targetId: nodeIds[nodeIds.length-1]
-        linkDistance: linkDistance
-        strokeWidth: strokeWidth
-        strokeColor: strokeColor
-    nodeIds.push answer.question._id
-    items.push answer
+        targetId: @nodeIds[@nodeIds.length-1]
+        linkDistance: @linkDistance
+        strokeWidth: @strokeWidth
+        strokeColor: @strokeColor
+    @nodeIds.push answer.question._id
+    @items.push answer
 
 
     #relinkBottom
-    if nodeIds.length > 1
+    if @nodeIds.length > 1
       @network.removeLink
         sourceId: "chain_bottom"
-        targetId: nodeIds[nodeIds.length-2]
+        targetId: @nodeIds[@nodeIds.length-2]
     @network.addLink
       sourceId: 'chain_bottom'
-      targetId: nodeIds[nodeIds.length-1]
-      linkDistance: linkDistance
+      targetId: @nodeIds[@nodeIds.length-1]
+      linkDistance: @linkDistance
     return
 
   shift: ->
-    nodeId = nodeIds.shift()
+    nodeId = @nodeIds.shift()
 
     if nodeId?
-      if nodeIds.length > 0
+      if @nodeIds.length > 0
         #link new top to anchor
         @network.addLink
-          sourceId: nodeIds[0]
+          sourceId: @nodeIds[0]
           targetId: 'chain_top'
-          linkDistance: linkDistance
+          linkDistance: @linkDistance
         #remove link from next to this
         @network.removeLink
-          sourceId: nodeIds[0]
+          sourceId: @nodeIds[0]
           targetId: nodeId
 
       #remove link from this to top
@@ -817,28 +828,28 @@ class Chain
         targetId: 'chain_top'
 
       #remove link from bottom if this was last
-      if nodeIds.length is 0
+      if @nodeIds.length is 0
         @network.removeLink
           sourceId: 'chain_bottom'
           targetId: nodeId
 
-    return items.shift()
+    return @items.shift()
 
   pop: ->
-    nodeId = nodeIds.pop()
+    nodeId = @nodeIds.pop()
 
     if nodeId?
-      lastIndex = nodeIds.length-1
-      if nodeIds.length > 0
+      lastIndex = @nodeIds.length-1
+      if @nodeIds.length > 0
         #link new bottom to anchor
         @network.addLink
           sourceId: 'chain_bottom'
-          targetId: nodeIds[lastIndex]
-          linkDistance: linkDistance
+          targetId: @nodeIds[lastIndex]
+          linkDistance: @linkDistance
         #remove link from this to previous
         @network.removeLink
           sourceId: nodeId
-          targetId: nodeIds[lastIndex]
+          targetId: @nodeIds[lastIndex]
 
       #remove link from this to bottom
       @network.removeLink
@@ -846,39 +857,39 @@ class Chain
         targetId: nodeId
 
       #remove link from top if this was last
-      if nodeIds.length is 0
+      if @nodeIds.length is 0
         @network.removeLink
           sourceId: nodeId
           targetId: 'chain_top'
 
-    return items.pop()
+    return @items.pop()
 
   free: (answer) ->
     nodeId = answer.question._id
-    index = nodeIds.indexOf nodeId
+    index = @nodeIds.indexOf nodeId
 
     if index is 0
       return @shift()
-    else if index is nodeIds.length-1
+    else if index is @nodeIds.length-1
       return @pop()
     else
       #stitch together new neighbours
       @network.addLink
-        sourceId: nodeIds[index+1]
-        targetId: nodeIds[index-1]
-        linkDistance: linkDistance
-        strokeWidth: strokeWidth
-        strokeColor: strokeColor
+        sourceId: @nodeIds[index+1]
+        targetId: @nodeIds[index-1]
+        linkDistance: @linkDistance
+        strokeWidth: @strokeWidth
+        strokeColor: @strokeColor
       #remove link from this to previous
       @network.removeLink
         sourceId: nodeId
-        targetId: nodeIds[index-1]
+        targetId: @nodeIds[index-1]
       #remove link from next to this
       @network.removeLink
-        sourceId: nodeIds[index+1]
+        sourceId: @nodeIds[index+1]
         targetId: nodeId
-      nodeIds.splice index, 1
-      return items.splice index, 1
+      @nodeIds.splice index, 1
+      return @items.splice index, 1
 
 
 @freakout1 = ->
@@ -937,8 +948,8 @@ Template.evaluation.rendered = ->
   if !bubblesSVG
     return
   svgAsXML = bubblesSVG.parentNode.innerHTML
-  width = _network.width()
-  height = _network.height()
+  width = _network.width
+  height = _network.height
   #scale aspect
   maxWidth = 1024
   maxHeight = 768
