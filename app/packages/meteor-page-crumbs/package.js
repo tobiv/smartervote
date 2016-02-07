@@ -12,7 +12,7 @@ Package.onUse(function(api) {
   api.use(['livedata', 'underscore', 'deps', 'templating', 'ui', 'blaze', 'ejson', 'reactive-var', 'reactive-dict', 'random', 'jquery', 'less'], 'client');
   api.use(['coffeescript', 'check'], ['client', 'server']);
   api.use('chuangbo:marked@0.3.5_1', 'client');
-  api.use('jeremy:ghostdown@0.4.3', 'client');
+  api.use('patte:ghostdown@0.5.0', 'client');
   api.use('iron:router@1.0.12', ['client', 'server']);
   api.use('tap:i18n@1.7.0', ['client', 'server']);
 
@@ -26,8 +26,6 @@ Package.onUse(function(api) {
   api.addFiles('client/views/crumbs/crumb.html', 'client');
   api.addFiles('client/views/posts/post.html', 'client');
   api.addFiles('client/views/posts/posts.html', 'client');
-  api.addFiles('client/stylesheets/lib/editor.less', 'client');
-  api.addFiles('client/stylesheets/lib/ghostdown.less', 'client');
   api.addFiles('client/views/crumbs/crumb.coffee', 'client');
   api.addFiles('client/views/posts/post.coffee', 'client');
   api.addFiles('client/views/posts/posts.coffee', 'client');

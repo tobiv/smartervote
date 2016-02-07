@@ -99,7 +99,6 @@ iron:location@1.0.11
 iron:middleware-stack@1.0.11
 iron:router@1.0.12
 iron:url@1.0.11
-jeremy:ghostdown@0.4.3
 jquery@1.11.4
 jrudio:bluebird@2.9.34
 kaptron:minimongoid@0.9.8
@@ -143,6 +142,7 @@ oauth1@1.1.5
 oauth2@1.1.5
 observe-sequence@1.0.7
 ordered-dict@1.0.4
+patte:ghostdown@0.5.2
 patte:meteor-page-crumbs@0.0.1
 promise@0.5.1
 raix:eventemitter@0.1.3
