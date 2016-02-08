@@ -4,6 +4,13 @@ Template.postTitle.onRendered ->
   if Roles.userIsInRole Meteor.userId(), 'admin'
     @$('.page-header h1').attr('contenteditable', 'true')
 
+Template.postTitle.helpers
+  title: ->
+    lang = TAPi18n.getLanguage()
+    title = @titles?[lang]
+    if !title
+      title = "click here to set a title for lang: #{lang}"
+    title
 
 Template.post.onCreated ->
   tmpl = @
@@ -47,8 +54,10 @@ Template.post.events
 
   'keydown h1[contenteditable]': (evt) ->
     if evt.keyCode is 13 #return key
+      $(evt.target).blur()
       title = evt.target.innerText
-      Meteor.call 'changePostTitle', @_id, title, (error, slug) ->
+      lang = TAPi18n.getLanguage()
+      Meteor.call 'changePostTitle', @_id, title, lang, (error, slug) ->
         throwError error if error?
         Router.go 'pages/:slug',
           slug: slug
