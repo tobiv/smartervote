@@ -35,7 +35,8 @@
     -webkit-flex: 1 0 auto;
     -ms-flex: 1 0 auto;
     flex: 1 0 auto;
-    margin: 0 1.5rem;
+    margin: 0 3vm;
+    margin: 0 3vmin;
     
     cursor: pointer;
   }
@@ -48,14 +49,18 @@
   }
   
   .noUi-horizontal {
-    height: 4px;
+    height: 2px;
+    
+    @media only screen and (min-width: @screen-sm-min) {
+      height: 4px;
+    }
   }
   
   .noUi-handle {
-    width: 3em;
-    height: 3em;
-    left: -1.4em;
-    top: -1.4em;
+    width: 40px;
+    height: 40px;
+    left: -19px;
+    top: -19px;
     
     background: black;
     border: 0;
@@ -63,6 +68,7 @@
     box-shadow: none;
     
     transition: transform 0.1s;
+    cursor: pointer;
     
     &:hover {
       background: #444;
@@ -71,6 +77,13 @@
     &:before,
     &:after {
       content: none;
+    }
+    
+    @media only screen and (min-width: @screen-sm-min) {
+      width: 5vh;
+      height: 5vh;
+      left: -2.35vh;
+      top: -2.35vh;
     }
   }
   

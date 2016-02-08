@@ -35,8 +35,17 @@
       color: black;
     }
     
+    &:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+    
     &:focus {
       color: #444;
+      text-decoration: underline;
+    }
+    
+    &.active {
+      box-shadow: none;
       text-decoration: underline;
     }
   }
@@ -83,12 +92,22 @@
   z-index: 10000;
   top: 0;
   bottom: 0;
-  right: 46px;
-  width: 33%;
+  left: 10px;
+  right: 40px;
+  
+  min-width: 270px;
   overflow: hidden;
   
   img {
     max-width: 100%;
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    top: 0;
+    bottom: 0;
+    right: 40px;
+    left: auto;
+    width: 33%;
   }
   
   /*
@@ -98,64 +117,83 @@
   #header {
     padding-top: 1em;
     
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    
     .control-label {
-      font-size: 2vw; // of viewport width
+      font-size: 1.3em; 
+      
+      @media only screen and (min-width: @screen-md-min) {
+        font-size: 2vw; // of viewport width
+      }
     }
     
     .info {
       margin: 15px 0px;
     }
   }
+}
+
+/*
+ * Contains actual answering controls and question navigation
+ * tacked to bottom of #content
+ */
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: @controls-vertical-padding-min;
+}
+
+/*
+ * Answer buttons (yes/no || max/min)
+ * ? rename to .answers?
+ */
+.answers {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
   
-  /*
-   * Contains actual answering controls and question navigation
-   * tacked to bottom of #content
-   */
-  .footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-top: @controls-vertical-padding-min;
+  button {
+    -webkit-flex: 1 0 50%;
+    -ms-flex: 1 0 50%;
+    flex: 1 0 50%;
     
-    /*
-     * Answer buttons (yes/no || max/min)
-     * ? rename to .answers?
-     */
-    .buttons {
-      display: -webkit-flex;
-      display: -ms-flex;
-      display: flex;
+    height: @height-answers;
+    min-height: 8rem;
+    padding: 0;
+    
+    font-weight: bold;
+    font-size: 1em; // of viewport width
+    white-space: normal;
+    
+    &.max {
+      text-align: left;
+    }
+    
+    &.min {
+      text-align: right;
+    }
+    
+    span {
+      display: block;
       
-      button {
-        -webkit-flex: 1 0 50%;
-        -ms-flex: 1 0 50%;
-        flex: 1 0 50%;
-        
-        height: @height-answers;
-        min-height: 8rem;
-        padding: 0;
-        
-        font-weight: bold;
-        font-size: 1.5vw; // of viewport width
-        white-space: normal;
-        
-        &.max {
-          text-align: left;
-        }
-        
-        &.min {
-          text-align: right;
-        }
-        
-        span {
-          display: block;
-          
-          font-size: 4vw; // of viewport width
-          line-height: 0.9;
-          
-          text-transform: uppercase;
-        }
+      font-size: 2.5em; // of viewport width
+      line-height: 0.9;
+      
+      text-transform: uppercase;
+    }
+  }
+  
+  @media only screen and (min-width: @screen-md-min) {
+    button {
+      font-size: 1.5vw; // of viewport width
+      
+      span {
+        font-size: 4vw; // of viewport width
       }
     }
   }
@@ -181,10 +219,13 @@
  */
 .mCSB_container {
   min-height: 99.9%; /* 1 */
-  margin-right: 30px !important; /* 2 */
   
   #question & {
     padding-bottom: 33rem; /* 3 */
+  }
+  
+  @media only screen and (min-width: @screen-md-min) {
+    margin-right: 30px !important; /* 2 */
   }
 }
 
@@ -197,7 +238,11 @@
 
 .showInfo,
 .hideInfo {
-  font-size: 1.2vw;
+  font-size: 1em;
+  
+  @media only screen and (min-width: @screen-lg-min) {
+    font-size: 1.2vw;
+  }
 }
 
 /*
@@ -306,10 +351,15 @@
 
 }
 
+.final-score,
+.sharing,
+.topics {
+  text-align: center;  
+}
+
 .final-score {
   margin-bottom: 2vh;
-  text-align: center;
-  
+
   span {
     font-weight: bold;
     font-size: 5vw;
@@ -318,15 +368,33 @@
 
 .sharing {
   background-color: white;
-  
-  text-align: center;
+}
+
+.topics {
+  .btn {
+    .glyphicon {
+      //visibility: hidden;
+      color: white;
+    }
+  }
+  .active {
+    .glyphicon {
+      visibility: visible;
+      color: black;
+    }
+  }
 }
 
 /*
  * Score gauge on left side of the view
  */
 #score-gauge {
+  display: none;
   position: absolute;
   top: 50%;
+  
+  @media only screen and (min-width: @screen-md-min) {
+    display: block;
+  }
 }
 

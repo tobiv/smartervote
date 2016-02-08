@@ -44,7 +44,7 @@
       </div>
 
       <div class="footer">
-        <div class="buttons control-section">
+        <div class="answers control-section">
           <button type="button" class="max {{activeCSS true}} btn btn-default">
             <span>{{maxLabel}}</span>
             {{maxLabelAffix}}
@@ -102,21 +102,20 @@
   </div>
 	
   {{#if showCreateAccount}}
-  <br>
   <div class="text-center">
     <p>Logge dich ein oder erstelle einen Account, um deine Antworten zu speichern:</p>
     {{> loginButtons}}
   </div>
   {{/if}}
 
-  <br>
-
-  <h3>Wie stehtst du zu einzelnen Bereichen?</h3>
-  {{#each topics}}
+  <div class="topics">
+    Wie stehst du zu einzelnen Bereichen?<br>
+    {{#each topics}}
     <button type="button" class="topic {{topicCSS}} btn btn-default">
-      <span>{{this}}</span>
+      <span class="glyphicon glyphicon-ok"> </span>{{this}}
     </button>
-  {{/each}}
+    {{/each}}
+  </div>
   
 </div>
 </template>
