@@ -85,23 +85,24 @@ Template.crumbContent.onRendered ->
   #add bootstrap class table to tables
   @$('table').addClass('table')
   #init readmore
-  @$('.crumb-content').readmore('destroy')
-  @$('.crumb-content').readmore
-    # moreLink: '<a href="#"><i class="fa fa-lg fa-expand"></i></a>'
-    moreLink: '<a class="more-or-less" href="#"><i class="fa fa-2x fa-ellipsis-h"></i></a>'
-    lessLink: '<a class="more-or-less" href="#"><i class="fa fa-lg fa-compress"></i></a>'
-    collapsedHeight: 215
-    afterToggle: (trigger, element, expanded) ->
-      id = $(element).attr('id')
-      if expanded
-        # we use namespaced events to be able to
-        # have multiple event handlers and remove them individually
-        # http://stackoverflow.com/questions/12270769/unbinding-event-that-has-been-bound-mutliple-times
-        $(window).bind "scroll.#{id}", (evt) ->
-          manageAffixControls trigger, element, expanded
-      else
-        $(window).unbind("scroll.#{id}")
-      manageAffixControls trigger, element, expanded
+  if !NOREADMORE
+    @$('.crumb-content').readmore('destroy')
+    @$('.crumb-content').readmore
+      # moreLink: '<a href="#"><i class="fa fa-lg fa-expand"></i></a>'
+      moreLink: '<a class="more-or-less" href="#"><i class="fa fa-2x fa-ellipsis-h"></i></a>'
+      lessLink: '<a class="more-or-less" href="#"><i class="fa fa-lg fa-compress"></i></a>'
+      collapsedHeight: 215
+      afterToggle: (trigger, element, expanded) ->
+        id = $(element).attr('id')
+        if expanded
+          # we use namespaced events to be able to
+          # have multiple event handlers and remove them individually
+          # http://stackoverflow.com/questions/12270769/unbinding-event-that-has-been-bound-mutliple-times
+          $(window).bind "scroll.#{id}", (evt) ->
+            manageAffixControls trigger, element, expanded
+        else
+          $(window).unbind("scroll.#{id}")
+        manageAffixControls trigger, element, expanded
 
 Template.crumbContent.onDestroyed ->
   crumbContent = @$('.crumb-content')

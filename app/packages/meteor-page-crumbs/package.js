@@ -32,7 +32,6 @@ Package.onUse(function(api) {
   api.addFiles('client/lib/readmore.min.js', 'client');
   api.addFiles('client/stylesheets/crumbs.less', 'client');
   api.addFiles('client/stylesheets/posts.less', 'client');
-
 });
 
 Package.onTest(function(api) {
