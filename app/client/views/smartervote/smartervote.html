@@ -90,7 +90,7 @@
   </div>
   
   <div class="final-score">
-    {{_ "yourScore"}}<br>
+    {{_ "yourScore"}}:<br>
     <span>{{proPercent}}% pro</span>
   </div>
 
@@ -99,14 +99,14 @@
     <img id="mybubbles-preview"/>
     -->
     
-    {{_ "shareYourScore"}}<br>
+    {{_ "shareYourScore"}}:<br>
     {{>shareit shareData}}
     <a href="/myBubbles/{{visit._id}}" target='_blank'>link</a>
   </div>
 	
   {{#if showCreateAccount}}
-  <div class="text-center">
-    <p>{{_ "createAccount"}}</p>
+  <div class="account">
+    <p>{{_ "createAccount"}}:</p>
     {{> loginButtons}}
   </div>
   {{/if}}

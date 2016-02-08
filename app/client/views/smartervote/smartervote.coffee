@@ -265,7 +265,7 @@ Template.smartervote.helpers
 
 
 Template.question.rendered = ->
-  @$("#question").mCustomScrollbar({ theme: 'minimal-dark' })
+  @$("#question").mCustomScrollbar({ theme: 'minimal-dark', mouseWheel: { preventDefault: true }, scrollButtons: { enable: false } })
 
   footerHeight = @$('.footer').outerHeight()
   @$('.mCSB_container').css( 'padding-bottom', footerHeight )
@@ -946,7 +946,7 @@ class Chain
 
 
 Template.evaluation.rendered = ->
-  @$("#evaluation").mCustomScrollbar({ theme: 'minimal-dark' })
+  @$("#evaluation").mCustomScrollbar({ theme: 'minimal-dark', mouseWheel: { preventDefault: true }, scrollButtons: { enable: false } })
 
   #render SVG as PNG
   return if !_network?
