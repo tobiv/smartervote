@@ -105,15 +105,21 @@
   top: 0;
   bottom: 0;
   
-  //opacity: 0.2;
-  transition: opacity @transition-duration-dim;
+  .node {
+    opacity: 0.2;
+    transition: opacity @transition-duration-dim;
+  }
   
   &.dim {
-    //opacity: 1;
+    .node {
+      opacity: 1;
+    }
   }
   
   @media only screen and (min-width: @screen-sm-min) {
-    //opacity: 1;
+    .node {
+      opacity: 1;
+    }
   }
 }
 
