@@ -26,8 +26,13 @@ class @Network
     @nodes = @force.nodes()
     @links = @force.links()
 
+    @_onNodeClick = null
+    @_onNodeHover = null
+
 
   update: ->
+    onNodeClick = @_onNodeClick
+    onNodeHover = @_onNodeHover
     node = @nodesG.selectAll("circle.node").data(@nodes, (d) -> d.id)
     nodeEnter = node.enter()
     nodeEnter.append("circle") #image
@@ -40,9 +45,15 @@ class @Network
       .attr("cx", (d) -> d.x)
       .attr("cy", (d) -> d.y)
       .style("stroke-width", 0)
-      .on("click", @click)
-      .on("mouseover", @mouseover)
-      .on("mouseout", @mouseout)
+      .on("click", (d) ->
+        onNodeClick(d) if onNodeClick?
+      )
+      .on("mouseover", (d) ->
+        onNodeHover(d) if onNodeHover?
+      )
+      .on("mouseout", (d) ->
+        onNodeHover(null) if onNodeHover?
+      )
       .call(@drag)
     node
       .attr("r", (d) -> d.radius)
@@ -109,17 +120,8 @@ class @Network
 
   onNodeClick: (f) ->
     @_onNodeClick = f
-
   onNodeHover: (f) ->
     @_onNodeHover = f
-
-  click: (d) ->
-    @_onNodeClick(d) if @_onNodeClick?
-
-  mouseover: (d) ->
-    @_onNodeHover(d) if @_onNodeHover?
-  mouseout: (d) ->
-    @_onNodeHover(null) if @_onNodeHover?
 
   findNode: (id) ->
     for i of @nodes
