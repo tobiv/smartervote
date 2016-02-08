@@ -105,15 +105,21 @@
   top: 0;
   bottom: 0;
   
-  //opacity: 0.2;
-  transition: opacity @transition-duration-dim;
+  .node {
+    opacity: 0.2;
+    transition: opacity @transition-duration-dim;
+  }
   
   &.dim {
-    //opacity: 1;
+    .node {
+      opacity: 1;
+    }
   }
   
   @media only screen and (min-width: @screen-sm-min) {
-    //opacity: 1;
+    .node {
+      opacity: 1;
+    }
   }
 }
 
@@ -225,10 +231,11 @@
     height: @height-answers;
     min-height: 8rem;
     padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
     
     font-weight: bold;
     font-size: 1em; // of viewport width
-    white-space: normal;
     
     &.max {
       text-align: left;
@@ -240,6 +247,9 @@
     
     span {
       display: block;
+      overflow: visible;
+      overflow: hidden;
+      text-overflow: ellipsis;
       
       font-size: 2.5em; // of viewport width
       line-height: 0.9;
@@ -250,7 +260,7 @@
   
   @media only screen and (min-width: @screen-md-min) {
     button {
-      font-size: 1.5vw; // of viewport width
+      font-size: 2vw; // of viewport width
       
       span {
         font-size: 4vw; // of viewport width
@@ -339,9 +349,9 @@
   display: flex;
   
   button {
-    -webkit-flex: 1 0 25%;
-    -ms-flex: 1 0 25%;
-    flex: 1 0 25%;
+    -webkit-flex: 0 0 24%;
+    -ms-flex: 0 0 24%;
+    flex: 0 0 24%;
     
     padding: 0;
     
@@ -359,9 +369,9 @@
   }
   
   #gotoEvaluation {
-    -webkit-flex: 1 0 50%;
-    -ms-flex: 1 0 50%;
-    flex: 1 0 50%;
+    -webkit-flex: 1 1 50%;
+    -ms-flex: 1 1 50%;
+    flex: 1 1 50%;
     
     border: @border-default;
     border-top: 0;
