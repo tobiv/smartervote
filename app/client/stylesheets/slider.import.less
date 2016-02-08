@@ -2,6 +2,7 @@
  * Slider
  */
 .at-nouislider {
+  transition: border @transition-duration-dim;
   
   .nouislider-container {
     padding: 1vh 0;
@@ -92,3 +93,11 @@
     transform: scale(0.95);
   }
 }
+
+@media only screen and (max-width: @screen-sm-min) {
+  .dim .at-nouislider {
+    opacity: 1 !important;
+    border-top-color: transparent;
+  }  
+}
+

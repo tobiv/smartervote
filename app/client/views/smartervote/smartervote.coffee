@@ -310,10 +310,17 @@ Template.question.events
     return
 
   'slide': (evt, tmpl, val) ->
+    $('#content, #bubbles-container').addClass('dim')
     importance = parseFloat val
     updateAnswer(null, importance, @question)
     return
+    
+  'mouseup': () ->
+    $('#content, #bubbles-container').removeClass('dim')
 
+  'touchend': () ->
+    $('#content, #bubbles-container').removeClass('dim')
+    
   'click #next': (evt, tmpl) ->
     _showInfo.set false
     next(@question)

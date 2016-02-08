@@ -58,9 +58,32 @@
   position: absolute;
   left: 0;
   top: 0;
+  right: 0;
   z-index: 11000;
+
+  padding: 10px;
   
-  padding: 1em;
+  .site-menu-toggle {
+    float: right;
+    width: 22px;
+    height: 12px;
+    margin: 3px 0;
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    left: 0;
+    top: 0;
+    right: auto;
+    
+    padding: 1em;
+    
+    .site-menu-toggle {
+      float: none;
+      width: 44px;
+      height: 24px;
+      margin: 0 1em;
+    }
+  }
 }
 
 .languages {
@@ -81,6 +104,29 @@
   right: 0;
   top: 0;
   bottom: 0;
+  
+  //opacity: 0.2;
+  transition: opacity @transition-duration-dim;
+  
+  &.dim {
+    //opacity: 1;
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    //opacity: 1;
+  }
+}
+
+/*
+ * Transition for content dimming effect
+ * when slider is dragged in mobile layout
+ */
+#header,
+.answers,
+#question-navigation,
+.nouislider-label,
+#reset {
+  transition: opacity @transition-duration-dim, transform @transition-duration-dim;
 }
 
 /*
@@ -90,7 +136,7 @@
 #content {
   position: absolute;
   z-index: 10000;
-  top: 0;
+  top: 30px;
   bottom: 0;
   left: 10px;
   right: 40px;
@@ -100,6 +146,20 @@
   
   img {
     max-width: 100%;
+  }
+  
+  // Dimming content only on mobile/small
+  @media only screen and (max-width: @screen-sm-min) {
+    &.dim {
+      #header,
+      .answers,
+      #question-navigation,
+      .nouislider-label,
+      #reset {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
   }
   
   @media only screen and (min-width: @screen-sm-min) {
