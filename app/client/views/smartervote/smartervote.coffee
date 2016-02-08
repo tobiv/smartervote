@@ -259,6 +259,9 @@ Template.smartervote.helpers
 
   proPercent: ->
     _proPercent.get()
+    
+  proPercentGauge: ->
+    _proPercent.get() * 0.86
 
 
 Template.question.rendered = ->
