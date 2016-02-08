@@ -25,7 +25,10 @@
   <div id="question">
     {{#with question=question}}
       <div id="header">
-        {{index}} (fav) <a id="show-all-questions" href="/questionOverview" target="_blank">{{_ "questionOverview"}}</a><br>
+        <span id="question-index">{{index}}</span>
+        <button type="button" id="toggle-favorite" class="btn"></button>
+        <a id="show-all-questions" href="/questionOverview" target="_blank">{{_ "questionOverview"}}</a><br>
+        
         <label for={{question._id}} class="control-label">
           {{{question.label}}}
         </label>
@@ -58,9 +61,9 @@
         {{> slider}}
         
         <div id="question-navigation" class="control-section">
-          <button type="button" id="back" class="btn btn-default">&lt; <span>{{_ "back"}}</span></button>
+          <button type="button" id="back" class="btn btn-default"><span>{{_ "back"}}</span></button>
           <button type="button" id="gotoEvaluation" class="btn btn-default">{{_ "evaluation"}}</button>
-          <button type="button" id="next" class="btn btn-default"><span>{{_ "next"}}</span> &gt;</button>
+          <button type="button" id="next" class="btn btn-default"><span>{{_ "next"}}</span></button>
         </div>
         
         <button type="button" id="reset" class="btn btn-danger">{{_ "deleteAllAnswers"}}</button>
@@ -83,7 +86,7 @@
 <template name="evaluation">
 <div id="evaluation">
   <div id="question-navigation" class="control-section">
-    <button type="button" id="gotoQuestions" class="btn btn-default">&lt; {{_ "gotoQuestions"}}</button>
+    <button type="button" id="gotoQuestions" class="btn btn-default">{{_ "gotoQuestions"}}</button>
   </div>
   
   <div class="final-score">

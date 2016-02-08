@@ -21,7 +21,7 @@
    * Reset bootstrap buttons
    */
   .btn {
-    background: transparent;
+    background-color: transparent;
     border: 0;
     border-radius: 0;
     color: black;
@@ -30,13 +30,13 @@
     &:hover,
     &:active {
       outline: 0;
-      background: transparent;
+      background-color: transparent;
       box-shadow: none;
       color: black;
     }
     
     &:hover {
-      background: rgba(0, 0, 0, 0.04);
+      background-color: rgba(0, 0, 0, 0.04);
     }
     
     &:focus {
@@ -202,6 +202,32 @@
   }
 }
 
+#question-index {
+  display: inline-block;
+  width: 1em;
+}
+
+#toggle-favorite {
+  position: relative;
+  top: -0.1em;
+  
+  height: 1em;
+  width: 1.2em;
+  background-image: url(/img/icon-star.svg);
+  background-position:  50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  
+  &:hover {
+    background-color: transparent !important;
+    background-image: url(/img/icon-star-hover.svg);
+  }
+  
+  &.active {
+    background-image: url(/img/icon-star-active.svg);
+  }
+}
+
 /*
  * Contains actual answering controls and question navigation
  * tacked to bottom of #content
@@ -349,9 +375,9 @@
   display: flex;
   
   button {
-    -webkit-flex: 0 0 24%;
-    -ms-flex: 0 0 24%;
-    flex: 0 0 24%;
+    -webkit-flex: 0 0 28%;
+    -ms-flex: 0 0 28%;
+    flex: 0 0 28%;
     
     padding: 0;
     
@@ -361,24 +387,37 @@
   
   #back,
   #gotoQuestions {
+    padding-left: 20px;
+    background-image: url(/img/arrow-left.svg);
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: 13px 26px;
     text-align: left;
   }
   
   #next {
+    padding-right: 20px;
+    background-image: url(/img/arrow-right.svg);
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    background-size: 13px 26px;
     text-align: right;
   }
   
   #gotoEvaluation {
-    -webkit-flex: 1 1 50%;
-    -ms-flex: 1 1 50%;
-    flex: 1 1 50%;
+    -webkit-flex: 1 1 43%;
+    -ms-flex: 1 1 43%;
+    flex: 1 1 43%;
     
     border: @border-default;
     border-top: 0;
     border-bottom: 0;
     
     font-weight: bold;
-    font-size: 1.2em;
+    
+    @media only screen and (min-width: @screen-md-min) {
+      font-size: 1.2em;
+    }
   }
 }
 
@@ -395,6 +434,14 @@
   
   &:hover {
     color: red !important;
+  }
+  
+  &:before {
+    display: inline-block;
+    width: 20px;
+    height: 1em;
+    background: transparent url(/img/icon-trash.svg) 50% 50% no-repeat;
+    content: ' ';
   }
   
   &:after {
@@ -462,8 +509,17 @@
   display: none;
   position: absolute;
   top: 50%;
+  height: 52px;
+  padding-left: 32px;
   
-  @media only screen and (min-width: @screen-md-min) {
+  background-image: url(/img/arrow-right.svg);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  background-size: 26px 52px;
+  
+  line-height: 52px;
+  
+  @media only screen and (min-width: @screen-sm-min) {
     display: block;
   }
 }
