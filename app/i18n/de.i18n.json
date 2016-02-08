@@ -1,4 +1,26 @@
 {
+  "pageTitle": "Volksinitiative für ein Bedingungsloses Grundeinkommen",
+  "debateBlog": "Debattenblog",
+  "url": "bedingungslos.ch",
+  "initiativtext": "Initiativtext",
+  "infos-zum-grundeinkommen": "Infos zum Grundeinkommen",
+  "veranstaltungen": "Veranstaltungen",
+  "traegerschaft": "Trägerschaft",
+  "kontakt": "Kontakt",
+  "impressum": "Impressum",
+  "spenden": "Spenden",
   "next": "Weiter",
-  "back": "Zurück"
+  "back": "Zurück",
+  "evaluation": "Auswertung",
+  "totalyIrrelevant": "total irrelevant",
+  "veryImportant": "sehr wichtig",
+  "moreInformation": "mehr Informationen",
+  "lessInformation": "weniger Informationen",
+  "questionOverview": "alle Fragen in der Übersicht",
+  "deleteAllAnswers": "alle Antworten löschen",
+  "gotoQuestions": "Zu den Fragen",
+  "yourScore": "Dein Ergebnis",
+  "shareYourScore": "Teile dein Ergebnis",
+  "createAccount": "Logge dich ein oder erstelle einen Account, um deine Antworten zu speichern",
+  "whereDoYouStand": "Wie stehst du zu einzelnen Bereichen?"
 }

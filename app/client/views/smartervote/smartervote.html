@@ -25,7 +25,7 @@
   <div id="question">
     {{#with question=question}}
       <div id="header">
-        {{index}} (fav) <a id="show-all-questions" href="/questionOverview" target="_blank">alle Fragen in der Übersicht</a><br>
+        {{index}} (fav) <a id="show-all-questions" href="/questionOverview" target="_blank">{{_ "questionOverview"}}</a><br>
         <label for={{question._id}} class="control-label">
           {{{question.label}}}
         </label>
@@ -34,10 +34,10 @@
             {{#if showInfo}}
             <div class="hideInfo">
               {{{question.info}}}
-              <br><a href="#">weniger Informationen</a>
+              <br><a href="#">{{_ "lessInformation"}}</a>
             </div>
             {{else}}
-            <a href="#" class="showInfo">mehr Informationen</a>
+            <a href="#" class="showInfo">{{_ "moreInformation"}}</a>
             {{/if}}
           </div>
         {{/if}}
@@ -59,11 +59,11 @@
         
         <div id="question-navigation" class="control-section">
           <button type="button" id="back" class="btn btn-default">&lt; <span>{{_ "back"}}</span></button>
-          <button type="button" id="gotoEvaluation" class="btn btn-default">Auswertung</button>
+          <button type="button" id="gotoEvaluation" class="btn btn-default">{{_ "evaluation"}}</button>
           <button type="button" id="next" class="btn btn-default"><span>{{_ "next"}}</span> &gt;</button>
         </div>
         
-        <button type="button" id="reset" class="btn btn-danger">alle Antworten löschen</button>
+        <button type="button" id="reset" class="btn btn-danger">{{_ "deleteAllAnswers"}}</button>
       </div>
     {{/with}}
   </div>
@@ -72,9 +72,9 @@
 <template name="slider">
   <div class="at-nouislider control-section">
     <div class="nouislider-container">
-      <span class="nouislider-label">total irrelevant</span>
+      <span class="nouislider-label">{{_ "totalyIrrelevant"}}</span>
       <div id="nouislider" class="nouislider"></div>
-      <span class="nouislider-label">sehr wichtig</span>
+      <span class="nouislider-label">{{_ "veryImportant"}}</span>
     </div>
   </div>
 </template>
@@ -83,11 +83,11 @@
 <template name="evaluation">
 <div id="evaluation">
   <div id="question-navigation" class="control-section">
-    <button type="button" id="gotoQuestions" class="btn btn-default">&lt; Zu den Fragen</button>
+    <button type="button" id="gotoQuestions" class="btn btn-default">&lt; {{_ "gotoQuestions"}}</button>
   </div>
   
   <div class="final-score">
-    Dein Ergebnis:<br>
+    {{_ "yourScore"}}<br>
     <span>{{proPercent}}% pro</span>
   </div>
 
@@ -96,20 +96,20 @@
     <img id="mybubbles-preview"/>
     -->
     
-    Teile dein Ergebnis:<br>
+    {{_ "shareYourScore"}}<br>
     {{>shareit shareData}}
     <a href="/myBubbles/{{visit._id}}" target='_blank'>link</a>
   </div>
 	
   {{#if showCreateAccount}}
   <div class="text-center">
-    <p>Logge dich ein oder erstelle einen Account, um deine Antworten zu speichern:</p>
+    <p>{{_ "createAccount"}}</p>
     {{> loginButtons}}
   </div>
   {{/if}}
 
   <div class="topics">
-    Wie stehst du zu einzelnen Bereichen?<br>
+    {{_ "whereDoYouStand"}}<br>
     {{#each topics}}
     <button type="button" class="topic {{topicCSS}} btn btn-default">
       <span class="glyphicon glyphicon-ok"> </span>{{this}}
