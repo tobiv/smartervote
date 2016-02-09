@@ -1011,6 +1011,9 @@ Template.evaluation.helpers
     user = Meteor.user()
     user and (not user.emails or user.emails.length is 0)
 
+  visit: ->
+    Visits.findOne _visitId
+
   shareData: ->
     title: 'smarterVote'
 		url: 'https://bge.patpat.org/myBubbles'+Session.get('visitId')
