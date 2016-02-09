@@ -962,26 +962,34 @@ Template.evaluation.rendered = ->
   if !bubblesSVG
     return
   svgAsXML = bubblesSVG.parentNode.innerHTML
+
   width = _network.width
   height = _network.height
+  fieldWidth = $('#content').offset().left+radiusMax
   #scale aspect
-  maxWidth = 1024
-  maxHeight = 768
-  if width > maxWidth
-    height = maxWidth/width*height
-    width = maxWidth
-  if height > maxHeight
-    width = maxHeight/height*width
-    height = maxHeight
+  #maxWidth = 1024
+  #maxHeight = 768
+  #if width > maxWidth
+  #  height = maxWidth/width*height
+  #  width = maxWidth
+  #if height > maxHeight
+  #  width = maxHeight/height*width
+  #  height = maxHeight
+  #fieldWidth = width/_network.width*fieldWidth
+  #console.log "width: #{width}  height: #{height}"
+  #console.log "fieldWidthScaled: #{fieldWidth}"
+
+  image = new Image
+  image.width = width
+  image.height = height
 
   canvas = document.createElement('canvas')
   ctx = canvas.getContext('2d')
-  loader = new Image
-  loader.width = canvas.width = width
-  loader.height = canvas.height = height
+  canvas.width = fieldWidth
+  canvas.height = height
 
-  loader.onload = ->
-    ctx.drawImage loader, 0, 0, loader.width, loader.height
+  image.onload = ->
+    ctx.drawImage image, 0, 0, fieldWidth, height, 0, 0, fieldWidth, height
     pngData = canvas.toDataURL()
     $('#mybubbles-preview').attr 'src', pngData
 
@@ -991,7 +999,7 @@ Template.evaluation.rendered = ->
         throwError error if error?
     return
 
-  loader.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML)
+  image.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML)
 
 
 Template.evaluation.events
