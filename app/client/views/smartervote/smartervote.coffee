@@ -955,8 +955,7 @@ Template.evaluation.rendered = ->
 
   #render SVG as PNG
   return if !_network?
-  svgElementId = _network.getSVGElementId()
-  bubblesSVG = d3.select('#'+svgElementId)
+  bubblesSVG = d3.select('#'+_network.svgElementId)
     .attr('version', 1.1)
     .attr('xmlns', 'http://www.w3.org/2000/svg')
     .node()
