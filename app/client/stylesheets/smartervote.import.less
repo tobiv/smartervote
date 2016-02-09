@@ -492,71 +492,73 @@
   background-color: white;
 }
 
-#login-dropdown-list {
-  list-style: none;
-  
-  .dropdown-menu {
-    position: static;
-    //display: block !important; // testing
-    min-width: auto;
-    width: 100%;
-    margin-bottom: 1em;
-    padding: 0;
+#evaluation {
+  #login-dropdown-list {
+    list-style: none;
     
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  
-  .or-text, .hline {
-    display: none;
-  }
-  
-  #login-email,
-  #login-password {
-    height: 2em;
-    padding: 0.2em 0 0;
-    
-    background-color: rgba(0, 0, 0, 0.04);
-    color: black;
-    border-radius: 0;
-    border: 0;
-    border-bottom: 1px solid black;
-    box-shadow: none;
-    
-    line-height: 2em;
-    
-    &:focus {
-      background-color: white;
+    .dropdown-menu {
+      position: static;
+      //display: block !important; // testing
+      min-width: auto;
+      width: 100%;
+      margin-bottom: 1em;
+      padding: 0;
+      
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
     }
-  }
-  
-  #login-email {
-    margin-bottom: 0;
-  }
-  
-  .btn {
-    margin-top: 0;
-    background-color: rgba(0,255,255, 0.5);
-  }
-  
-  // Selectors have to separate
-  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: @color-placeholder;
-  }
-  :-moz-placeholder { /* Firefox 18- */
-    color: @color-placeholder;
-  }
-  ::-moz-placeholder { /* Firefox 19+ */
-    color: @color-placeholder;
-    opacity: 1;
-  }
-  :-ms-input-placeholder { /* IE 10+ */
-    color: @color-placeholder;
-  }
-  ::-ms-input-placeholder { /* Edge */
-    color: @color-placeholder;
+    
+    .or-text, .hline {
+      display: none;
+    }
+    
+    #login-email,
+    #login-password {
+      height: 2em;
+      padding: 0.2em 0 0;
+      
+      background-color: rgba(0, 0, 0, 0.04);
+      color: black;
+      border-radius: 0;
+      border: 0;
+      border-bottom: 1px solid black;
+      box-shadow: none;
+      
+      line-height: 2em;
+      
+      &:focus {
+        background-color: white;
+      }
+    }
+    
+    #login-email {
+      margin-bottom: 0;
+    }
+    
+    .btn {
+      margin-top: 0;
+      background-color: rgba(0,255,255, 0.5);
+    }
+    
+    // Selectors have to separate
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: @color-placeholder;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: @color-placeholder;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: @color-placeholder;
+      opacity: 1;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: @color-placeholder;
+    }
+    ::-ms-input-placeholder { /* Edge */
+      color: @color-placeholder;
+    }
   }
 }
 
