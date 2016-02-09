@@ -23,9 +23,14 @@ if Meteor.isClient
 
 
 Router.route '/',
-	name: 'home'
-	action: ->
-		@render 'home'
+  name: 'home'
+  waitOn: ->
+    [
+      Meteor.subscribe('news')
+      Meteor.subscribe('newsImages')
+    ]
+  action: ->
+    @render 'home'
 
 Router.route 'smartervote',
   layoutTemplate: 'layoutSmartervote'
