@@ -995,6 +995,15 @@ Template.evaluation.rendered = ->
   loader.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML)
 
 
+Template.evaluation.events
+  # add slide animation to (login) dropdown
+  'show.bs.dropdown': (e) ->
+    $('.dropdown-menu').first().stop(true, true).slideDown()
+
+  'hide.bs.dropdown': (e) ->
+    $('.dropdown-menu').first().stop(true, true).slideUp()
+
+
 Template.evaluation.helpers
   proPercent: ->
     _proPercent.get()

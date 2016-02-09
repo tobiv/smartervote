@@ -90,35 +90,45 @@
   </div>
   
   <div class="final-score">
-    {{_ "yourScore"}}:<br>
+    <h2>{{_ "yourScore"}}:</h2>
     <span>{{proPercent}}% pro</span>
   </div>
 
   <div class="sharing">
+    <h2>{{_ "shareYourScore"}}:</h2>
     <!--
     <img id="mybubbles-preview"/>
     -->
-    
-    {{_ "shareYourScore"}}:<br>
-    {{>shareit shareData}}
-    <a href="/myBubbles/{{visit._id}}" target='_blank'>link</a>
+    <div class="flex-wrapper">
+      {{>shareit shareData}}
+      <a class="url-copy" href="/myBubbles/{{visit._id}}" target='_blank'>smartervote.ch/myBubbles/{{visit._id}}</a>
+    </div>
   </div>
 	
   {{#if showCreateAccount}}
   <div class="account">
-    <p>{{_ "createAccount"}}:</p>
+    <h2>{{_ "createAccount"}}:</h2>
     {{> loginButtons}}
   </div>
   {{/if}}
 
   <div class="topics">
-    {{_ "whereDoYouStand"}}<br>
+    <h2>{{_ "whereDoYouStand"}}</h2>
     {{#each topics}}
     <button type="button" class="topic {{topicCSS}} btn btn-default">
-      <span class="glyphicon glyphicon-ok"> </span>{{this}}
+      {{this}}
     </button>
     {{/each}}
   </div>
   
+  <div class="compare">
+    <h2>{{_ "compareScoreWith"}}:</h2>
+    <button type="button" class="person-of-interest {{personCSS}} btn btn-default">
+      <strong>Viktor Giaciobbo</strong> (55% pro)
+    </button>
+    <button type="button" class="person-of-interest {{personCSS}} btn btn-default">
+      <strong>Loulou von Brochwitz</strong> (61% pro)
+    </button>
+  </div>
 </div>
 </template>

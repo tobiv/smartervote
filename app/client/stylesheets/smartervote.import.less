@@ -466,14 +466,27 @@
   .control-section {
     border-top: 0;
   }
+}
 
+.flex-wrapper {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  
+  margin: 0.4em 0;
 }
 
 .final-score,
 .sharing,
 .account,
-.topics {
-  margin-bottom: 1em;
+.topics,
+.compare {
+  margin-bottom: 2em;
+  
+  h2 {
+    font-size: 1em;
+    margin: 0 0 0.1em;
+  }
 }
 
 .final-score {
@@ -489,7 +502,74 @@
 }
 
 .sharing {
-  background-color: white;
+  
+  img {
+    background-color: white;
+  }
+  
+  .share-buttons {
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    
+    white-space: nowrap;
+  }
+  
+  .fb-share,
+  .tw-share {
+    width: 4rem;
+    height: 4rem;
+    padding: 0;
+    
+    border-radius: 50% !important;
+    background-color: @color-evaluation !important;
+    
+    font-size: 0;
+    text-align: center;
+    
+    i {
+      font-size: 2.5rem;
+      line-height: 4rem;
+      color: white;
+    }
+    
+    &:hover {
+      background-color: black !important;
+    }
+  }
+  
+  .fb-share {
+    i {
+      position: relative;
+      top: 0.1rem;
+    }
+  }
+  
+  .tw-share {
+    i {
+      position: relative;
+      top: 0.1rem;
+      left: 0.1rem;
+    }
+  }
+  
+  .url-copy {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    
+    display: inline-block;
+    height: 4rem;
+    margin-left: 0.5rem;
+    padding: 0 1.5rem;
+    overflow: hidden;
+    
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 2rem;
+    
+    line-height: 4rem;
+    text-overflow: ellipsis;
+  }
 }
 
 #evaluation {
@@ -501,7 +581,7 @@
       //display: block !important; // testing
       min-width: auto;
       width: 100%;
-      margin-bottom: 1em;
+      margin-bottom: 2em;
       padding: 0;
       
       background: transparent;
@@ -510,13 +590,12 @@
       box-shadow: none;
     }
     
-    .or-text, .hline {
-      display: none;
-    }
+
     
     #login-email,
-    #login-password {
-      height: 2em;
+    #login-password,
+    #forgot-password-email {
+      height: 2.5em;
       padding: 0.2em 0 0;
       
       background-color: rgba(0, 0, 0, 0.04);
@@ -526,7 +605,7 @@
       border-bottom: 1px solid black;
       box-shadow: none;
       
-      line-height: 2em;
+      line-height: 2.5em;
       
       &:focus {
         background-color: white;
@@ -538,7 +617,7 @@
     }
     
     .btn {
-      margin-top: 0;
+      //margin-top: 0;
       background-color: rgba(0,255,255, 0.5);
     }
     
@@ -562,20 +641,43 @@
   }
 }
 
-.topics {
-  .btn {
-    .glyphicon {
-      //visibility: hidden;
-      color: white;
-    }
+.topics .topic,
+.compare .person-of-interest {
+  width: 100%;
+  padding: 0;
+  
+  line-height: 2em;
+  text-align: left;
+
+  &:before {
+    display: inline-block;
+    position: relative;
+    top: 0.3em;
+    
+    box-sizing: border-box;
+    height: 1.5em;
+    width: 1.5em;
+    margin-right: 0.2em;
+    
+    border: 2px solid rgba(0,0,0, 0.8);
+    border-radius: 50%;
+    
+    content: ' ';
   }
-  .active {
-    .glyphicon {
-      visibility: visible;
-      color: black;
+      
+  &.active {
+    text-decoration: none !important;
+    
+    &:before {
+      background-image: url(/img/icon-checkmark.svg);
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: 50%;
     }
   }
 }
+
+
 
 /*
  * Score gauge on left side of the view
