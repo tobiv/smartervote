@@ -7,12 +7,12 @@ Router.configure
       adminPaths: '^\/admin'
       blogPaths: '^\/blog'
     server:
-      exclude: 
+      exclude:
         sitemap: '^\/sitemap\.xml'
 
 Router.onBeforeAction ->
   AccountsEntry.signInRequired(@)
-, 
+,
 	only: ['users', 'editQuestions', 'cnc']
 
 if Meteor.isClient
@@ -39,34 +39,32 @@ Router.route 'smartervote',
     @render 'smartervote'
 
 Router.route 'myBubbles/:id',
-	waitOn: ->
+  waitOn: ->
     Meteor.subscribe('visit', @params.id)
-	action: ->
-		@render 'myBubbles'
+  action: ->
+    @render 'myBubbles'
 
 Router.route 'questionOverview',
-	waitOn: ->
-		Meteor.subscribe('questions')
-	action: ->
-		@render 'questionOverview'
+  waitOn: ->
+    Meteor.subscribe('questions')
+  action: ->
+    @render 'questionOverview'
 
 #admin routes
 Router.route '/admin/users',
-	waitOn: ->
-		Meteor.subscribe('users')
-	action: ->
-		@render 'users'
+  waitOn: ->
+    Meteor.subscribe('users')
+  action: ->
+    @render 'users'
 
 Router.route '/admin/editQuestions',
-	waitOn: ->
-		Meteor.subscribe('questions')
-	action: ->
-		@render 'editQuestions'
+  waitOn: ->
+    Meteor.subscribe('questions')
+  action: ->
+    @render 'editQuestions'
 
 Router.route '/admin/cnc',
-	waitOn: ->
-		Meteor.subscribe('questions')
-	action: ->
-		@render 'cnc'
-
-
+  waitOn: ->
+    Meteor.subscribe('questions')
+  action: ->
+    @render 'cnc'
