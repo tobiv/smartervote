@@ -1,5 +1,3 @@
-// this is the main styling file for this page
-
 // Webfonts
 @import "webfonts.import.less";
 
@@ -9,11 +7,20 @@
 // Custom variables
 @import "variables.import.less";
 
+// Admin
+@import "edit_questions.import.less";
 // import less/css from vendored libs
 @import "lib/bs_sidedanv.import.less";
 
+// Common/main site
 @import "viewport_border.import.less";
-@import "edit_questions.import.less";
+@import "overlay-menu.import.less";
+@import "article.import.less";
+@import "helpers.import.less";
+
+// Smartervote app
+@import "scrollbar.import.less";
+@import "slider.import.less";
 @import "smartervote.import.less";
 
 
@@ -33,10 +40,13 @@ body {
 
 h1, h2, h3, h4 {	
   border: none;
+  color: black;
 	font-family: 'Circular', sans-serif;
 }
 
-
+/*
+ * Site header, logo, menu toggler
+ */
 #site-header {
   margin-top: 40px;
   padding: 2em 1.5em 1.2em;
@@ -93,70 +103,16 @@ h1, h2, h3, h4 {
   text-indent: -9999em;
 }
 
-#overlay-menu {
-  visibility: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999999;
-  opacity: 0;
-  -webkit-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  transform: scale(1.2);
-  
-  background: rgba(0,0,0, 0.8);
-  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
-  
-  &.in {
-    visibility: visible;
-    opacity: 1;
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-  }
-  
-  ul {
-    padding: 0;
-    margin: (2 * 44px) 0 0;
-    
-    list-style: none;
-    text-align: center;
-  }
-  
-  a {
-    display: inline-block;
-    padding: 1rem 0;
-    color: white;
-    font-weight: bold;
-    font-size: 5vh;
-    text-transform: uppercase;
-    
-    &:hover {
-      color: @color-brand;
-    }
-  }
-  
-  .close-menu {
-    position: absolute;
-    top: 2em;
-    right: 2em;
-    width: 44px;
-    height: 44px;
-    
-    background: transparent url(/img/icon-close.svg) 50% 50% no-repeat;
-    background-size: contain;
-    border: 0;
-    border-radius: 0;
-    
-    text-indent: -9999em;
-  }
+
+/*
+ * Main content
+ */
+.container {
+  max-width: 48em; // make it readable
 }
 
-#main {
-  
-}
+#main { }
+
 
 /*
  * Logos on homepage
@@ -173,73 +129,6 @@ h1, h2, h3, h4 {
   }
   
   .col-md-4 {
-    padding: 0 3em;
+    padding: 0 3vw;
   }
-}
-
-
-/*
- * svg
- */
-.link {
-    stroke-width: 0.1px !important;
-}
-
-
-//fix reactive-table
-.reactive-table {
-	td.buttons {
-		text-align: right;
-	}
-}
-.reactive-table-navigation .page-number {
-	text-align: right;
-}
-
-////////////////////////////////
-// misc
-.truncate {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-
-.page-header, .page-header-small {
-  border-bottom: none;
-}
-
-#spinner {
-  height: 300px;
-}
-
-.btn-img {
-  padding: 0;
-  border: none;
-  background: none;
-  &:hover, &:focus, &:active {
-    color: inherit !important;
-    box-shadow: none;
-  }
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.a-unstyled {
-	text-decoration: none;
-	&:hover, &:active {
-		text-decoration: none;
-	}
-}
-
-.text-color {
-	color: @text-color;
-	&:hover, &:active {
-		color: @text-color;
-	}
-}
-
-.pointer {
-  cursor: pointer;
 }
