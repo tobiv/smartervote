@@ -92,8 +92,8 @@ class @Network
           #x with respect to width
           d.x = Math.max(d.radius, Math.min(width - d.radius, d.x))
           #honour xMax
-          if d.xMax? and d.xMaxT < now and d.x > d.xMax
-            d.x = d.xMax
+          if d.xMax? and d.xMaxT < now and (d.x+d.radius/2) > d.xMax
+            d.x = d.xMax-d.radius/2
           d.x
         )
         .attr("cy", (d) ->
