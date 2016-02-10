@@ -35,6 +35,8 @@ _numQuestions = 0
 _questionIndex = new ReactiveVar(-1)
 _showInfo = new ReactiveVar(false)
 
+_questionLabelLengthMax = 5
+
 
 _resizeTimeout = null
 @resize = ->
@@ -281,16 +283,32 @@ Template.question.helpers
       index: _questionIndex.get()
 
   maxLabel: ->
-    @question.maxLabel.split(',')[0] if @question?
+    if @question?
+      if @question.maxLabel.indexOf(',') is -1 and
+      @question.maxLabel.length > _questionLabelLengthMax
+        return ''
+      @question.maxLabel.split(',')[0]
 
   maxLabelAffix: ->
-    @question.maxLabel.split(',')[1] if @question?
+    if @question?
+      if @question.maxLabel.indexOf(',') is -1 and
+      @question.maxLabel.length > _questionLabelLengthMax
+        return @question.maxLabel
+      @question.maxLabel.split(',')[1]
 
   minLabel: ->
-    @question.minLabel.split(',')[0] if @question?
+    if @question?
+      if @question.minLabel.indexOf(',') is -1 and
+      @question.minLabel.length > _questionLabelLengthMax
+        return ''
+      @question.minLabel.split(',')[0]
 
   minLabelAffix: ->
-    @question.minLabel.split(',')[1] if @question?
+    if @question?
+      if @question.minLabel.indexOf(',') is -1 and
+      @question.minLabel.length > _questionLabelLengthMax
+        return @question.minLabel
+      @question.minLabel.split(',')[1]
 
   index: ->
     @question.index+1 if @question?
