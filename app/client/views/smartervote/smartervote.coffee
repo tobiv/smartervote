@@ -204,7 +204,6 @@ Template.smartervote.rendered = ->
 
   #subscribe to resize
   $(window).resize(resize)
-  resize()
 
   #TODO make this work to remove reload
   #if _answers.length > 0
@@ -249,6 +248,7 @@ Template.smartervote.rendered = ->
     )
     goNext()
     Meteor.setTimeout ->
+      resize()
       if _questionIndex.get() is -1
         goNext()
     , 500
@@ -733,7 +733,7 @@ class Field
     @nodeIds.forEach (id) ->
       self.network.changeNode
         id: id
-        xMax: @xMax
+        xMax: max
 
 
 class Chain
