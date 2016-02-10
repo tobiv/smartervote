@@ -33,6 +33,7 @@ Package.onUse(function(api) {
   api.addFiles('client/views/news/news_admin.coffee', 'client');
   api.addFiles('client/views/news/news_item.coffee', 'client');
   api.addFiles('client/views/news/news_item_edit.coffee', 'client');
+  api.addFiles('client/stylesheets/article.less', 'client');
 
 });
 
