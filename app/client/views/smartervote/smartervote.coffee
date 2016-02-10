@@ -37,6 +37,15 @@ _showInfo = new ReactiveVar(false)
 
 _questionLabelLengthMax = 5
 
+_breakpointX = 768
+
+
+getBubblesWidth = ->
+  wWidth = $(window).width()
+  w = $('#content').offset().left
+  if wWidth <= _breakpointX
+    w = wWidth
+  w
 
 _resizeTimeout = null
 @resize = ->
@@ -76,8 +85,7 @@ doResize = ->
     py: bch
 
   #refresh xMax of field
-  xMax = $('#content').offset().left
-  _field.setXMax xMax
+  _field.setXMax getBubblesWidth()
 
   # recalculate content padding
   footerHeight = @$('.footer').outerHeight()
@@ -86,7 +94,7 @@ doResize = ->
 
 upsertClusters = ->
   numClusters = _clusters.length
-  width = $('#content').offset().left
+  width = getBubblesWidth()
   height = $(window).height()
   i = 0
   _clusters.forEach (c) ->
