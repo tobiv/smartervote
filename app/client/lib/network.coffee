@@ -59,7 +59,7 @@ class @Network
       .attr("r", (d) -> d.radius)
       .style("fill", (d) -> d.fillColor)
       .style("fill-opacity", (d) -> if d.fillOpacity? then d.fillOpacity else 1.0)
-      .attr("stroke", (d) -> d.strokeColor)
+      .style("stroke", (d) -> d.strokeColor)
       .style("stroke-width", (d) -> d.strokeWidth)
     node.exit().remove()
 
@@ -165,14 +165,14 @@ class @Network
       n.px = node.px if node.px?
       n.py = node.py if node.py?
       n.fixed = node.fixed if node.fixed?
+      if n.fixed? and n.fixed is true
+        n.x = n.px
+        n.y = n.py
       n.xMax = node.xMax if node.xMax?
       n.xMaxT = node.xMaxT if node.xMaxT?
       if node.removeXMax
         delete n.xMax
         delete n.xMaxT
-      if n.fixed? and n.fixed is true
-        n.x = n.px
-        n.y = n.py
       n.classes = node.classes if node.classes?
       if node.removeClasses
         delete n.classes
