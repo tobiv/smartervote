@@ -1,12 +1,11 @@
 <template name="newsItem">
   <article>
-    <header>
-      <h1>{{title}}</h1>
-    </header>
     {{#with image}}
-      <img src={{url}} class="article-image">
+    <img src="{{url}}" class="article-image">
     {{/with}}
-    <p class="content article-teaser">
+    
+    <h1>{{title}}</h1>
+    <p class="content">
       {{content}}
     </p>
   </article>

@@ -3,19 +3,28 @@
  */
 #overlay-menu {
   visibility: hidden;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  z-index: 999999;
+  z-index: 1000;
+  
+  box-sizing: border-box;
+  height: 100%;
+  padding: (2 * @padding-body-vertical + 2 * @line-height-logo * @font-size-logo-medium + 3rem) @padding-body-horizontal;
+  
   opacity: 0;
+/*
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
   transform: scale(1.2);
+*/
   
-  background: rgba(0,0,0, 0.8);
+  background: @color-menu-bg;
   transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  
+  font-family: 'BuenosAires', sans-serif;
+	font-weight: bold;
   
   &.in {
     visibility: visible;
@@ -26,8 +35,6 @@
   }
   
   ul {
-    padding: 0;
-    margin: (2 * 44px) 0 0;
     
     list-style: none;
     text-align: center;
@@ -36,13 +43,18 @@
   a {
     display: inline-block;
     padding: 1rem 0;
-    color: white;
+
+    color: black;
+    
     font-weight: bold;
-    font-size: 5vh;
+    font-size: 4vh;
     text-transform: uppercase;
     
     &:hover {
       color: @color-brand;
+      background: linear-gradient(to right, #e7a73f 0%, #fff3ba 38%, #ecb354 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
   

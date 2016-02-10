@@ -29,28 +29,45 @@
 body {
 	margin: 0;
 	padding: @viewport-border-width;
+	overflow-x: hidden;
+	//overflow-y: scroll;
 	
-	background: #f6f6f6;
+	background: white;
 	color: black;
 	
-	font-family: 'Circular', sans-serif;
+	font-family: Times, serif;
 	line-height: 1.3;
 }
 
 h1, h2, h3, h4 {	
   border: none;
   color: black;
-	font-family: 'Circular', sans-serif;
+	font-family: 'BuenosAires', sans-serif;
+	font-weight: bold;
+}
+
+img {
+  max-width: 100%;
+}
+
+.navbar {
+  //display: none;
+  margin-bottom: 0;
 }
 
 /*
  * Site header, logo, menu toggler
  */
 #site-header {
-  margin-top: 40px;
-  padding: 2em 1.5em 1.2em;
+  position: relative;
+  z-index: 2100;
+  margin: @padding-body-vertical @padding-body-horizontal;
+  padding-bottom: 1.5rem;
   
   border-bottom: @border-default;
+  
+  font-family: 'BuenosAires', sans-serif;
+	font-weight: bold;
 }
 
 #site-brand {
@@ -65,18 +82,33 @@ h1, h2, h3, h4 {
 
 .logo-circle {
   float: left;
-  width: 2 * @font-size-logo-medium;
-  height: 2 * @font-size-logo-medium;
-  margin-right: 1.5em;
+  width: 2.2 * @font-size-logo-medium;
+  height: 2.2 * @font-size-logo-medium;
+  margin-right: 1rem;
   
   border-radius: 50%;
   background: @color-brand;
+  background: linear-gradient(135deg, #e7a73f 0%, #fff3ba 38%, #ecb354 100%);
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    margin-right: 1.5rem;
+  }
 }
 
 .logo-text {
+  max-width: 20em;
+  padding-top: 0.25rem;
+  
   font-weight: bold;
-  font-size: @font-size-logo-medium;
-  line-height: 1.09;
+  font-size: @font-size-logo-min;
+  line-height: @line-height-logo;
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    max-width: none;
+    padding: 0;
+    
+    font-size: @font-size-logo-medium;
+  }
 }
 
 #site-menu {
@@ -85,21 +117,36 @@ h1, h2, h3, h4 {
   font-weight: bold;
   
   .languages {
-    display: inline-block;
-    font-size: 1.2em;
+    display: none;
+    font-size: 1.5rem;
   }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    margin-top: 0.5rem;
+    
+    .languages {
+      display: inline-block;
+      font-size: 1.8rem;
+    }
+  } 
 }
 
 .site-menu-toggle {
-  width: 44px;
-  height: 24px;
-  margin: 0 1em;
+  width: 33px;
+  height: 18px;
+  margin-top: 1.95 * @font-size-logo-min;
   
   background: transparent url(/img/icon-menu.svg) 50% 50% no-repeat;
   background-size: contain;
   border: 0;
   
   text-indent: -9999em;
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    width: 44px;
+    height: 24px;
+    margin: 0 @padding-body-horizontal;
+  }
 }
 
 
@@ -107,7 +154,8 @@ h1, h2, h3, h4 {
  * Main content
  */
 .container {
-  max-width: 48em; // make it readable
+  //max-width: 48em; // make it readable
+  padding: 0 @padding-body-horizontal;
 }
 
 #main { }
@@ -117,17 +165,42 @@ h1, h2, h3, h4 {
  * Logos on homepage
  */
 .jumbotron {
-  margin: 0 3em 2em;
-  padding-bottom: 1em;
+  margin: 0 @padding-body-horizontal @padding-body-vertical;
+  padding: 0;
   
+  background: transparent;
   border-radius: 0 !important;
-  border-bottom: @border-default;
   
   p {
     font-size: 1em;
   }
   
-  .col-md-4 {
-    padding: 0 3vw;
+  img {
+    max-width: 200px;
   }
+  
+  .col-sm-4 {
+    margin: 0 @padding-body-horizontal;
+    padding: @padding-body-vertical 0;
+    
+    border-bottom: @border-default;
+    text-align: center;
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    border-bottom: @border-default;
+    
+    img {
+      max-width: 100%;
+    }
+    
+    .col-sm-4 {
+      margin: 0 15px;
+      border: 0;
+    }
+  }
+}
+
+.meteor-blog-index {
+  &:extend(.container);
 }
