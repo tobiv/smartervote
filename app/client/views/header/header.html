@@ -1,4 +1,5 @@
 <template name="header">
+{{#if isInRole 'admin'}}
 <nav class="navbar navbar-default navbar-top" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -24,7 +25,6 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {{#if isInRole 'admin'}}
         <li>
           <a href="/admin/blog">
             Blog
@@ -50,12 +50,12 @@
             Users
           </a>
         </li>
-        {{/if}}
         {{> loginButtons}}
       </ul>
     </div>
   </div>
 </nav>
+{{/if}}
 
 <div id="site-header">
   <div id="site-menu">
