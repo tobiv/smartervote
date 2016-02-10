@@ -36,7 +36,6 @@ class @Network
     node = @nodesG.selectAll("circle.node").data(@nodes, (d) -> d.id)
     nodeEnter = node.enter()
     nodeEnter.append("circle") #image
-      .attr("class", "node")
       #.attr("x", -50)#(d) -> d.x)
       #.attr("y", -50)#(d) -> d.y)
       #.attr("width", 100)#(d) -> 100)
@@ -56,6 +55,7 @@ class @Network
       )
       .call(@drag)
     node
+      .attr("class", (d) -> if d.classes? then "node "+d.classes else "node")
       .attr("r", (d) -> d.radius)
       .style("fill", (d) -> d.fillColor)
       .style("fill-opacity", (d) -> if d.fillOpacity? then d.fillOpacity else 1.0)
@@ -173,6 +173,9 @@ class @Network
       if n.fixed? and n.fixed is true
         n.x = n.px
         n.y = n.py
+      n.classes = node.classes if node.classes?
+      if node.removeClasses
+        delete n.classes
       @update()
     else
       console.log "Network changeNode: node (#{node.id}) not found"

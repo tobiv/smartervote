@@ -34,6 +34,7 @@ _numQuestions = 0
 
 _questionIndex = new ReactiveVar(-1)
 _showInfo = new ReactiveVar(false)
+_previousSelectedId = null
 
 _questionLabelLengthMax = 5
 
@@ -141,6 +142,7 @@ Template.smartervote.destroyed = ->
   _proPercent = ReactiveVar(0)
   _clustersAdded = false
   _numQuestions = 0
+  _previousSelectedId = null
 
 Template.smartervote.rendered = ->
   Session.set 'showEvaluation', false
@@ -262,6 +264,22 @@ Template.smartervote.rendered = ->
       if _questionIndex.get() is -1
         goNext()
     , 500
+
+  @autorun ->
+    #maintain selected node
+    if _previousSelectedId?
+      _network.changeNode 
+        id: _previousSelectedId
+        removeClasses: true
+      _previousSelectedId = null
+    index = _questionIndex.get()
+    question = Questions.findOne index: index
+    _network.changeNode 
+      id: question._id
+      classes: "selected"
+    _previousSelectedId = question._id
+
+
 
 Template.smartervote.helpers
   showEvaluation: ->
