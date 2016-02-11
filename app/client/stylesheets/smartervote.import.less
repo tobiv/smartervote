@@ -65,7 +65,7 @@
  * App Logo, menu and language selection
  */
 #app-header {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;
@@ -81,6 +81,7 @@
   }
   
   @media only screen and (min-width: @screen-sm-min) {
+    position: fixed;
     left: 0;
     top: 0;
     right: auto;
@@ -160,13 +161,14 @@
 #content {
   position: absolute;
   z-index: 950;
-  top: 30px;
-  //bottom: 0;
+  top: 0;
   left: 10px;
   right: 40px;
   
+  box-sizing: border-box;
   min-width: 270px;
   min-height: 99.9%;
+  padding-top: 30px;
   
   img {
     max-width: 100%;
@@ -190,10 +192,10 @@
   
   @media only screen and (min-width: @screen-sm-min) {
     top: 0;
-    //bottom: 0;
     right: 45px;
     left: auto;
     width: 33%;
+    padding-top: 0;
   }
   
   /*
@@ -316,12 +318,8 @@
 
 #question,
 #evaluation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  min-height: 99.9%;
   box-sizing: border-box;
+  min-height: 99.9%;
 }
 
 /*

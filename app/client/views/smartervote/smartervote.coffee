@@ -295,7 +295,7 @@ Template.smartervote.helpers
 
 Template.smartervote.events
   'click .site-menu-toggle': () ->
-    $('#overlay-menu').addClass('in')
+    $('#overlay-menu').fadeIn(200)
 
 
 Template.question.rendered = ->
