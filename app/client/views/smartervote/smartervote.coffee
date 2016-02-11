@@ -35,6 +35,7 @@ _numQuestions = 0
 _questionIndex = new ReactiveVar(-1)
 _showInfo = new ReactiveVar(false)
 _previousSelectedId = null
+_activeAnswerTrigger = new ReactiveVar(false)
 
 _questionLabelLengthMax = 5
 
@@ -343,28 +344,34 @@ Template.question.helpers
     _showInfo.get()
 
   activeCSS: (bool) ->
-    if @answer?
-      if bool and @answer.consent is @question.max
-        return "active"
-      if !bool and @answer.consent is @question.min
-        return "active"
+    _activeAnswerTrigger.get()
+    if @question?
+      answer = _answers[@question._id]
+      if answer?
+        if bool and answer.consent is @question.max
+          return "active"
+        if !bool and answer.consent is @question.min
+          return "active"
     return ""
 
 Template.question.events
   'click .max': (evt, tmpl) ->
     evt.target.blur()
     updateAnswer(@question.max, null, @question)
+    _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
     return
 
   'click .min': (evt, tmpl) ->
     evt.target.blur()
     updateAnswer(@question.min, null, @question)
+    _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
     return
 
   'slide': (evt, tmpl, val) ->
     $('#content, #bubbles-container').addClass('dim')
     importance = parseFloat val
     updateAnswer(null, importance, @question)
+    _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
     return
     
   'mouseup': () ->
@@ -595,6 +602,7 @@ updateAnswer = (consent, importance, question) ->
 
   if newAnswer.status isnt 'skipped'
     _answerSaver.upsertAnswer question._id
+  return
 
 class AnswerSaver
   call = Promise.promisify(Meteor.call, Meteor)
