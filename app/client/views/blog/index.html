@@ -1,5 +1,5 @@
 <template name="myBlogIndex">
-  <div class="meteor-blog-index">
+  <div class="container-fluid blog">
     {{#if blogReady}}
       {{> myBlogIndexLoop posts=posts}}
       {{blogPager}}
@@ -11,27 +11,30 @@
 
 <template name="myBlogIndexLoop">
   {{#each posts}}
-    <div class="meteor-blog-post">
-      {{#if featuredImage}}
-        <div class="meteor-blog-post-thumbnail">
-          <a href="{{blogPathFor 'blogShow'}}">
-            <img src="{{featuredImage}}" alt="{{title}}">
-          </a>
+    <article class="col-md-6 blog-post">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="post-meta">
+            {{blogFormatDate publishedAt}}<br>
+            {{authorName}}
+          </div>
+          
+          {{#if featuredImage}}
+          <div class="meteor-blog-post-thumbnail">
+            <a href="{{blogPathFor 'blogShow'}}">
+              <img src="{{featuredImage}}" alt="{{title}}">
+            </a>
+          </div>
+          {{/if}}
         </div>
-      {{/if}}
-      <div class="meteor-blog-post-excerpt">
-        <h2>
-          <a href="{{blogPathFor 'blogShow'}}">{{title}}</a>
-        </h2>
-        <div class="meteor-blog-post-meta">
-          {{ BlogLanguage.metaAuthorBy }} {{authorName}} {{ BlogLanguage.metaAuthorOn }} {{blogFormatDate publishedAt}}
-          {{> myBlogTags }}
-        </div>
-        <div class="meteor-blog-post-excerpt">
-          <small>{{{excerpt}}}</small>
+        <div class="col-sm-8">
+          <a href="{{blogPathFor 'blogShow'}}"><h1>{{title}}</h1></a>
+          <div class="meteor-blog-post-excerpt">
+            {{{excerpt}}}
+          </div>
         </div>
       </div>
-    </div>
+    </article>
   {{else}}
     {{ BlogLanguage.blogEmpty }}
   {{/each}}

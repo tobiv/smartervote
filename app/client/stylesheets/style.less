@@ -15,6 +15,7 @@
 // Common/main site
 @import "viewport_border.import.less";
 @import "overlay-menu.import.less";
+@import "blog.import.less";
 @import "helpers.import.less";
 
 // Smartervote app
@@ -44,10 +45,17 @@ h1, h2, h3, h4 {
   color: black;
 	font-family: 'BuenosAires', sans-serif;
 	font-weight: bold;
+	
+	-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 img {
   max-width: 100%;
+}
+
+a {
+  color: #e7a73f;
 }
 
 .navbar {
@@ -93,6 +101,12 @@ img {
   @media only screen and (min-width: @screen-sm-min) {
     margin-right: 1.5rem;
   }
+  
+  @media only screen and (min-width: @screen-lg-min) {
+    width: 3 * @font-size-logo-medium;
+    height: 3 * @font-size-logo-medium;
+    margin-right: 2rem;
+  }
 }
 
 .logo-text {
@@ -103,11 +117,18 @@ img {
   font-size: @font-size-logo-min;
   line-height: @line-height-logo;
   
+	-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
   @media only screen and (min-width: @screen-sm-min) {
     max-width: none;
     padding: 0;
     
     font-size: @font-size-logo-medium;
+  }
+  
+  @media only screen and (min-width: @screen-lg-min) {
+    font-size: @font-size-logo-large;
   }
 }
 
