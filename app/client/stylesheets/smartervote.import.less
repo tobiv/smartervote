@@ -277,7 +277,7 @@ html {
     flex: 1 0 50%;
     
     height: @height-answers;
-    min-height: 7rem;
+    min-height: 6rem;
     padding: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -303,6 +303,12 @@ html {
       line-height: 0.9;
       
       text-transform: uppercase;
+    }
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    button {
+      min-height: 8rem;
     }
   }
   
