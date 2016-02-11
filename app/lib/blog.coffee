@@ -3,6 +3,7 @@ Blog.config
   syntaxHighlighting: true
   syntaxHighlightingTheme: 'github'
   pageSize: 100
+  blogIndexTemplate: 'myBlogIndex'
   comments: 
     disqusShortname: 'bedingungslos'
   rss:
