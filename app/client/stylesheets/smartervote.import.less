@@ -2,13 +2,20 @@
  * Main app panel that contains all parts
  * covers the full viewport
  */
+ 
+ body {
+   overflow-y: scroll;
+ }
+ 
 #smartervote {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  bottom: 0;
-  overflow: hidden; // prevent weird scrollbars, but be careful nothing important gets cut off
+  min-height: 99.9%;
+  //bottom: 0;
+  //overflow: hidden;
+  
   
   background: white;
   
@@ -58,7 +65,7 @@
  * App Logo, menu and language selection
  */
 #app-header {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
@@ -102,9 +109,9 @@
  * Container to the main svg element
  */
 #bubbles-container {
-  position: absolute;
+  position: fixed;
   left: 0;
-  right: 0;
+  right: 13px;
   top: 0;
   bottom: 0;
   
@@ -154,12 +161,12 @@
   position: absolute;
   z-index: 950;
   top: 30px;
-  bottom: 0;
+  //bottom: 0;
   left: 10px;
   right: 40px;
   
   min-width: 270px;
-  overflow: hidden;
+  min-height: 99.9%;
   
   img {
     max-width: 100%;
@@ -183,8 +190,8 @@
   
   @media only screen and (min-width: @screen-sm-min) {
     top: 0;
-    bottom: 0;
-    right: 40px;
+    //bottom: 0;
+    right: 45px;
     left: auto;
     width: 33%;
   }
@@ -311,10 +318,9 @@
 #evaluation {
   position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
-  overflow: auto;
+  min-height: 99.9%;
 }
 
 /*
@@ -686,7 +692,7 @@
  */
 #score-gauge {
   display: none;
-  position: absolute;
+  position: fixed;
   bottom: 50%;
   transition: bottom 0.3s ease;
   height: 52px;
