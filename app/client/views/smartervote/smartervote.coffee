@@ -1041,7 +1041,7 @@ Template.evaluation.rendered = ->
 
   width = _network.width
   height = _network.height
-  fieldWidth = $('#content').offset().left+radiusMax
+  fieldWidth = getBubblesWidth()+radiusMax
   #scale aspect
   #maxWidth = 1024
   #maxHeight = 768
@@ -1100,9 +1100,7 @@ Template.evaluation.helpers
 
   shareData: ->
     title: 'smarterVote'
-		url: 'https://bge.patpat.org/myBubbles'+Session.get('visitId')
-    #image: ->
-    #  "https://pbs.twimg.com/media/CZKmfWBUgAAnubV.jpg:large"
+    url: 'https://bge.patpat.org/myBubbles'+Session.get('visitId')
 
   topics: ->
     _topics
