@@ -10,10 +10,6 @@ Router.configure
       exclude:
         sitemap: '^\/sitemap\.xml'
 
-Router.onBeforeAction ->
-  AccountsEntry.signInRequired(@)
-,
-	only: ['users', 'editQuestions', 'cnc']
 
 if Meteor.isClient
   AccountsEntry.config
