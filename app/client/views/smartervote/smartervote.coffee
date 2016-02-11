@@ -428,7 +428,7 @@ Template.question.events
     document.getElementById('header').offsetHeight
     document.getElementById('header').style.display = ''
 
-  'click .hideInfo': (evt) ->
+  'click .hideInfo a': (evt) ->
     evt.preventDefault()
     _showInfo.set false
     $('#header').hide().show(0)
