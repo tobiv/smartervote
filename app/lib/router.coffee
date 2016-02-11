@@ -3,9 +3,9 @@ Router.configure
   loadingTemplate: "loading"
   notFoundTemplate: "not_found"
   i18n:
-    exclude:
-      adminPaths: '^\/admin'
-      blogPaths: '^\/blog'
+    exclude: [
+      '\/admin', '\/blog'
+    ]
     server:
       exclude:
         sitemap: '^\/sitemap\.xml'
