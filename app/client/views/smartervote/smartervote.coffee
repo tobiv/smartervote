@@ -1041,7 +1041,7 @@ Template.evaluation.rendered = ->
 
   width = _network.width
   height = _network.height
-  fieldWidth = $('#content').offset().left+radiusMax
+  fieldWidth = getBubblesWidth()+radiusMax
   #scale aspect
   #maxWidth = 1024
   #maxHeight = 768
