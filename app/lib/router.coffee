@@ -69,3 +69,7 @@ Router.route '/admin/cnc',
     Meteor.subscribe('questions')
   action: ->
     @render 'cnc'
+
+Router.route '/account',
+  action: ->
+    @render 'account'
