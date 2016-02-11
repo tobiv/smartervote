@@ -1,15 +1,19 @@
 <template name="newsListItem">
-  <a href="/news/{{_id}}">
-  <article>
-    {{#with image}}
-    <img src="{{url}}" class="article-image">
-    {{/with}}
-    
-    <h1>{{title}}</h1>
-    {{dateSani createdAt}}
-    <p class="content">
-      {{{content}}}
-    </p>
-  </article>
-  </a>
+<div class="grid-item col-sm-6 col-md-4 col-lg-3">
+  <div class="grid-item-content">
+    <article>
+      <a href="/news/{{_id}}">
+      {{#with image}}
+      <img src="{{url}}" class="article-image">
+      {{/with}}
+      <p class="date">{{dateSani createdAt}}</p>
+      <h1>{{title}}</h1>
+      </a>
+      
+      <p class="content masonry">
+        {{{content}}}
+      </p>
+    </article>
+  </div>
+</div>
 </template>
