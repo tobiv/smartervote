@@ -33,34 +33,37 @@ class @Network
   update: ->
     onNodeClick = @_onNodeClick
     onNodeHover = @_onNodeHover
-    node = @nodesG.selectAll("circle.node").data(@nodes, (d) -> d.id)
-    nodeEnter = node.enter()
-    nodeEnter.append("circle") #image
-      #.attr("x", -50)#(d) -> d.x)
-      #.attr("y", -50)#(d) -> d.y)
-      #.attr("width", 100)#(d) -> 100)
-      #.attr("height", 100)#(d) -> 100)
-      #.attr("xlink:href", (d) -> "http://cdn-img.people.com/emstag/i/2012/pets/gallery/icancheeze/120116/new-year-660.jpg")
-      .attr("cx", (d) -> d.x)
-      .attr("cy", (d) -> d.y)
-      .style("stroke-width", 0)
-      .on("click", (d) ->
-        onNodeClick(d) if onNodeClick?
-      )
-      .on("mouseover", (d) ->
-        onNodeHover(d) if onNodeHover?
-      )
-      .on("mouseout", (d) ->
-        onNodeHover(null) if onNodeHover?
-      )
+    node = @nodesG.selectAll("g.node").data(@nodes, (d) -> d.id)
+    nodeEnter = node.enter().append("g")
+      .on("click", (d) -> onNodeClick(d) if onNodeClick?)
+      .on("mouseover", (d) -> onNodeHover(d) if onNodeHover?)
+      .on("mouseout", (d) -> onNodeHover(null) if onNodeHover?)
       .call(@drag)
+    nodeEnter.append("circle") #image
+    nodeEnter.append("image")
+      .attr("xlink:href","/img/icon-star-white.svg")
+
     node
       .attr("class", (d) -> if d.classes? then "node "+d.classes else "node")
+    node.selectAll('circle')
       .attr("r", (d) -> d.radius)
       .style("fill", (d) -> d.fillColor)
       .style("fill-opacity", (d) -> if d.fillOpacity? then d.fillOpacity else 1.0)
       .style("stroke", (d) -> d.strokeColor)
       .style("stroke-width", (d) -> d.strokeWidth)
+
+    #TODO only append image if isFavorite and remove again
+    #node.filter( (d) -> d.isFavorite ).selectAll('g.node')
+    #  .append("image").attr("xlink:href","/img/icon-star-active.svg")
+    #node.filter( (d) -> !d.isFavorite ).selectAll('image')
+    #  .remove("image")
+
+    node.selectAll('image')
+      .attr("width", (d) -> if d.isFavorite then 20 else 0)
+      .attr("height", (d) -> if d.isFavorite then 20 else 0)
+      .attr("x", (d) -> -10)
+      .attr("y", (d) -> -10)
+
     node.exit().remove()
 
     link = @linksG.selectAll("line.link").data(@links, (d) -> d.id)
@@ -88,18 +91,27 @@ class @Network
       now = Date.now()
       node
         .each(collide(.5, nodes, radiusMax))
-        .attr("cx", (d) ->
+        .attr("transform", (d) ->
           #x with respect to width
           d.x = Math.max(d.radius, Math.min(width - d.radius, d.x))
           #honour xMax
           if d.xMax? and d.xMaxT < now and (d.x+d.radius/2) > d.xMax
             d.x = d.xMax-d.radius/2
-          d.x
-        )
-        .attr("cy", (d) ->
-          #y with respect to height
           d.y = Math.max(d.radius, Math.min(height - d.radius, d.y))
+          "translate( #{d.x}, #{d.y} )"
         )
+        #.attr("cx", (d) ->
+        #  #x with respect to width
+        #  d.x = Math.max(d.radius, Math.min(width - d.radius, d.x))
+        #  #honour xMax
+        #  if d.xMax? and d.xMaxT < now and (d.x+d.radius/2) > d.xMax
+        #    d.x = d.xMax-d.radius/2
+        #  d.x
+        #)
+        #.attr("cy", (d) ->
+        #  #y with respect to height
+        #  d.y = Math.max(d.radius, Math.min(height - d.radius, d.y))
+        #)
 
       link
         .attr("x1", (d) -> d.source.x)
@@ -176,6 +188,7 @@ class @Network
       n.classes = node.classes if node.classes?
       if node.removeClasses
         delete n.classes
+      n.isFavorite = node.isFavorite if node.isFavorite?
       @update()
     else
       console.log "Network changeNode: node (#{node.id}) not found"

@@ -26,7 +26,7 @@
     {{#with question=question}}
       <div id="header">
         <span class="sr-only">{{_ "question"}} </span><span id="question-index">{{index}}</span>
-        <button type="button" id="toggle-favorite" class="btn"><span class="sr-only">{{_ "favorite"}}</span></button>
+        <button type="button" id="toggle-favorite" class="btn {{favoriteActive}}"><span class="sr-only">{{_ "favorite"}}</span></button>
         <a id="show-all-questions" href="/questionOverview" target="_blank">{{_ "questionOverview"}}</a><br>
         
         <label for={{question._id}} class="control-label">
@@ -48,12 +48,12 @@
 
       <div class="footer">
         <div class="answers control-section">
-          <button type="button" class="max {{activeCSS true}} btn btn-default">
+          <button type="button" class="max {{answerButtonActive true}} btn btn-default">
             <span>{{maxLabel}}</span>
             {{maxLabelAffix}}
           </button>
           <br>
-          <button type="button" class="min {{activeCSS false}} btn btn-default">
+          <button type="button" class="min {{answerButtonActive false}} btn btn-default">
             <span>{{minLabel}}</span>
             {{minLabelAffix}}
           </button>

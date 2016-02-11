@@ -343,7 +343,15 @@ Template.question.helpers
   showInfo: ->
     _showInfo.get()
 
-  activeCSS: (bool) ->
+  favoriteActive: (bool) ->
+    _activeAnswerTrigger.get()
+    if @question?
+      answer = _answers[@question._id]
+      if answer? and answer.isFavorite
+        return "active"
+    return ""
+
+  answerButtonActive: (bool) ->
     _activeAnswerTrigger.get()
     if @question?
       answer = _answers[@question._id]
@@ -353,6 +361,8 @@ Template.question.helpers
         if !bool and answer.consent is @question.min
           return "active"
     return ""
+
+  
 
 Template.question.events
   'click .max': (evt, tmpl) ->
@@ -395,6 +405,18 @@ Template.question.events
     if qi < 0
       qi = _numQuestions-1
     gotoQuestionIndex qi
+
+  'click #toggle-favorite': (evt) ->
+    answer = _answers[@question._id]
+    if answer.isFavorite?
+      answer.isFavorite = !answer.isFavorite
+    else
+      answer.isFavorite = true
+    _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
+    _network.changeNode
+      id: @question._id
+      isFavorite: answer.isFavorite
+    _answerSaver.upsertAnswer @question._id
 
   'click .showInfo': (evt) ->
     evt.preventDefault()
@@ -713,6 +735,7 @@ class Field
     node =
       id: question._id
       qIndex: question.index
+      isFavorite: answer.isFavorite
       x: @network.width
       y: @network.height/2
       radius: answer.radius
@@ -819,6 +842,7 @@ class Chain
     node =
       id: answer.question._id
       qIndex: answer.question.index
+      isFavorite: answer.isFavorite
       x: @network.width-(@radius/2)
       y: @radius*2*@linkDistance*2*@nodeIds.length
     @network.addNode node

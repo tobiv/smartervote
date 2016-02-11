@@ -83,9 +83,10 @@ Meteor.methods
           importance: answer.importance
           status: answer.status
           radius: answer.radius
+          isFavorite: answer.isFavorite
       answer._id
     else
-      answer = _.pick answer, 'visitId', 'questionId', 'value', 'consent', 'importance', 'status', 'radius'
+      answer = _.pick answer, 'visitId', 'questionId', 'value', 'consent', 'importance', 'status', 'radius', 'isFavorite'
       _id = Answers.insert answer
       _id
 
