@@ -62,7 +62,7 @@ class @Network
       .attr("width", (d) -> if d.isFavorite then 20 else 0)
       .attr("height", (d) -> if d.isFavorite then 20 else 0)
       .attr("x", (d) -> -10)
-      .attr("y", (d) -> -10)
+      .attr("y", (d) -> -10.5)
 
     node.exit().remove()
 
