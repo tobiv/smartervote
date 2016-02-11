@@ -1,0 +1,15 @@
+<template name="newsListItem">
+  <a href="/news/{{_id}}">
+  <article>
+    {{#with image}}
+    <img src="{{url}}" class="article-image">
+    {{/with}}
+    
+    <h1>{{title}}</h1>
+    {{dateSani createdAt}}
+    <p class="content">
+      {{{content}}}
+    </p>
+  </article>
+  </a>
+</template>

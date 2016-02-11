@@ -23,3 +23,15 @@ Router.route '/admin/news/new',
   name: 'news.new'
   action: ->
     @render 'newsItemEdit'
+
+
+Router.route '/news/:id',
+  waitOn: ->
+    [
+      Meteor.subscribe('newsItem', @params.id)
+      Meteor.subscribe('newsImages')
+    ]
+  data: ->
+    News.findOne @params.id
+  action: ->
+    @render 'newsItem'

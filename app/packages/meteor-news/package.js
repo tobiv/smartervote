@@ -29,12 +29,14 @@ Package.onUse(function(api) {
   api.addFiles('shared/collections/news.coffee', ['client', 'server']);
   api.addFiles('shared/router.coffee', ['client', 'server']);
   api.addFiles('server/publications.coffee', 'server');
-  api.addFiles('client/views/news/news_item.html', 'client');
   api.addFiles('client/views/news/news_admin.html', 'client');
+  api.addFiles('client/views/news/news_item.html', 'client');
   api.addFiles('client/views/news/news_item_edit.html', 'client');
+  api.addFiles('client/views/news/news_list_item.html', 'client');
   api.addFiles('client/views/news/news_admin.coffee', 'client');
   api.addFiles('client/views/news/news_item.coffee', 'client');
   api.addFiles('client/views/news/news_item_edit.coffee', 'client');
+  api.addFiles('client/views/news/news_list_item.coffee', 'client');
   api.addFiles('client/stylesheets/article.less', 'client');
 
 });
