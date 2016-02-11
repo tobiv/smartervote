@@ -31,7 +31,7 @@ body {
 	margin: 0;
 	padding: @viewport-border-width;
 	overflow-x: hidden;
-	//overflow-y: scroll;
+	overflow-y: scroll;
 	
 	background: white;
 	color: black;
@@ -56,6 +56,10 @@ img {
 
 a {
   color: #e7a73f;
+  
+  &:hover {
+    color: black;
+  }
 }
 
 .navbar {
@@ -175,8 +179,12 @@ a {
  * Main content
  */
 .container {
-  //max-width: 48em; // make it readable
+  max-width: 42em; // make it readable
   padding: 0 @padding-body-horizontal;
+  
+  p {
+    margin-bottom: 1em;
+  }
 }
 
 #main { }
@@ -229,4 +237,45 @@ a {
 
 .meteor-blog-index {
   &:extend(.container);
+}
+
+.dropdown-menu {
+  z-index: 10000000;
+}
+
+.page-header {
+  margin: 0 auto;
+}
+#post .page-header h1 {
+  margin: 1em 0;
+  padding: 0;
+}
+
+#post {
+  margin-bottom: 3em;
+  
+  h1 {
+    margin: 0.25em 0 0.5em;
+    font-size: 1.2em;
+  }
+  
+  p {
+    margin-bottom: 1em;
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    font-size: 1.1em;
+    
+    h1 {
+      font-size: 1.3em;
+    }
+  }
+  
+  @media only screen and (min-width: @screen-lg-min) {
+    font-size: 1.2em;
+    
+    h1 {
+      font-size: 1.5em;
+    }
+  }
 }

@@ -4,6 +4,7 @@ Blog.config
   syntaxHighlightingTheme: 'github'
   pageSize: 100
   blogIndexTemplate: 'myBlogIndex'
+  blogShowTemplate: 'myBlogPost'
   comments: 
     disqusShortname: 'bedingungslos'
   rss:

@@ -10,7 +10,7 @@
   z-index: 1000;
   
   box-sizing: border-box;
-  height: 100%;
+  min-height: 100%;
   padding: (2 * @padding-body-vertical + 2 * @line-height-logo * @font-size-logo-medium + 3rem) @padding-body-horizontal;
   
   opacity: 0;
@@ -35,7 +35,8 @@
   }
   
   ul {
-    
+    padding: 0;
+    margin: 1em 0;
     list-style: none;
     text-align: center;
   }
@@ -47,7 +48,8 @@
     color: black;
     
     font-weight: bold;
-    font-size: 4vh;
+    font-size: 5vm; // IE
+    font-size: 5vmin;
     text-transform: uppercase;
     
     &:hover {
