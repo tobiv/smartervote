@@ -91,7 +91,7 @@ doResize = ->
 
   # recalculate content padding
   footerHeight = @$('.footer').outerHeight()
-  @$('.mCSB_container').css( 'padding-bottom', footerHeight )
+  @$('#question').css( 'padding-bottom', footerHeight )
 
 
 upsertClusters = ->
@@ -299,10 +299,10 @@ Template.smartervote.events
 
 
 Template.question.rendered = ->
-  @$("#question").mCustomScrollbar({ theme: 'minimal-dark', scrollButtons: { enable: false } })
+  # @$("#question").mCustomScrollbar({ theme: 'minimal-dark', scrollButtons: { enable: false } })
 
-  footerHeight = @$('.footer').outerHeight()
-  @$('.mCSB_container').css( 'padding-bottom', footerHeight )
+  footerHeight = $('.footer').outerHeight()
+  $('#question').css( 'padding-bottom', footerHeight )
 
 Template.question.helpers
   question: ->
@@ -1027,7 +1027,7 @@ class Chain
 
 
 Template.evaluation.rendered = ->
-  @$("#evaluation").mCustomScrollbar({ theme: 'minimal-dark', mouseWheel: { preventDefault: true }, scrollButtons: { enable: false } })
+  #@$("#evaluation").mCustomScrollbar({ theme: 'minimal-dark', mouseWheel: { preventDefault: true }, scrollButtons: { enable: false } })
 
   #render SVG as PNG
   return if !_network?
