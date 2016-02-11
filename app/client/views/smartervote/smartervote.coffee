@@ -1100,9 +1100,7 @@ Template.evaluation.helpers
 
   shareData: ->
     title: 'smarterVote'
-		url: 'https://bge.patpat.org/myBubbles'+Session.get('visitId')
-    #image: ->
-    #  "https://pbs.twimg.com/media/CZKmfWBUgAAnubV.jpg:large"
+    url: 'https://bge.patpat.org/myBubbles'+Session.get('visitId')
 
   topics: ->
     _topics
