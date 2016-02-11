@@ -9,13 +9,13 @@ article {
     padding-top: 1rem;
   }
   
-  .date {
-    font-size: 0.85em;
+  a .date {
+    color: black;
   }
   
   h1 {
-    margin-top: 0.75em;
-    font-size: 1em;
+    margin: 0.75em 0 1em;
+    font-size: 1.2em;
   }
   
   .content.masonry {
@@ -24,11 +24,19 @@ article {
     text-overflow: ellipsis;
   }
   
+  p {
+    margin-bottom: 1em;
+  }
+  
   @media only screen and (min-width: @screen-sm-min) {
     font-size: 1.1em;
     
     h1 {
       font-size: 1.2em;
+    }
+    
+    &.container-fluid {
+      h1 { font-size: 1.3em; }
     }
   }
   
@@ -37,6 +45,10 @@ article {
     
     h1 {
       font-size: 1.3em;
+    }
+    
+    &.container-fluid {
+      h1 { font-size: 1.5em; }
     }
   }
 }
