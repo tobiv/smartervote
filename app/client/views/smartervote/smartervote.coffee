@@ -299,7 +299,7 @@ Template.smartervote.events
 
 
 Template.question.rendered = ->
-  @$("#question").mCustomScrollbar({ theme: 'minimal-dark', mouseWheel: { preventDefault: true }, scrollButtons: { enable: false } })
+  @$("#question").mCustomScrollbar({ theme: 'minimal-dark', scrollButtons: { enable: false } })
 
   footerHeight = @$('.footer').outerHeight()
   @$('.mCSB_container').css( 'padding-bottom', footerHeight )
