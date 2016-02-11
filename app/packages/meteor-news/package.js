@@ -20,6 +20,8 @@ Package.onUse(function(api) {
 
   api.use('aldeed:autoform@5.8.1', ['client', 'server']);
   api.use('yogiben:autoform-file@0.4.2', ['client', 'server']);
+  api.use('gildaspk:autoform-medium@0.0.5', ['client', 'server']);
+
   api.use('alanning:roles@1.2.14', ['client', 'server']);
   api.use('aldeed:collection2@2.8.0', ['client', 'server']);
 

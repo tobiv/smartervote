@@ -27,8 +27,9 @@ schema = new SimpleSchema(
     type: String
     label: 'Content'
     autoform:
-      type: "textarea"
-      rows: 10
+      type: "medium"
+      #type: "textarea"
+      #rows: 10
   languages:
     type: [String]
     min: 1

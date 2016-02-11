@@ -84,6 +84,7 @@ fortawesome:fontawesome@4.5.0
 froatsnook:request@2.67.0
 frozeman:template-var@1.2.3
 geojson-utils@1.0.4
+gildaspk:autoform-medium@0.0.5
 google@1.1.7
 handlebars@1.0.4
 hot-code-push@1.0.0
@@ -113,6 +114,7 @@ martino:i18n-conf@0.3.4
 martino:iron-router-i18n@1.2.3
 matb33:collection-hooks@0.8.1
 mdg:validation-error@0.2.0
+mediumeditor:mediumeditor@5.2.0
 meteor@1.1.10
 meteor-base@1.0.1
 meteorhacks:fast-render@2.10.0
