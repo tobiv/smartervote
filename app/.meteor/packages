@@ -16,7 +16,6 @@ ian:accounts-ui-bootstrap-3
 sacha:spin
 matb33:collection-hooks
 fortawesome:fontawesome
-momentjs:moment
 mizzao:user-status
 frozeman:template-var
 reactive-var
@@ -60,3 +59,7 @@ tap:i18n-ui
 patte:meteor-page-crumbs
 ryw:blog
 patte:meteor-news
+rzymek:moment
+rzymek:moment-locale-de
+rzymek:moment-locale-fr
+rzymek:moment-locale-it
