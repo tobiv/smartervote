@@ -26,8 +26,8 @@
              <small><a href="#" data-action="edit-post">{{ BlogLanguage.edit }}</a></small>
              --
           {{/if}}
-          {{blogFormatDate publishedAt}}<br>
-          {{authorName}}
+          {{dateSani publishedAt}}<br>
+<!--           {{authorName}} -->
           <!--{{> blogTags }}-->
         </div>
         <h1 class="meteor-blog-post-title">
@@ -43,7 +43,7 @@
     </div>
     {{> shareit shareData}}
     <br style="clear:both">
-    {{> disqus this}}
+    {{> mydisqus this}}
   </div>
 </template>
 
@@ -72,7 +72,7 @@
   {{/if}}
 </template>
 
-<template name="disqus">
+<template name="mydisqus">
   {{#if useDisqus}}
     <div id="disqus_thread"></div>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
