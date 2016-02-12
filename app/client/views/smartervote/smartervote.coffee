@@ -299,6 +299,7 @@ Template.smartervote.events
     
   'click #mobile-content-toggle': () ->
     $('#content').fadeToggle(200)
+    $('#bubbles-container').toggleClass('dim')
 
 
 Template.question.rendered = ->
