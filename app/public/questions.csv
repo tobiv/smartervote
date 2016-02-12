@@ -1,8 +1,8 @@
 Reihenfolge;Soft Cluster;Topic;Q HR ID;Fragetext;Argument;leftpositiv;onesided;onlynegaiv;Low Bound;High Bound;InfoText
 1;Arbeitsmotivation;Individuum;Zwang;Würden die Menschen mehr Sinnvolles tun, wenn der Zwang zum Geldverdienen wegfällt?;;x;;;Ja;Nein, weniger;
 2;Bildung;Individuum;Bildung;Würden sich die Menschen mit einem Grundeinkommen weniger bilden?;;;;;Ja;Nein, mehr;
-3;Arbeitsmotivation;Wirtschaft;Freiheit;Ohne Zwang zur Erwerbsarbeit könnten die Menschen freier über ihre Zeit verfügen. Überfordert diese Freiheit?;;;x;x;Ja;Nein ;
-4;Veränderung;Wirtschaft;Umfrage;Würde noch genug Erwerbsarbeit geleistet?;;x;;;Ja;Nein ;
+3;Arbeitsmotivation;Individuum;Freiheit;Ohne Zwang zur Erwerbsarbeit könnten die Menschen freier über ihre Zeit verfügen. Überfordert diese Freiheit?;;x;x;x;Ja;Nein ;
+4;Veränderung;Wirtschaft;Umfrage;Würde noch genug Erwerbsarbeit geleistet?;;;x;x;Ja;Nein ;
 5;Migration;Staat;Migration;Führt das Grundeinkommen zu unlösbaren Problemen bei der Einwanderung?;;x;x;x;Ja;Nein ;
 6;Arbeitsmotivation;Wirtschaft;Innovation;Befreit vom Zwang zur Erwerbsarbeit wären die Menschen motivierter. Dies führt zu einem Innovationsschub.;;x;;;Ja;Nein, im Gegenteil;
 7;Frau;Gesellschaft;Einkommen;Mit Grundeinkommen wird ein Teil des Volkseinkommens gleichmässig und ohne Diskriminierung der Geschlechter verteilt. Ist das ein Schritt in Richtung Gleichberechtigung? ;;x;x;;Ja;Nein ;
@@ -12,7 +12,7 @@ Reihenfolge;Soft Cluster;Topic;Q HR ID;Fragetext;Argument;leftpositiv;onesided;o
 11;Finanzierung;Wirtschaft;Rest;Wer heute weniger als das Grundeinkommen verdient, hätte mit Grundeinkommen mehr Geld. Andere würden sich aus dem Arbeitsmarkt verabschieden. Ist die Finanzierung dieser Mehrkosten ein Problem?;;x;x;x;Ja;Nein ;
 12;Frau;Gesellschaft;Herdprämie;Das Grundeinkommen fördertet finanziell ein veraltetes Familienmodell. Richtig?;;x;x;x;Ja;Nein ;
 13;Frau;Gesellschaft;Abhängigkeit;Heute verfügt oft ein Familienmitglied über das gesamte Haushalts-Einkommen. Das führt zu finanziellen Abhängigkeiten. Kann das bedingungslose Grundeinkommen diese reduzieren?;;x;x;;Ja;Nein ;
-14;Freiheit;Individuum;Roboter;Weil durch die Automatisierung viele Arbeitsplätze verschwinden, müssen neue Formen der Einkommensverteilung gefunden werden: Ist das Grundeinkommen dazu die richtige Form? ;;;;;Ja;Nein ;
+14;Freiheit;Individuum;Roboter;Weil durch die Automatisierung viele Arbeitsplätze verschwinden, müssen neue Formen der Einkommensverteilung gefunden werden: Ist das Grundeinkommen dazu die richtige Form? ;;x;;;Ja;Nein ;
 15;Unbezahlt;Gesellschaft;Unbezahlt;Das Grundeinkommen erlaubt Menschen, die unbezahlte Arbeit leisten, finanziell unabhängig zu leben. Ist das gut?;;x;;;Ja;Nein ;
 16;Arbeitsmotivation;Individuum;Unzufrieden;Wird es mit einem Grundeinkommen weniger Menschen geben, die mit ihrer beruflichen Situation unzufrieden oder krank sind?;;x;;;Ja;Nein, im Gegenteil;
 17;Arbeitsmarkt;Staat;Markt;Der Arbeitsmarkt regelt Angebot und Nachfrage nach Arbeit. Mit dem Grundeinkommen gibt es mehr Entscheidungsfreiheit, nicht an diesem Markt teilzunehmen..Kommt das gut? ;;x;;;Ja;Nein ;
