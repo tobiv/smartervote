@@ -8,7 +8,7 @@ class @Network
     @width = $(@element).width()
     @height = $(@element).height()
 
-    vis = d3.select(@element).append("svg")
+    @svg = d3.select(@element).append("svg")
       .attr('id', @svgElementId)
       .attr("width", @width)
       .attr("height", @height)
@@ -17,8 +17,8 @@ class @Network
       #.attr('viewBox', '0 0 800 600')
       #.attr('perserveAspectRatio', 'xMinYMid')
 
-    @linksG = vis.append("g").attr("id", "links")
-    @nodesG = vis.append("g").attr("id", "nodes")
+    @linksG = @svg.append("g").attr("id", "links")
+    @nodesG = @svg.append("g").attr("id", "nodes")
 
     @force = d3.layout.force()
     @drag = @force.drag()
@@ -280,6 +280,17 @@ class @Network
 
   getElement: ->
     @element
+
+  appendGradient: (id, c0, c1) ->
+    gradient = @svg.append("defs")
+      .append("linearGradient")
+        .attr("id", id)
+    gradient.append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", c0)
+    gradient.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", c1)
 
   # Resolves collisions between d and all other circles.
   # http://stackoverflow.com/questions/11339348/avoid-d3-js-circles-overlapping

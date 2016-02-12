@@ -8,9 +8,29 @@ linkDistanceScale = d3.scale.linear()
 linkDistanceScale.domain [-0.5, 0.5]
 linkDistanceScale.range [0, linkDistanceMax]
 
-color = d3.scale.category20b()
-colors = [
-  '0CFF0C', 'BBFF0C', 'FFF113', 'FFBC13', 'FF8616', 'FF6311', 'FF190B', 'FF1361', 'EE0FFF', '9A15FF', '450FFF', '1437FF', '1B79FF', '13BBFF', '19EFFF', '19FF81', 'FF74E8', 'FFB669', '85FFC8', 'FF645B', 'B3FF62', 'FF3973'
+_colors = [
+  [ '00f384', '2ff56b' ]
+  [ '34f569', '6af84d' ]
+  [ '6ff84b', '9bfa34' ]
+  [ 'a0fb31', 'c1fc20' ]
+  [ 'c6fc1d', 'dffd11' ]
+  [ 'e1fe10', 'f3fe06' ]
+  [ 'feff01', 'fff708' ]
+  [ 'fff30c', 'ffd827' ]
+  [ 'ffd52a', 'ffb748' ]
+  [ 'ffb44b', 'ff9669' ]
+  [ 'ff936c', 'ff748b' ]
+  [ 'ff718e', 'ff52ad' ]
+  [ 'ff4db2', 'ff2fd0' ]
+  [ 'ff2ad5', 'ff0bf4' ]
+  [ 'ff08f7', 'e725ff' ]
+  [ 'e32aff', 'c558ff' ]
+  [ 'c25cff', 'a784ff' ]
+  [ 'a489ff', '8dabff' ]
+  [ '8bafff', '77cdff' ]
+  [ '76cfff', '66e7ff' ]
+  [ '64eaff', '5af9ff' ]
+  [ '59fbff', '56ffff' ]
 ]
 
 _clusters = []
@@ -149,6 +169,9 @@ Template.smartervote.rendered = ->
   Session.set 'showEvaluation', false
   #initialize network
   _network = new Network("#bubbles-container", radiusMax)
+
+  for color, i in _colors
+    _network.appendGradient 'color_'+i, '#'+color[0], '#'+color[1]
 
   #jump to question, when clicking on node
   _network.onNodeClick (d) ->
@@ -703,7 +726,7 @@ class Pitcher
     @network.changeNode
       id: @holdingAnswer.question._id
       radius: answer.radius
-      fillColor: "#"+colors[answer.question.index]
+      fillColor: "url(#color_#{answer.question.index})"
       strokeWidth: 0
 
   free: ->
@@ -732,7 +755,7 @@ class Field
       x: @network.width
       y: @network.height/2
       radius: answer.radius
-      fillColor: "#"+colors[question.index]
+      fillColor: "url(#color_#{answer.question.index})"
     @network.addNode node
     @catch answer
     return
@@ -744,7 +767,7 @@ class Field
     @network.changeNode
       id: question._id
       radius: answer.radius
-      fillColor: "#"+colors[question.index]
+      fillColor: "url(#color_#{answer.question.index})"
       strokeWidth: 0
       xMax: @xMax if @xMax?
       xMaxT: Date.now()+3000
@@ -768,7 +791,7 @@ class Field
     @network.changeNode
       id: question._id
       radius: answer.radius
-      fillColor: "#"+colors[question.index]
+      fillColor: "url(#color_#{answer.question.index})"
       strokeWidth: 0
       xMax: @xMax if @xMax?
       isFavorite: answer.isFavorite
@@ -851,7 +874,7 @@ class Chain
       @network.changeNode
         id: answer.question._id
         radius: @radius
-        fillColor: "#"+colors[answer.question.index]
+        fillColor: "url(#color_#{answer.question.index})"
         strokeWidth: 0
     else if answer.status is 'skipped'
       @network.changeNode
@@ -859,7 +882,7 @@ class Chain
         radius: @radius
         radius: @radius-2.5
         fillColor: "#fff"
-        strokeColor: "#"+colors[answer.question.index]
+        strokeColor: "url(#color_#{answer.question.index})"
         strokeWidth: 5
 
     #link up
