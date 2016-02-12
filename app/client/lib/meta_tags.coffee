@@ -1,8 +1,8 @@
 Router.plugin 'seo',
   defaults:
-    title: 'Bedingungsloses Grundeinkommen'
-    suffix: 'Eidgenössische Volksinitiative'
-    separator: ' - '
+    title: 'Volksinitiative Bedingungsloses Grundeinkommen (bedingungslos.ch)'
+    suffix: ''
+    separator: ''
 
     description: 'Infos und Smartervote'
     #image: 'http://bge.patpat.org' #TODO
@@ -11,5 +11,5 @@ Router.plugin 'seo',
       keywords: ['bedingungslos', 'inconditionnel', 'incondizionato', "Grundeinkommen", 'Volksinitiative', 'bge', 'ubi']
 
     og:
-      site_name: 'Bedingungsloses Grundeinkommen',
+      site_name: 'Volksinitiative Bedingungsloses Grundeinkommen',
       #image: '/images/custom-opengraph.png'#TODO
