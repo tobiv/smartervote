@@ -38,6 +38,10 @@ body {
 	
 	font-family: 'SabonLTStd-Roman', serif;
 	line-height: @line-height-default;
+	
+	@media only screen and (min-width: @screen-sm-min) {
+  	padding: @viewport-border-width;
+	}
 }
 
 h1, h2, h3, h4 {	
@@ -100,7 +104,7 @@ a {
   
   border-radius: 50%;
   background: @color-brand;
-  background: linear-gradient(135deg, #e7a73f 0%, #fff3ba 38%, #ecb354 100%);
+  background: linear-gradient(141deg, #ffed00 0%, #ffcc00 100%);
   
   @media only screen and (min-width: @screen-sm-min) {
     margin-right: 1.5rem;
