@@ -1106,8 +1106,9 @@ Template.evaluation.helpers
     Visits.findOne _visitId
 
   shareData: ->
-    title: 'smarterVote'
-    url: 'https://bge.patpat.org/myBubbles'+_visitId
+    title: 'smartervote - bedingungslos.ch'
+    url: 'https://bge.patpat.org/myBubbles/'+_visitId
+    thumbnail: "https://bge.patpat.org/#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
 
   topics: ->
     _topics
