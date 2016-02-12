@@ -111,6 +111,7 @@ liberation:shareit@1.1.1
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
+lookback:seo@1.1.0
 martino:i18n-conf@0.3.4
 martino:iron-router-i18n@1.2.3
 matb33:collection-hooks@0.8.1
@@ -190,4 +191,5 @@ underscore@1.0.4
 url@1.0.5
 webapp@1.2.3
 webapp-hashing@1.0.5
+yasinuslu:blaze-meta@0.3.3
 yogiben:autoform-file@0.4.2
