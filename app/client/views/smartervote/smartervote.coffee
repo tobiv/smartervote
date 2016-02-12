@@ -365,6 +365,10 @@ Template.smartervote.events
   'click #mobile-content-toggle': () ->
     $('#content').fadeToggle(200)
     $('#bubbles-container').toggleClass('dim')
+    
+  'click .toggle-about': (evt) ->
+    evt.preventDefault()
+    $('#smartervote-modal').fadeToggle(200)
 
 
 Template.question.rendered = ->
@@ -454,6 +458,9 @@ Template.question.events
     return
     
   'mouseup': () ->
+    $('#content, #bubbles-container').removeClass('dim')
+    
+  'pointerup': () ->
     $('#content, #bubbles-container').removeClass('dim')
 
   'touchend': () ->
