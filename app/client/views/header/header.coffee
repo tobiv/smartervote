@@ -10,4 +10,4 @@ Template.header.helpers
     
 Template.header.events
   'click .site-menu-toggle': () ->
-    $('#overlay-menu').addClass('in')
+    $('#overlay-menu').fadeIn(200)

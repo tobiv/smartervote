@@ -1,3 +1,3 @@
 Template.menu.events
   'click': () ->
-    $('#overlay-menu').removeClass('in')
+    $('#overlay-menu').fadeOut(200);

@@ -11,9 +11,9 @@
 
 <template name="myBlogIndexLoop">
   {{#each posts}}
-    <article class="col-md-6 blog-post">
+    <article class="col-lg-6 blog-post">
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-md-3">
           <div class="post-meta">
             {{dateSani publishedAt}}<br>
 <!--             {{authorName}} -->
@@ -27,7 +27,7 @@
           </div>
           {{/if}}
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-8 col-md-7 col-lg-9">
           <a href="{{blogPathFor 'blogShow'}}"><h1>{{title}}</h1></a>
           <div class="meteor-blog-post-excerpt">
             {{{excerpt}}}

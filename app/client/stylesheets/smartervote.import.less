@@ -3,9 +3,10 @@
  * covers the full viewport
  */
  
- body {
-   overflow-y: scroll;
- }
+html {
+  overflow-y: scroll;
+  -ms-overflow-style: scrollbar; // Prevent IE scrollbar from overlapping viewport
+}
  
 #smartervote {
   position: absolute;
@@ -65,7 +66,7 @@
  * App Logo, menu and language selection
  */
 #app-header {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;
@@ -81,6 +82,7 @@
   }
   
   @media only screen and (min-width: @screen-sm-min) {
+    position: fixed;
     left: 0;
     top: 0;
     right: auto;
@@ -111,7 +113,7 @@
 #bubbles-container {
   position: fixed;
   left: 0;
-  right: 13px;
+  right: 8px;
   top: 0;
   bottom: 0;
   
@@ -160,13 +162,14 @@
 #content {
   position: absolute;
   z-index: 950;
-  top: 30px;
-  //bottom: 0;
+  top: 0;
   left: 10px;
   right: 40px;
   
+  box-sizing: border-box;
   min-width: 270px;
   min-height: 99.9%;
+  padding-top: 30px;
   
   img {
     max-width: 100%;
@@ -190,10 +193,10 @@
   
   @media only screen and (min-width: @screen-sm-min) {
     top: 0;
-    //bottom: 0;
     right: 45px;
     left: auto;
     width: 33%;
+    padding-top: 0;
   }
   
   /*
@@ -274,7 +277,7 @@
     flex: 1 0 50%;
     
     height: @height-answers;
-    min-height: 7rem;
+    min-height: 6rem;
     padding: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -303,6 +306,12 @@
     }
   }
   
+  @media only screen and (min-width: @screen-sm-min) {
+    button {
+      min-height: 8rem;
+    }
+  }
+  
   @media only screen and (min-width: @screen-md-min) {
     button {
       font-size: 2vw; // of viewport width
@@ -316,12 +325,8 @@
 
 #question,
 #evaluation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  min-height: 99.9%;
   box-sizing: border-box;
+  min-height: 99.9%;
 }
 
 /*
@@ -337,6 +342,14 @@
   
   @media only screen and (min-width: @screen-lg-min) {
     font-size: 1.2vw;
+  }
+}
+
+.hideInfo {
+  background: rgba(255,255,255, 0.8);
+  
+  a {
+    color: gray !important;
   }
 }
 

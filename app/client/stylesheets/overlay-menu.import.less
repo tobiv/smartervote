@@ -2,7 +2,7 @@
  * Full screen menu overlay
  */
 #overlay-menu {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -13,26 +13,10 @@
   min-height: 100%;
   padding: (2 * @padding-body-vertical + 2 * @line-height-logo * @font-size-logo-medium + 3rem) @padding-body-horizontal;
   
-  opacity: 0;
-/*
-  -webkit-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  transform: scale(1.2);
-*/
-  
   background: @color-menu-bg;
-  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
   
   font-family: 'BuenosAires', sans-serif;
 	font-weight: bold;
-  
-  &.in {
-    visibility: visible;
-    opacity: 1;
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-  }
   
   ul {
     padding: 0;
