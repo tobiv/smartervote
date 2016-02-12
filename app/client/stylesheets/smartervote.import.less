@@ -67,11 +67,12 @@ html {
  */
 #app-header {
   position: absolute;
-  left: 0;
+  left: auto;
   top: 0;
   right: 0;
-  z-index: 900;
+  z-index: 1000;
 
+  width: 32px;
   padding: 10px;
   
   .site-menu-toggle {
@@ -81,12 +82,17 @@ html {
     margin: 3px 0;
   }
   
+  :not(.site-menu-toggle) {
+    display: none;
+  }
+  
   @media only screen and (min-width: @screen-sm-min) {
     position: fixed;
-    left: 0;
+    left: 45px;
     top: 0;
     right: auto;
     
+    width: auto;
     padding: 1em;
     
     .site-menu-toggle {
@@ -94,6 +100,10 @@ html {
       width: 44px;
       height: 24px;
       margin: 0 1em;
+    }
+    
+    :not(.site-menu-toggle) {
+      display: inline-block;
     }
   }
 }
@@ -163,13 +173,13 @@ html {
   position: absolute;
   z-index: 950;
   top: 0;
-  left: 10px;
-  right: 40px;
+  left: 0;
+  right: 0;
   
   box-sizing: border-box;
   min-width: 270px;
   min-height: 99.9%;
-  padding-top: 30px;
+  padding: 0 10px 0 30px;
   
   img {
     max-width: 100%;
@@ -196,7 +206,7 @@ html {
     right: 45px;
     left: auto;
     width: 33%;
-    padding-top: 0;
+    padding: 0;
   }
   
   /*
@@ -204,7 +214,7 @@ html {
    * ? rename, e.g. #question?
    */
   #header {
-    padding-top: 1em;
+    padding-top: 10px;
     
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
@@ -221,6 +231,10 @@ html {
     
     .info {
       margin: 15px 0px;
+    }
+    
+    @media only screen and (min-width: @screen-sm-min) {
+      padding-top: 1em;
     }
   }
 }
@@ -257,10 +271,15 @@ html {
  */
 .footer {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 30px;
+  right: 10px;
   bottom: 0;
   padding-top: @controls-vertical-padding-min;
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    left: 0;
+    right: 0;
+  }
 }
 
 /*
@@ -334,6 +353,13 @@ html {
  */
 #show-all-questions {
   float: right;
+  margin-right: 32px;
+  font-size: 0.85em;
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    margin-right: 0;
+    font-size: 1em;
+  }
 }
 
 .showInfo,
@@ -474,6 +500,7 @@ html {
  */
 #evaluation {
   background: white;
+  box-shadow: 0 0 0 30px white;
   
   .control-section {
     border-top: 0;
@@ -705,25 +732,49 @@ html {
  * Score gauge on left side of the view
  */
 #score-gauge {
-  display: none;
   position: fixed;
   bottom: 50%;
   transition: bottom 0.3s ease;
-  height: 52px;
-  padding-left: 32px;
+  height: 26px;
+  padding-left: 2px;
   
   background-image: url(/img/arrow-right.svg);
   background-position: 0 50%;
   background-repeat: no-repeat;
-  background-size: 26px 52px;
+  background-size: 7px 13px;
   
-  line-height: 52px;
+  font-size: 0.85em;
+  line-height: 26px;
+  
+  span {
+    display: inline-block;
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    line-height: 1;
+  }
   
   @media only screen and (min-width: @screen-sm-min) {
-    display: block;
+    height: 52px;
+    padding-left: 20px;
+    background-size: 26px 52px;
+    
+    font-size: 1em;
+    line-height: 52px;    
+    
+    span {
+      display: inline-block;
+/*
+      -webkit-transform: rotate(0);
+      -ms-transform: rotate(0);
+      transform: rotate(0);
+*/
+      line-height: 1;
+    }
   }
 }
 
+// Prevent bootstrap dropdown from closing on touch inside
 .dropdown-backdrop {
   position: static;
 }

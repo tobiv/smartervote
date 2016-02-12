@@ -1,7 +1,7 @@
 <template name="smartervote">
   <div id="smartervote">
     <div id="app-header">
-      Logo  <button class="site-menu-toggle">Menü</button>
+      <span>Logo</span>  <button class="site-menu-toggle">Menü</button>
       {{> languageSwitcher}}
     </div>
     
@@ -16,7 +16,7 @@
     </div>
 
     <div id="score-gauge" style="bottom: {{proPercentGauge}}%">
-      {{proPercent}}%
+      <span>{{proPercent}}%</span>
     </div>
   </div>
 </template>

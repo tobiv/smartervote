@@ -290,7 +290,7 @@ Template.smartervote.helpers
     _proPercent.get()
     
   proPercentGauge: ->
-    _proPercent.get() * 0.86
+    _proPercent.get() * 0.92
     
 
 Template.smartervote.events
