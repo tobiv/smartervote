@@ -201,13 +201,19 @@ a {
  */
 .jumbotron {
   margin: 0 @padding-body-horizontal @padding-body-vertical;
-  padding: 0;
+  padding: 0 0 1.5rem;
   
   background: transparent;
   border-radius: 0 !important;
   
   p {
     font-size: 1em;
+  }
+  
+  a:hover {
+    .black {
+      fill: white;
+    }
   }
   
   img {
@@ -238,6 +244,19 @@ a {
     }
   }
 }
+
+#link-smartervote,
+#link-debattenblog,
+#link-expo16 {
+  display: block;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#link-smartervote:hover { background-image: url(/img/rollover-expo16.jpg); } 
+#link-debattenblog:hover { background-image: url(/img/rollover-expo16.jpg); } 
+#link-expo16:hover { background-image: url(/img/rollover-expo16.jpg); } 
 
 .meteor-blog-index {
   &:extend(.container);
