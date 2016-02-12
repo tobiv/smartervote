@@ -239,7 +239,7 @@ Template.smartervote.rendered = ->
           questionId: question._id
       if answer?
         answer.question = question
-        if answer.status is 'valid'
+        if answer.status is 'valid' or answer.status is 'dead'
           answer.position = 'field'
           _answers[question._id] = answer
           _field.buildAndCatch answer
@@ -422,6 +422,7 @@ Template.question.events
     _network.changeNode
       id: @question._id
       isFavorite: answer.isFavorite
+      isDead: answer.status isnt 'valid'
     _answerSaver.upsertAnswer @question._id
 
   'click .showInfo': (evt) ->
@@ -539,12 +540,6 @@ updateAnswer = (consent, importance, question) ->
   newImportance ?= answer.importance
   newImportance ?= null
 
-  #rescue answers that were once dead
-  #then placed in the chain, now on the pitcher again
-  #forget about the consent once set
-  if consent is null and importance isnt null and newConsent is 0
-    newConsent = null
-
   if newConsent is null and newImportance is null
     newValue = 0.25
   else if newConsent is null and newImportance isnt null
@@ -576,10 +571,9 @@ updateAnswer = (consent, importance, question) ->
       if newAnswer.status is 'valid'
         _field.update newAnswer
       else
-        #console.log "back to chain"
-        newAnswer.position = "chain"
-        _chain.catch newAnswer
-        _field.free newAnswer
+        debugger if newAnswer.status is 'skipped'
+        #new: stay on field instead of back to chain
+        _field.update newAnswer
     else if answer.position is 'chain'
       if newAnswer.status is 'valid'
         #console.log "back to field"
@@ -589,30 +583,22 @@ updateAnswer = (consent, importance, question) ->
 
   if consent isnt null and importance is null #updated consent
     if answer.position is 'pitcher'
-      if newAnswer.status is 'valid'
-        #console.log "field catch, pitcher free"
-        newAnswer.position = "field"
-        _field.catch newAnswer
-        _pitcher.free()
-      else
-        #console.log "back to chain"
-        newAnswer.position = "chain"
-        _chain.catch newAnswer
-        _pitcher.free()
+      #new to field anyway instead of from pitcher to field or back to chain
+      newAnswer.position = "field"
+      _field.catch newAnswer
+      _pitcher.free()
     else if answer.position is 'field'
       if newAnswer.status is 'valid'
         _field.update newAnswer
       else
-        #console.log "back to chain"
-        newAnswer.position = "chain"
-        _chain.catch newAnswer
-        _field.free newAnswer
+        debugger if newAnswer.status is 'skipped'
+        #new: stay on field instead of back to chain
+        _field.update newAnswer
     else if answer.position is 'chain'
-      if newAnswer.status is 'valid'
-        #console.log "back to field"
-        newAnswer.position = "field"
-        _field.catch newAnswer
-        _chain.free newAnswer
+      #new to field anyway instead of back to field if valid
+      newAnswer.position = "field"
+      _field.catch newAnswer
+      _chain.free newAnswer
 
   if consent is -1 and importance is -1#next / back
     if answer.position is 'pitcher'
@@ -718,6 +704,7 @@ class Pitcher
       id: @holdingAnswer.question._id
       radius: answer.radius
       fillColor: "#"+colors[answer.question.index]
+      strokeWidth: 0
 
   free: ->
     @network.removeLink
@@ -737,11 +724,11 @@ class Field
     @xMax = null
 
   buildAndCatch: (answer) ->
+    #debugger if answer.status is 'skipped'
     question = answer.question
     node =
       id: question._id
       qIndex: question.index
-      isFavorite: answer.isFavorite
       x: @network.width
       y: @network.height/2
       radius: answer.radius
@@ -751,6 +738,7 @@ class Field
     return
 
   catch: (answer) ->
+    #debugger if answer.status is 'skipped'
     ldMin = linkDistanceScale(answer.value)
     question = answer.question
     @network.changeNode
@@ -760,6 +748,8 @@ class Field
       strokeWidth: 0
       xMax: @xMax if @xMax?
       xMaxT: Date.now()+3000
+      isFavorite: answer.isFavorite
+      isDead: answer.status isnt 'valid'
 
     @network.addLink
       sourceId: question._id
@@ -773,6 +763,7 @@ class Field
     return
 
   update: (answer) ->
+    #debugger if answer.status is 'skipped'
     question = answer.question
     @network.changeNode
       id: question._id
@@ -780,6 +771,8 @@ class Field
       fillColor: "#"+colors[question.index]
       strokeWidth: 0
       xMax: @xMax if @xMax?
+      isFavorite: answer.isFavorite
+      isDead: answer.status isnt 'valid'
 
     ldMin = linkDistanceScale(answer.value)
     @network.changeLink
@@ -848,7 +841,6 @@ class Chain
     node =
       id: answer.question._id
       qIndex: answer.question.index
-      isFavorite: answer.isFavorite
       x: @network.width-(@radius/2)
       y: @radius*2*@linkDistance*2*@nodeIds.length
     @network.addNode node
@@ -865,11 +857,6 @@ class Chain
       @network.changeNode
         id: answer.question._id
         radius: @radius
-        fillColor: d3.rgb("#"+colors[answer.question.index]).darker(2)
-        strokeWidth: 0
-    else if answer.status is 'dead'
-      @network.changeNode
-        id: answer.question._id
         radius: @radius-2.5
         fillColor: "#fff"
         strokeColor: "#"+colors[answer.question.index]

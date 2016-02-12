@@ -41,7 +41,6 @@ class @Network
       .call(@drag)
     nodeEnter.append("circle") #image
     nodeEnter.append("image")
-      .attr("xlink:href","/img/icon-star-white.svg")
 
     node
       .attr("class", (d) -> if d.classes? then "node "+d.classes else "node")
@@ -59,10 +58,11 @@ class @Network
     #  .remove("image")
 
     node.selectAll('image')
-      .attr("width", (d) -> if d.isFavorite then 20 else 0)
-      .attr("height", (d) -> if d.isFavorite then 20 else 0)
-      .attr("x", (d) -> -10)
-      .attr("y", (d) -> -10.5)
+      .attr("xlink:href", (d) -> d.image if d.image?)
+      .attr("width", (d) -> if d.imageWidth? then d.imageWidth else 0)
+      .attr("height", (d) -> if d.imageWidth? then d.imageWidth else 0)
+      .attr("x", (d) -> if d.imageX? then d.imageX else 0)
+      .attr("y", (d) -> if d.imageY? then d.imageY else 0)
 
     node.exit().remove()
 
@@ -188,7 +188,28 @@ class @Network
       n.classes = node.classes if node.classes?
       if node.removeClasses
         delete n.classes
-      n.isFavorite = node.isFavorite if node.isFavorite?
+      if node.isFavorite?
+        if node.isFavorite
+          n.isFavorite = true
+          n.image = "/img/icon-star-white.svg"
+          n.imageWidth = 20
+          n.imageHeight = 20
+          n.imageX = -10
+          n.imageY = -10.5
+        else
+          n.isFavorite = false
+      if node.isDead? and not n.isFavorite
+        if node.isDead
+          n.isDead = true
+          n.image = "/img/icon-deadQuestion.svg"
+          n.imageWidth = 40
+          n.imageHeight = 20
+          n.imageX = -20
+          n.imageY = -20
+        else
+          n.isDead = false
+      if !n.isDead and !n.isFavorite
+        delete n.image
       @update()
     else
       console.log "Network changeNode: node (#{node.id}) not found"
