@@ -104,6 +104,11 @@ doResize = ->
     id: 'chain_bottom'
     px: bcw
     py: bch
+  _chain.items.forEach (item) ->
+    _network.changeNode
+      id: item.question._id
+      x: bcw-_radiusChain
+        
 
   #refresh xMax of field
   _field.setXMax getBubblesWidth()
