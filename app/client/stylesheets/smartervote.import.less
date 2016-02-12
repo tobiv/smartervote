@@ -834,3 +834,41 @@ html {
 .dropdown-backdrop {
   position: static;
 }
+
+#smartervote-modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  
+  box-sizing: border-box;
+  max-width: 768px;
+  min-height: 99.9%;
+  padding: 10px 1em 2em 1em;
+  
+  background: white;
+  box-shadow: 0 0 0 2000px rgba(0,0,0, 0.1);
+  
+  font-size: 0.85em;
+  word-wrap: break-word;
+  
+  h1 {
+    margin: 0.75em 0;
+    font-size: 1.5em;
+  }
+  
+  h2 {
+    margin: 1.5em 0 1em;
+    font-size: 1.2em;
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    left: auto;
+    padding-top: 1em;
+    padding-right: 45px;
+    
+    font-size: 1em;
+  }
+}
