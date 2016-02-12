@@ -419,6 +419,9 @@ Template.question.events
     
   'mouseup': () ->
     $('#content, #bubbles-container').removeClass('dim')
+    
+  'pointerup': () ->
+    $('#content, #bubbles-container').removeClass('dim')
 
   'touchend': () ->
     $('#content, #bubbles-container').removeClass('dim')
