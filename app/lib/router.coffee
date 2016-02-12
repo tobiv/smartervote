@@ -50,7 +50,7 @@ Router.route 'myBubbles/:id',
   action: ->
     @render 'myBubbles'
 
-Router.route 'questionOverview',
+Router.route 'smartervote-content',
   waitOn: ->
     Meteor.subscribe('questions')
   action: ->
