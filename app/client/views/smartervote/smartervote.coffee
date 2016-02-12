@@ -1,7 +1,6 @@
-radiusMax = 80
-rScale = d3.scale.linear()
-rScale.domain [0, 0.5]
-rScale.range [20, radiusMax]
+_radiusMax = null
+_radiusChain = null
+_radiusScale = null
 
 linkDistanceMax = 800
 linkDistanceScale = d3.scale.linear()
@@ -65,7 +64,7 @@ _breakpointX = 768
 getBubblesWidth = ->
   wWidth = $(window).width()
   w = $('#content').offset().left
-  if wWidth <= _breakpointX
+  if wWidth < _breakpointX
     w = wWidth
   w
 
@@ -113,6 +112,8 @@ doResize = ->
   footerHeight = @$('.footer').outerHeight()
   @$('#question').css( 'padding-bottom', footerHeight )
 
+  refreshRadius()
+
 
 upsertClusters = ->
   numClusters = _clusters.length
@@ -147,6 +148,41 @@ upsertClusters = ->
         py: height
   _clustersAdded = true
 
+_previousRadiusMax = null
+refreshRadius = ->
+  onDesktop = ($(window).width() >= _breakpointX)
+  if onDesktop
+    _radiusMax = 80
+    _radiusChain = 12
+    _radiusScale = d3.scale.linear()
+    _radiusScale.domain [0, 0.5]
+    _radiusScale.range [20, _radiusMax]
+  else
+    _radiusMax = 40
+    _radiusChain = 10
+    _radiusScale = d3.scale.linear()
+    _radiusScale.domain [0, 0.5]
+    _radiusScale.range [15, _radiusMax]
+  if _previousRadiusMax? and _previousRadiusMax isnt _radiusMax
+    #update all radius
+    Object.keys(_answers).forEach (key) ->
+      answer = _answers[key]
+      if answer.position isnt 'chain'
+        _network.changeNode
+          id: answer.question._id
+          radius: _radiusScale( Math.abs(answer.value) )
+      else #chain
+        if answer.status is 'skipped'
+          _network.changeNode
+            id: answer.question._id
+            radius: _radiusChain-2.5
+        else
+          _network.changeNode
+            id: answer.question._id
+            radius: _radiusChain
+  _previousRadiusMax = _radiusMax
+
+
 Template.smartervote.destroyed = ->
   $(window).off("resize", resize)
   _clusters = []
@@ -167,8 +203,11 @@ Template.smartervote.destroyed = ->
 
 Template.smartervote.rendered = ->
   Session.set 'showEvaluation', false
+
+  refreshRadius()
+
   #initialize network
-  _network = new Network("#bubbles-container", radiusMax)
+  _network = new Network("#bubbles-container", _radiusMax)
 
   for color, i in _colors
     _network.appendGradient 'color_'+i, '#'+color[0], '#'+color[1]
@@ -263,6 +302,7 @@ Template.smartervote.rendered = ->
       if answer?
         answer.question = question
         if answer.status is 'valid' or answer.status is 'dead'
+          answer.radius = _radiusScale( Math.abs(answer.value) )
           answer.position = 'field'
           _answers[question._id] = answer
           _field.buildAndCatch answer
@@ -277,7 +317,7 @@ Template.smartervote.rendered = ->
           questionId: question._id #needed on server
           position: 'chain'
           status: 'new'
-          radius: rScale( Math.abs(0.25) )
+          radius: _radiusScale( Math.abs(0.25) )
         _answers[question._id] = answer
         _chain.buildAndCatch answer
     #init proPercent
@@ -572,7 +612,7 @@ updateAnswer = (consent, importance, question) ->
   if newConsent isnt null and newImportance isnt null
     newValue = newConsent*newImportance
 
-  newRadius = rScale( Math.abs(newValue) )
+  newRadius = _radiusScale( Math.abs(newValue) )
 
   newStatus = "valid"
   if newImportance is 0 or question.isOneSided and newConsent is 0
@@ -834,7 +874,6 @@ class Field
 
 
 class Chain
-  radius: 12
   linkDistance: 1
   strokeWidth:2
   strokeColor:'#000'
@@ -847,15 +886,15 @@ class Chain
     @network.addNode
       id: 'chain_top'
       fixed: true
-      x: @network.width#-@radius/2
+      x: @network.width
       y: 0
       radius: 0
       #fillColor: '#000'
     @network.addNode
       id: 'chain_bottom'
       fixed: true
-      x: @network.width#-@radius/2
-      y: @network.height#-@radius/2
+      x: @network.width
+      y: @network.height
       radius: 0
       #fillColor: '#000'
 
@@ -865,7 +904,7 @@ class Chain
       id: answer.question._id
       qIndex: answer.question.index
       x: @network.width-(@radius/2)
-      y: @radius*2*@linkDistance*2*@nodeIds.length
+      y: _radiusChain*2*@linkDistance*2*@nodeIds.length
     @network.addNode node
     @catch answer
 
@@ -873,14 +912,13 @@ class Chain
     if answer.status is 'new'
       @network.changeNode
         id: answer.question._id
-        radius: @radius
+        radius: _radiusChain
         fillColor: "url(#color_#{answer.question.index})"
         strokeWidth: 0
     else if answer.status is 'skipped'
       @network.changeNode
         id: answer.question._id
-        radius: @radius
-        radius: @radius-2.5
+        radius: _radiusChain-2.5
         fillColor: "#fff"
         strokeColor: "url(#color_#{answer.question.index})"
         strokeWidth: 5
@@ -1058,7 +1096,7 @@ Template.evaluation.rendered = ->
 
   width = _network.width
   height = _network.height
-  fieldWidth = getBubblesWidth()+radiusMax
+  fieldWidth = getBubblesWidth()+_radiusMax
   #scale aspect
   #maxWidth = 1024
   #maxHeight = 768
