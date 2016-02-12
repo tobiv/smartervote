@@ -910,7 +910,7 @@ class Chain
     node =
       id: answer.question._id
       qIndex: answer.question.index
-      x: @network.width-(@radius/2)
+      x: @network.width-(_radiusChain/2)
       y: _radiusChain*2*@linkDistance*2*@nodeIds.length
     @network.addNode node
     @catch answer
