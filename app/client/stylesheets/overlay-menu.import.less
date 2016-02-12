@@ -7,11 +7,11 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 4000;
   
   box-sizing: border-box;
   min-height: 100%;
-  padding: (2 * @padding-body-vertical + 2 * @line-height-logo * @font-size-logo-medium + 3rem) @padding-body-horizontal;
+  padding: @padding-body-vertical @padding-body-horizontal (2 * @padding-body-vertical + 2 * @line-height-logo * @font-size-logo-medium + 3rem);
   
   background: @color-menu-bg;
   
@@ -25,7 +25,7 @@
     text-align: center;
   }
   
-  a {
+  li a {
     display: inline-block;
     padding: 1rem 0;
 
@@ -46,6 +46,7 @@
     }
   }
   
+/*
   .close-menu {
     position: absolute;
     top: 2em;
@@ -60,4 +61,10 @@
     
     text-indent: -9999em;
   }
+*/
+}
+
+.menu-close {
+  background: transparent url(/img/icon-close.svg) 50% 50% no-repeat !important;
+  background-size: contain !important;
 }
