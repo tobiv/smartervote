@@ -166,14 +166,14 @@ html {
 }
 
 #mobile-content-toggle {
-  position: fixed;
+  position: absolute;
   z-index: 3000;
   top: 0;
   left: 0;
   
-  width: 29px;
+  //width: 30px;
   margin: 0;
-  padding: 10px 0 5px;
+  padding: 10px 10px 5px;
   border: 0;
   background: transparent;
   
@@ -194,9 +194,9 @@ html {
   right: 0;
   
   box-sizing: border-box;
-  min-width: 280px;
+  min-width: 300px;
   min-height: 99.9%;
-  padding: 0 10px 0 30px;
+  padding: 0 10px;
   
   img {
     max-width: 100%;
@@ -259,6 +259,11 @@ html {
 #question-index {
   display: inline-block;
   width: 1em;
+  margin-left: 30px;
+  
+  @media only screen and (min-width: @screen-sm-min) {
+      margin-left: 0;
+    }
 }
 
 #toggle-favorite {
@@ -288,7 +293,7 @@ html {
  */
 .footer {
   position: absolute;
-  left: 30px;
+  left: 10px;
   right: 10px;
   bottom: 0;
   padding-top: @controls-vertical-padding-min;
@@ -379,6 +384,16 @@ html {
   }
 }
 
+#mobile-score  {
+  float: right;
+  margin-right: 20px;
+  font-size: 0.85em;
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    display: none;
+  }
+}
+
 .showInfo,
 .hideInfo {
   font-size: 1em;
@@ -390,6 +405,7 @@ html {
 
 .hideInfo {
   background: rgba(255,255,255, 0.8);
+  box-shadow: 0 0 0 10px rgba(255,255,255, 0.8);
   
   a {
     color: gray !important;
@@ -520,11 +536,23 @@ html {
   box-shadow: 0 0 0 30px white;
   
   .control-section {
+    position: relative;
+    top: -13px;
     border-top: 0;
+    
+    button {
+      margin-left: 30px;
+    }
   }
   
   @media only screen and (min-width: @screen-sm-min) {
     box-shadow: 0 0 0 10px white;
+    
+    .control-section {
+      button {
+        margin-left: 0;
+      }
+    }
   }
 }
 
@@ -546,6 +574,7 @@ html {
 }
 
 .final-score {
+  margin-top: -18px;
   margin-bottom: 2vh;
 
   span {
@@ -556,6 +585,10 @@ html {
     font-size: 6vw;
     line-height: 7vw;
     text-align: center;
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    margin-top: 0;
   }
 }
 
@@ -753,6 +786,7 @@ html {
  * Score gauge on left side of the view
  */
 #score-gauge {
+  display: none;
   position: fixed;
   bottom: 50%;
   transition: bottom 0.3s ease;
@@ -776,6 +810,7 @@ html {
   }
   
   @media only screen and (min-width: @screen-sm-min) {
+    display: block;
     height: 52px;
     padding-left: 32px;
     background-size: 26px 52px;
