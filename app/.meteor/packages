@@ -65,3 +65,5 @@ rzymek:moment-locale-fr
 rzymek:moment-locale-it
 dfischer:prerenderio
 lookback:seo
+cfs:standard-packages
+cfs:gridfs

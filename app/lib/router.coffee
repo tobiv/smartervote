@@ -42,6 +42,11 @@ Router.route 'smartervote',
 Router.route 'myBubbles/:id',
   waitOn: ->
     Meteor.subscribe('visit', @params.id)
+  data: ->
+    Visits.findOne(@params.id)
+  seo:
+    image: -> 
+      Meteor.absoluteUrl()+@data().myBubblesUrl
   action: ->
     @render 'myBubbles'
 

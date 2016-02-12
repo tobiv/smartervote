@@ -41,7 +41,7 @@ Meteor.publish "visit", (id)->
   ,
     fields:
       _id: 1
-      png: 1
+      myBubblesUrl: 1
 
 Meteor.publishComposite 'answers', ->
   find: ->

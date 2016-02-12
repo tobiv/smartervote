@@ -1026,6 +1026,7 @@ class Chain
   return
 
 
+_lastUploadTime = null
 Template.evaluation.rendered = ->
   #@$("#evaluation").mCustomScrollbar({ theme: 'minimal-dark', mouseWheel: { preventDefault: true }, scrollButtons: { enable: false } })
 
@@ -1069,10 +1070,13 @@ Template.evaluation.rendered = ->
     pngData = canvas.toDataURL()
     $('#mybubbles-preview').attr 'src', pngData
 
-    visitId = Session.get('visitId')
-    if visitId?
-      Meteor.call "saveVisitPNG", visitId, pngData, (error) ->
-        throwError error if error?
+    if _visitId?
+      if !_lastUploadTime? or _lastUploadTime < (Date.now() - 5000)
+        _lastUploadTime = Date.now()
+        console.log "upload"
+        Meteor.call "uploadMyBubbles", _visitId, pngData, (error, url) ->
+          throwError error if error?
+
     return
 
   image.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML)
@@ -1100,7 +1104,7 @@ Template.evaluation.helpers
 
   shareData: ->
     title: 'smarterVote'
-    url: 'https://bge.patpat.org/myBubbles'+Session.get('visitId')
+    url: 'https://bge.patpat.org/myBubbles'+_visitId
 
   topics: ->
     _topics
