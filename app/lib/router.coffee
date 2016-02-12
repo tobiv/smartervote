@@ -41,7 +41,8 @@ Router.route 'smartervote',
 
 Router.route 'myBubbles/:id',
   waitOn: ->
-    Meteor.subscribe('visit', @params.id)
+    #TODO denormalise proPercent into visit
+    Meteor.subscribe('visitAndAnswers', @params.id)
   data: ->
     Visits.findOne(@params.id)
   seo:

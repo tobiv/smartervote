@@ -43,6 +43,20 @@ Meteor.publish "visit", (id)->
       _id: 1
       myBubblesUrl: 1
 
+Meteor.publishComposite 'visitAndAnswers', (visitId) ->
+  find: ->
+    Visits.find
+      _id: visitId
+    ,
+      fields:
+        _id: 1
+        myBubblesUrl: 1
+  children: [
+    find: (visit) ->
+      Answers.find
+        visitId: visit._id
+  ]
+
 Meteor.publishComposite 'answers', ->
   find: ->
     Visits.find
