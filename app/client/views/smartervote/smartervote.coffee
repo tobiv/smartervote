@@ -882,7 +882,7 @@ class Field
 
 class Chain
   linkDistance: 1
-  strokeWidth:2
+  strokeWidth: 0.3
   strokeColor:'#000'
   constructor: (ourNetwork) ->
     @network = ourNetwork
