@@ -13,7 +13,7 @@ class @Answer
           pro += a
       return
     proPercent = 100*pro/total
-    proPercent = 0 if total is 0
+    proPercent = 50 if total is 0
     proPercent = Math.round(proPercent)
     proPercent
 
