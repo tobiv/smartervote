@@ -156,6 +156,8 @@ Template.smartervote.rendered = ->
     _beforeHoverIndex = null
     _beforeHoverShowEvaluation = null
     Session.set 'showEvaluation', false
+    $('#content').fadeIn(200)
+    $('#bubbles-container').removeClass('dim')
 
   #jump to question, when hovering over node
   _network.onNodeHover (d) ->
