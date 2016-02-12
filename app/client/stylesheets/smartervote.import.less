@@ -88,7 +88,7 @@ html {
   
   @media only screen and (min-width: @screen-sm-min) {
     position: fixed;
-    left: 45px;
+    left: 10px;
     top: 0;
     right: auto;
     
@@ -163,6 +163,22 @@ html {
 .nouislider-label,
 #reset {
   transition: opacity @transition-duration-dim, transform @transition-duration-dim;
+}
+
+#mobile-content-toggle {
+  position: fixed;
+  z-index: 3000;
+  top: 10px;
+  left: 7px;
+  
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    display: none;
+  }
 }
 
 /*
@@ -504,6 +520,10 @@ html {
   
   .control-section {
     border-top: 0;
+  }
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    box-shadow: 0 0 0 10px white;
   }
 }
 

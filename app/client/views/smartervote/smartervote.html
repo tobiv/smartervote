@@ -1,12 +1,13 @@
 <template name="smartervote">
   <div id="smartervote">
     <div id="app-header">
-      <span>Logo</span>  <button class="site-menu-toggle">Menü</button>
+      <span>Logo</span>  <button type="button" class="site-menu-toggle">Menü</button>
       {{> languageSwitcher}}
     </div>
     
     <div id="bubbles-container"></div>
     
+    <button type="button" id="mobile-content-toggle"><i class="fa fa-eye"></i></button>
     <div id="content">
       {{#if showEvaluation}}
         {{> evaluation}}

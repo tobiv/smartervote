@@ -290,12 +290,15 @@ Template.smartervote.helpers
     _proPercent.get()
     
   proPercentGauge: ->
-    _proPercent.get() * 0.92
+    _proPercent.get() * 0.88
     
 
 Template.smartervote.events
   'click .site-menu-toggle': () ->
     $('#overlay-menu').fadeIn(200)
+    
+  'click #mobile-content-toggle': () ->
+    $('#content').fadeToggle(200)
 
 
 Template.question.rendered = ->
