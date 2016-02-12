@@ -1101,7 +1101,14 @@ Template.evaluation.helpers
     thumbnail: "https://bge.patpat.org/#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
 
   topics: ->
-    _topics
+    _topics.map (topic) ->
+      answers = []
+      Object.keys(_answers).forEach (key) ->
+        answer = _answers[key]
+        if answer.question.topic is topic
+          answers.push answer
+      title: topic
+      pp: Answer.getProPercent(answers)
 
   topicCSS: ->
     topic = Session.get 'activeTopic'
@@ -1115,7 +1122,7 @@ Template.evaluation.events
     Session.set 'showEvaluation', false
 
   "click .topic": (evt) ->
-    topic = @toString()
+    topic = @title.toString()
     if Session.get('activeTopic') is topic
       topic = null
     Session.set 'activeTopic', topic
