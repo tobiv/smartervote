@@ -98,11 +98,11 @@ doResize = ->
   bch = bc.height()
   _network.changeNode
     id: 'chain_top'
-    px: bcw
+    px: bcw-_radiusChain
     py: 0
   _network.changeNode
     id: 'chain_bottom'
-    px: bcw
+    px: bcw-_radiusChain
     py: bch
   _chain.items.forEach (item) ->
     _network.changeNode
@@ -898,14 +898,14 @@ class Chain
     @network.addNode
       id: 'chain_top'
       fixed: true
-      x: @network.width
+      x: @network.width-_radiusChain
       y: 0
       radius: 0
       #fillColor: '#000'
     @network.addNode
       id: 'chain_bottom'
       fixed: true
-      x: @network.width
+      x: @network.width-_radiusChain
       y: @network.height
       radius: 0
       #fillColor: '#000'
