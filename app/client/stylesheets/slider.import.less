@@ -40,6 +40,19 @@
     margin: 0 2.5vmin;
     
     cursor: pointer;
+    
+    &[disabled] {
+      .noUi-base,
+      &.noUi-target,
+      .noUi-handle {
+        background: #aaa;
+        cursor: default;
+      }
+      .noUi-handle {
+        border: 2px solid #aaa;
+        background: white;
+      }
+    }
   }
   
   .noUi-target {
