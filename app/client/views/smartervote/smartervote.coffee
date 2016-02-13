@@ -371,6 +371,14 @@ Template.smartervote.rendered = ->
 
 
 Template.smartervote.helpers
+  questions: ->
+    Questions.find {},
+      sort:
+        index: 1
+
+  index: ->
+    @index+1
+
   showEvaluation: ->
     Session.get 'showEvaluation'
 
