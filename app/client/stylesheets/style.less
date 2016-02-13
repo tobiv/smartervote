@@ -201,7 +201,7 @@ a {
  */
 .jumbotron {
   margin: 0 @padding-body-horizontal @padding-body-vertical;
-  padding: 0 0 1.5rem;
+  padding: 0;
   
   background: transparent;
   border-radius: 0 !important;
@@ -210,14 +210,16 @@ a {
     font-size: 1em;
   }
   
-  a:hover {
-    .black {
-      fill: white;
-    }
-  }
-  
-  img {
+  a {
+    display: inline-block;
     max-width: 200px;
+    margin: 0 auto;
+    
+    &:hover {
+      .black {
+        fill: white;
+      }
+    }
   }
   
   .col-sm-4 {
@@ -225,7 +227,7 @@ a {
     margin: 0 @padding-body-horizontal;
     padding: @padding-body-vertical 0;
 */
-    
+    padding: 0 0 1.5rem;
     border-bottom: @border-default;
     text-align: center;
   }
@@ -233,9 +235,9 @@ a {
   @media only screen and (min-width: @screen-sm-min) {
     border-bottom: @border-default;
     
-    img {
+    a {
       width: 100%;
-      max-width: 400px;
+      max-width: 300px;
     }
     
     .col-sm-4 {
