@@ -247,6 +247,9 @@ Template.smartervote.rendered = ->
   #jump to question, when hovering over node
   _network.onNodeHover (d) ->
     if d?
+      #no hover if a topic is selected and node is not part of this topic
+      if Session.get('activeTopic')? and !d.hoverable
+        return
       _beforeHoverIndex = _questionIndex.get() if not _beforeHoverIndex?
       _questionIndex.set d.qIndex
       _beforeHoverShowEvaluation = Session.get('showEvaluation') if not _beforeHoverShowEvaluation?
@@ -1244,7 +1247,9 @@ Template.evaluation.events
         _network.changeNode
           id: question._id
           fillOpacity: 1.0
+          hoverable: true
       else
         _network.changeNode
           id: question._id
           fillOpacity: 0.05
+          hoverable: false

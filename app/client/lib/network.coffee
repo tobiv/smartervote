@@ -210,6 +210,12 @@ class @Network
           n.isDead = false
       if !n.isDead and !n.isFavorite
         delete n.image
+      if node.hoverable?
+        if node.hoverable
+          n.hoverable = true
+        else
+          delete n.hoverable
+
       @update()
     else
       console.log "Network changeNode: node (#{node.id}) not found"
