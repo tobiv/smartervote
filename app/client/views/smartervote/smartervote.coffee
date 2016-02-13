@@ -1223,7 +1223,7 @@ Template.evaluation.helpers
 
   topicCSS: ->
     topic = Session.get 'activeTopic'
-    if @toString() is topic
+    if @title.toString() is topic
       return "active"
     else
       ""
