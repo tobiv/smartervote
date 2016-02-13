@@ -577,7 +577,7 @@ Template.slider.rendered = ->
         min: 0
         max: 1
     )
-    if answer.consent is 0
+    if answer? and answer.consent is 0
       $('.nouislider').attr('disabled', true)
     else
       $('.nouislider').attr('disabled', false)
