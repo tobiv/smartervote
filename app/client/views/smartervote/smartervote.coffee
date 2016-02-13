@@ -1,12 +1,3 @@
-_radiusMax = null
-_radiusChain = null
-_radiusScale = null
-
-linkDistanceMax = 800
-linkDistanceScale = d3.scale.linear()
-linkDistanceScale.domain [-0.5, 0.5]
-linkDistanceScale.range [0, linkDistanceMax]
-
 _colors = [
   [ '00f384', '2ff56b' ]
   [ '34f569', '6af84d' ]
@@ -31,6 +22,12 @@ _colors = [
   [ '64eaff', '5af9ff' ]
   [ '59fbff', '56ffff' ]
 ]
+
+_radiusMax = null
+_radiusChain = null
+_radiusScale = null
+_linkDistanceMax = null
+_linkDistanceScale = null
 
 _clusters = []
 _topics = []
@@ -118,6 +115,7 @@ doResize = ->
   @$('#question').css( 'padding-bottom', footerHeight )
 
   refreshRadius()
+  refreshLinkDistances()
 
 
 upsertClusters = ->
@@ -170,24 +168,41 @@ refreshRadius = ->
     _radiusScale.domain [0, 0.5]
     _radiusScale.range [15, _radiusMax]
   if _previousRadiusMax? and _previousRadiusMax isnt _radiusMax
+    console.log "update radiusMax"
     #update all radius
-    Object.keys(_answers).forEach (key) ->
-      answer = _answers[key]
-      if answer.position isnt 'chain'
+    a = _pitcher.holdingAnswer
+    if a?
+      _network.changeNode
+        id: a.question._id
+        radius: _radiusScale( Math.abs(a.value || 0.25) )
+    _chain.items.forEach (answer) ->
+      if answer.status is 'skipped'
         _network.changeNode
           id: answer.question._id
-          radius: _radiusScale( Math.abs(answer.value) )
-      else #chain
-        if answer.status is 'skipped'
-          _network.changeNode
-            id: answer.question._id
-            radius: _radiusChain-2.5
-        else
-          _network.changeNode
-            id: answer.question._id
-            radius: _radiusChain
+          radius: _radiusChain-2.5
+      else
+        _network.changeNode
+          id: answer.question._id
+          radius: _radiusChain
+    _field.nodeIds.forEach (id) ->
+      answer = _answers[id]
+      return if !answer.value?
+      answer.radius = _radiusScale( Math.abs(answer.value) )
+      _field.update answer
     _network.setRadiusMax _radiusMax
   _previousRadiusMax = _radiusMax
+
+_previousLinkDistanceMax = null
+refreshLinkDistances = ->
+  _linkDistanceMax = ($(window).height())
+  _linkDistanceScale = d3.scale.linear()
+  _linkDistanceScale.domain [-0.5, 0.5]
+  _linkDistanceScale.range [0, _linkDistanceMax]
+  if _previousLinkDistanceMax? and _previousLinkDistanceMax isnt _linkDistanceMax
+    _field.nodeIds.forEach (id) ->
+      answer = _answers[id]
+      _field.update answer
+  _previousLinkDistanceMax = _linkDistanceMax
 
 
 Template.smartervote.destroyed = ->
@@ -212,6 +227,7 @@ Template.smartervote.rendered = ->
   Session.set 'showEvaluation', false
 
   refreshRadius()
+  refreshLinkDistances()
 
   #initialize network
   _network = new Network("#bubbles-container", _radiusMax)
@@ -816,7 +832,7 @@ class Field
 
   catch: (answer) ->
     #debugger if answer.status is 'skipped'
-    ldMin = linkDistanceScale(answer.value)
+    ldMin = _linkDistanceScale(answer.value)
     question = answer.question
     @network.changeNode
       id: question._id
@@ -835,7 +851,7 @@ class Field
     @network.addLink
       sourceId: question._id
       targetId: question.cluster+'_max'
-      linkDistance: linkDistanceMax-ldMin
+      linkDistance: _linkDistanceMax-ldMin
     @nodeIds.push question._id
     return
 
@@ -851,7 +867,7 @@ class Field
       isFavorite: answer.isFavorite
       isDead: answer.status isnt 'valid'
 
-    ldMin = linkDistanceScale(answer.value)
+    ldMin = _linkDistanceScale(answer.value)
     @network.changeLink
       sourceId: question._id
       targetId: question.cluster+'_min'
@@ -859,7 +875,7 @@ class Field
     @network.changeLink
       sourceId: question._id
       targetId: question.cluster+'_max'
-      linkDistance: linkDistanceMax-ldMin
+      linkDistance: _linkDistanceMax-ldMin
     return
 
   free: (answer) ->
