@@ -105,7 +105,7 @@ doResize = ->
     _network.changeNode
       id: item.question._id
       x: bcw-_radiusChain
-        
+
 
   #refresh xMax of field
   _field.setXMax getBubblesWidth()
@@ -357,13 +357,13 @@ Template.smartervote.rendered = ->
   @autorun ->
     #maintain selected node
     if _previousSelectedId?
-      _network.changeNode 
+      _network.changeNode
         id: _previousSelectedId
         removeClasses: true
       _previousSelectedId = null
     index = _questionIndex.get()
     question = Questions.findOne index: index
-    _network.changeNode 
+    _network.changeNode
       id: question._id
       classes: "selected"
     _previousSelectedId = question._id
@@ -384,19 +384,19 @@ Template.smartervote.helpers
 
   proPercent: ->
     _proPercent.get()
-    
+
   proPercentGauge: ->
     _proPercent.get() * 0.88
-    
+
 
 Template.smartervote.events
   'click .site-menu-toggle': () ->
     $('#overlay-menu').fadeIn(200)
-    
+
   'click #mobile-content-toggle': () ->
     $('#content').fadeToggle(200)
     $('#bubbles-container').toggleClass('dim')
-    
+
   'click .toggle-about': (evt) ->
     evt.preventDefault()
     $('#smartervote-modal').fadeToggle(200)
@@ -466,7 +466,7 @@ Template.question.helpers
           return "active"
     return ""
 
-  
+
 
 Template.question.events
   'click .max': (evt, tmpl) ->
@@ -487,16 +487,16 @@ Template.question.events
     updateAnswer(null, importance, @question)
     _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
     return
-    
+
   'mouseup': () ->
     $('#content, #bubbles-container').removeClass('dim')
-    
+
   'pointerup': () ->
     $('#content, #bubbles-container').removeClass('dim')
 
   'touchend': () ->
     $('#content, #bubbles-container').removeClass('dim')
-    
+
   'click #next': (evt, tmpl) ->
     _showInfo.set false
     next(@question)
