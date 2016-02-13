@@ -186,6 +186,7 @@ refreshRadius = ->
           _network.changeNode
             id: answer.question._id
             radius: _radiusChain
+    _network.setRadiusMax _radiusMax
   _previousRadiusMax = _radiusMax
 
 

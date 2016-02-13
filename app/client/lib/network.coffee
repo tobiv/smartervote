@@ -292,6 +292,9 @@ class @Network
       .attr("offset", "100%")
       .attr("stop-color", c1)
 
+  setRadiusMax: (rMax) ->
+    @radiusMax = rMax
+
   # Resolves collisions between d and all other circles.
   # http://stackoverflow.com/questions/11339348/avoid-d3-js-circles-overlapping
   collide: (alpha, nodes, radiusMax) ->
