@@ -918,7 +918,7 @@ class Chain
       id: answer.question._id
       qIndex: answer.question.index
       x: @network.width-(_radiusChain/2)
-      y: _radiusChain*2*@linkDistance*2*@nodeIds.length
+      y: _radiusChain*3*@nodeIds.length
     @network.addNode node
     @catch answer
 
