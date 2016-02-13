@@ -68,3 +68,4 @@ lookback:seo
 cfs:standard-packages
 cfs:gridfs
 gadicohen:sitemaps
+practicalmeteor:underscore.string

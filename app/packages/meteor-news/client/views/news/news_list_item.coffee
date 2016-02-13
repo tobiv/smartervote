@@ -17,3 +17,7 @@ Template.newsListItem.helpers
   image: ->
     null if !@newsImageId
     NewsImages.findOne @newsImageId
+    
+  excerpt: ->
+    null if !@content
+    _.str.prune(@content, 200)
