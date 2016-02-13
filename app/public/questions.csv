@@ -1,22 +1,574 @@
 Reihenfolge;Soft Cluster;Topic;Q HR ID;Fragetext;Argument;leftpositiv;onesided;onlynegaiv;Low Bound;High Bound;InfoText
-1;a;Individuum;Zwang;Würden die Menschen mehr Sinnvolles tun, wenn der Zwang zum Geldverdienen wegfällt?;;x;;;Ja;Nein, weniger;
-2;b;Individuum;Bildung;Würden sich die Menschen mit einem Grundeinkommen weniger bilden?;;;;;Ja;Nein, mehr;
-3;c;Individuum;Freiheit;Ohne Zwang zur Erwerbsarbeit könnten die Menschen freier über ihre Zeit verfügen. Überfordert diese Freiheit?;;x;x;x;Ja;Nein ;
-4;d;Wirtschaft;Umfrage;Würde noch genug Erwerbsarbeit geleistet?;;;x;x;Ja;Nein ;
-5;e;Staat;Migration;Führt das Grundeinkommen zu unlösbaren Problemen bei der Einwanderung?;;x;x;x;Ja;Nein ;
-6;f;Wirtschaft;Innovation;Befreit vom Zwang zur Erwerbsarbeit wären die Menschen motivierter. Dies führt zu einem Innovationsschub.;;x;;;Ja;Nein, im Gegenteil;
-7;g;Gesellschaft;Einkommen;Mit Grundeinkommen wird ein Teil des Volkseinkommens gleichmässig und ohne Diskriminierung der Geschlechter verteilt. Ist das ein Schritt in Richtung Gleichberechtigung? ;;x;x;;Ja;Nein ;
-8;h;Individuum;Stigma;Was ist besser: Arbeitslose und Invalide mit Kontrollen oder bedingungslos zu unterstützen?;;;;;Kontrolle;Bedingungslos;
-9;I;Gesellschaft;Ablassprämie;Führt das Grundeinkommen zu einer Spaltung der Gesellschaft?;;;;;Ja;Nein, im Gegenteil;
-10;j;Wirtschaft;Ersetzen;Die Finanzierung des Grundeinkommens ist möglich, weil es weitgehend heutige Einkommen ersetzt. Einverstanden?;;;x;x;Ja;Nein ;
-11;f;Wirtschaft;Rest;Wer heute weniger als das Grundeinkommen verdient, hätte mit Grundeinkommen mehr Geld. Andere würden sich aus dem Arbeitsmarkt verabschieden. Ist die Finanzierung dieser Mehrkosten ein Problem?;;x;x;x;Ja;Nein ;
-12;e;Gesellschaft;Herdprämie;Das Grundeinkommen fördertet finanziell ein veraltetes Familienmodell. Richtig?;;x;x;x;Ja;Nein ;
+1;a;Individuum;Zwang;Würden die Menschen mehr Sinnvolles tun, wenn der Zwang zum Geldverdienen wegfällt?;;x;;;Ja;Nein, weniger;"Das Grundeinkommen könnte eine Chance sein, sich bei der Wahl der Arbeit
+stärker vom Sinn leiten zu lassen – Dinge, die gut sind für die
+Gesellschaft, für einen selber und für die Familie.
+
+*Was spricht dafür?*
+
+Der **Zwang**, Geld zu verdienen, führt dazu, dass viele Menschen an
+Produkten und Dienstleistungen arbeiten, die für sie nicht sinnvoll
+sind. Man kann sich jedoch aus finanziellen Gründen nicht aus der
+jeweiligen Situation befreien. Mit einem bedingungslosen Grundeinkommen
+hätten die Menschen zudem die Möglichkeit, ein Anstellungsverhältnis zu
+beenden, bevor der nächste Job beginnt. Auch kann man sich **mehr Zeit
+nehmen** für die Ausbildung oder eine Auszeit einschalten, um eine
+Weiterbildung zu absolvieren. Dadurch kann das **individuelle
+Potential** besser genutzt werden, was der ganzen Gesellschaft zugute
+kommt. Zudem gibt es heute schon sehr viele Menschen, die
+gesellschaftlich wertvolle, aber **unbezahlte Arbeit** leisten. Dies
+jedoch oft auf Kosten der finanziellen Unabhängigkeit.
+
+*Was spricht dagegen?*
+
+Was dem Einzelnen sinnvoll erscheint, muss noch lange nicht für die
+Gesellschaft Sinn ergeben. Heute gibt es einen **Indikator** dafür, ob etwas von anderen Menschen gebraucht wird oder nicht: Das **Geld**: Wer Geld findet für
+die Umsetzung einer Idee, bekommt damit das Signal, dass seine Arbeit
+von anderen gefragt ist. Mit einem Grundeinkommen ist es möglich, dass
+jemand das ganze Leben lang Dinge tut, die irrelevant für die
+Mitmenschen sind. Die Menschen wären auch **überfordert mit der neuen
+Freiheit**. Ohne Teilhabe an einem Produktionsprozess in einem grösseren
+Zusammenhang mit anderen Menschen, sind die meisten nicht in der Lage,
+ihren Alltag zu strukturieren und ihre Ideen umzusetzen. Die
+vermeintliche Freiheit könnte sich als grosse Leere entpuppen."
+2;b;Individuum;Bildung;Würden sich die Menschen mit einem Grundeinkommen weniger bilden?;;;;;Ja;Nein, mehr;"*Die Menschen würden sich weniger bilden, weil...*
+
+
+-   sie sich **nicht anstrengen müssen**, um Geld zu verdienen. Dann
+    gibtes auch keinen Grund, sich durch Schule, Lehre oder Uni
+    zu quälen.
+
+-   das Grundeinkommen die **Teilung in Ober- und
+    Unterschicht** zementiert. Die einen lernen schon zuhause von den
+    Eltern und dem Umfeld den Sinn von Bildung und deren Chancen. Die
+    anderen verlieren durch die Möglichkeit, das ganze Leben mit einem
+    Grundeinkommen zu leben, jeglichen Anreiz und klinken sich von
+    Anfang an aus.
+
+-   viele nicht mehr das lernen würden, was die **Wirtschaft wirklich
+    braucht**.
+
+*Die Menschen würden sich mehr bilden, weil...*
+
+
+-   jede und jeder **neugierig** zur Welt kommt. Weil Bildung spannend
+    ist, einen weiter bringt und viele Türen öffnet. Das Grundeinkommen
+    baut den Druck ab, so schnell wie möglich Geld zu verdienen, und
+    erleichtert Auszeiten im Berufsleben.
+
+-   die meisten Menschen trotz existenzsicherndem Grundeinkommen
+    **zusätzliches Geld** verdienen möchten. Dadurch haben sie auch
+    weiterhin einen finanziellen Anreiz für gute Ausbildung.
+
+-   das Grundeinkommen ein wichtiger Fortschritt für die
+    **Chancengleichheit** ist. Wie viel Zeit jemand in die Ausbildung
+    investiert, hängt nicht mehr von den finanziellen Möglichkeiten der
+    Eltern ab. Jeder kann so viel und lange studieren, wie er oder sie
+    will – ohne Nebenjobs und langen Prozedere für Stipendien."
+3;c;Individuum;Freiheit;Ohne Zwang zur Erwerbsarbeit könnten die Menschen freier über ihre Zeit verfügen. Überfordert diese Freiheit?;;x;x;x;Ja;Nein ;"Das bedingungslose Grundeinkommen wäre eine grosse Veränderung für die
+Menschen und es würde viele Lebensentwürfe in Frage stellen. Für einige
+wäre es **Befreiung und Chance**, für andere würde sich **nicht viel
+ändern**, und wiederum andere fielen in eine **Sinnkrise**. Die Frage
+ist, ob eine Mehrheit davon profitieren könnte.
+
+Man kann argumentieren, dass mit Grundeinkommen alle nur noch auf dem
+Sofa liegen würden. Weil wir nie aus dem Säuglingsstadion herauskämen:
+**Zuerst sorgen die Eltern für uns und dann der Staat.** Frei von
+Verantwortung für unser eigenes Leben. Aber ist das wirklich das 21.
+Jahrhundert? Die Menschen gestehen sich und allen anderen nicht zu, **so
+frei wie möglich** zu sein, aus Angst davor, dass wir nicht mit dieser
+Freiheit umgehen könnten?
+
+Aber vielleicht kann das nicht so pauschal abhandeln und die erste Frage
+sollte sein: Von wem sprechen wir überhaupt? Jemand, der sich sein
+ganzes Leben an eine Struktur durch verschiedene Zwänge gewöhnt hat,
+wird auf eine Freiheit, wie sie das Grundeinkommen bietet, ganz anders
+reagieren als jemand, der mit der Realität des Grundeinkommens
+aufgewachsen ist.
+"
+4;d;Wirtschaft;Umfrage;Würde noch genug Erwerbsarbeit geleistet?;;;x;x;Ja;Nein ;"Umfragen ergeben, dass 90 Prozent der Menschen behaupten, dass sie
+weiter einer Erwerbsarbeit nachgehen würden, auch wenn sie bedingungslos
+jeden Monat genug Geld zum Leben auf dem Konto hätten.
+
+Kritiker des Grundeinkommens sagen, dass sich viele von der
+Erwerbsarbeit verabschieden würden. Das führte dazu, dass **nicht mehr
+genügend Güter produziert** werden, die Gesellschaft verarmt, und
+schliesslich kann auch das Grundeinkommen nicht mehr finanziert werden.
+
+Befürworter hingegen glauben, dass Geld für den Lebensunterhalt zu
+verdienen, nur einer der Gründe ist, warum Menschen arbeiten. **Andere
+wichtige Motive** sind: Um etwas Sinnvolles zu tun, weil es sonst
+langweilig wäre, um Anerkennung zu bekommen, weil die Arbeit Spass
+macht, damit man am Abend gut schlafen kann, weil man etwas zur
+Gesellschaft beitragen will, aus Neugierde, und nicht zuletzt auch, um
+zusätzliches Geld zu verdienen.
+
+Viele glauben, dass **genug für alle** da ist. Wir sind reich genug und
+können es uns leisten, dass ein Teil der Menschen ihre Zeit und Kraft in
+Zukunft nicht mehr in Erwerbsarbeit stecken. Einige werden nichts tun,
+andere dafür viel wertvolle, aber unbezahlte Arbeit leisten.
+
+Klar ist, wenn zu viele Menschen aus der Erwerbsarbeit aussteigen,
+**bricht die Wirtschaft zusammen**. Wer noch einer Erwerbsarbeit
+nachgeht, müsste entsprechend produktiver sein, damit das Grundeinkommen
+überhaupt finanzierbar ist. Sollte das Grundeinkommen zu massiven
+Problemen im aktuellen Wirtschaftssystem führen, könnte dies auch eine
+Chance sein, alte Strukturen radikal zu reformieren.
+"
+5;e;Staat;Migration;Führt das Grundeinkommen zu unlösbaren Problemen bei der Einwanderung?;;x;x;x;Ja;Nein ;"Oft hört man, dass das bedingungslose Grundeinkommen nicht lange
+funktionieren kann, weil dann noch **mehr Menschen einwandern** würden.
+Um dieser Behauptung auf den Grund zu gehen, müssen wir drei
+unterschiedliche Kategorien von Immigrantinnen und Immigranten
+betrachten.
+
+-   *Bürger der EU*: In der Schweiz gilt derzeit das
+    **Personenfreizügigkeits-Abkommen mit der EU**. Das heisst, die
+    Bürgerinnen und Bürger der EU-Länder dürfen frei entscheiden, wo sie
+    arbeiten und wohnen wollen. Ohne Arbeitsstelle in der Schweiz gibt
+    es dennoch weder eine Bewilligung zur Niederlassung noch ein Recht
+    auf Sozialhilfe. Eine mögliche Lösung wäre, das Grundeinkommen so zu
+    handhaben wie die Sozialhilfe. Ob eine grosse Sogwirkung entstünde,
+    hängt dann von der Lage auf dem Arbeitsmarkt ab. Heute schon ist die
+    Schweiz eines der reichsten Länder Europas – und seit der Einführung
+    der Personenfreizügigkeit ist die Einwanderung aus dem europäischen
+    Raum nicht übermässig gestiegen.
+
+-   *Flüchtlinge:* Ob Menschen, die in einem Asylverfahren sind, ein
+    Grundeinkommen erhalten werden, ist offen. Der politische Zeitgeist
+    scheint dagegen zu sein. **Anerkannte Flüchtlinge** sind heute **im
+    Sozialversicherungsrecht** hingegen **den Schweizer Bürgern
+    gleichgestellt**. Dies ändert nichts an den Bedingungen, die
+    Flüchtlinge erfüllen müssen, damit ihrem Antrag auf Asyl
+    stattgegeben wird. Der Unterschied zu heute wäre, dass sie anstatt
+    andere Sozialversicherungsleistungen ein Grundeinkommen erhielten.
+    Ob diese Differenz zu erheblich mehr Asylanträgen führen würde,
+    weiss niemand. Heute lässt sich beobachten, dass Flüchtlingsströme
+    vor allem durch die politische Weltlage beeinflusst werden.
+
+-   *Arbeitskräfte aus nicht EU-Staaten.* Ohne einen Arbeitsvertrag
+    dürfen diese Menschen nicht in der Schweiz leben. Es gibt Quoten,
+    und es gilt der **Inländervorrang** – das heisst, ein Arbeitgeber
+    muss nachweisen, dass er keine qualifizierte Schweizerin und keinen
+    qualifizierten Schweizer finden konnte, bevor er eine Stelle mit
+    jemandem aus einem Nicht-EU Land besetzen darf. Dies wird sich mit
+    Grundeinkommen kaum ändern."
+6;f;Wirtschaft;Innovation;Befreit vom Zwang zur Erwerbsarbeit wären die Menschen motivierter. Dies führt zu einem Innovationsschub.;;x;;;Ja;Nein, im Gegenteil;"Laut Befürwortern entsteht durch das Grundeinkommen mehr Innovation.
+
+*Warum?*
+
+
+Heute sind viele Menschen in Anstellungen quasi gefangen und mit den
+Arbeitsbedingungen unzufrieden. Sie haben keine Wahl, sich aus dieser
+Situation zu befreien, weil Arbeitslosigkeit droht. **Es fehlt das Geld
+für Auszeit, Weiterbildung oder Neuorientierung.** Durch das
+Grundeinkommen wären die Menschen freier bei der Wahl ihrer
+Arbeitssituation. Dadurch wären sie vermehrt in Positionen tätig, die
+sie wirklich befriedigen. Motivierte Mitarbeiter sind bessere
+Mitarbeiter. Neue Möglichkeiten, sich selbständig zu machen oder in ein
+Jungunternehmen einzusteigen, tun sich auf. Das öffnet Raum für
+Innovation.
+
+*Oder doch nicht?*
+
+
+Wenn jemand wirklich etwas will und dafür geeignet ist – eine
+Weiterbildung absolvieren, eine neue Stelle finden oder eine Idee
+selbstständig oder in einem Start-Up umsetzten – dann **kann er oder sie
+das heute schon**. Die finanziellen Unsicherheiten sind oft nur ein
+Vorwand. Es ist wahrscheinlicher, dass die Menschen mit einem
+Grundeinkommen ihre faule Seite ausleben und weniger arbeiten würden.
+Dadurch entsteht weniger Innovation."
+7;g;Gesellschaft;Einkommen;Mit Grundeinkommen wird ein Teil des Volkseinkommens gleichmässig und ohne Diskriminierung der Geschlechter verteilt. Ist das ein Schritt in Richtung Gleichberechtigung? ;;x;x;;Ja;Nein ;"In der Schweiz verdienen Frauen für ihre Arbeit durchschnittlich
+deutlich weniger als Männer. Dies hat verschiedene Gründe. Der
+wichtigste ist, dass viele Frauen gar keiner bezahlten Arbeit nachgehen
+oder Teilzeit arbeiten. Hingegen leisten Frauen den grössten Teil an
+unbezahlter Care-Arbeit: zum Beispiel Kinder gross ziehen und ältere
+Menschen betreuen. Zudem arbeiten Frauen vermehrt in Branchen und
+Positionen, die unterdurchschnittlich entlöhnt werden. Und bis heute
+verdient eine Frau im Schnitt für die gleiche Arbeit weniger als ein
+Mann.
+
+Das Volkseinkommen ist die Summe aller Einkommen, die in der Schweiz
+erwirtschaftet werden. **Ein Grundeinkommen würde rund ein Drittel -
+sofern die Wirtschaftsleistung konstant bleibt - des Volkseinkommens
+gleichmässig auf Männer und Frauen verteilen.** Dadurch hätten Frauen
+anteilmässig mehr Geld, über das sie selber verfügen könnten."
+8;h;Individuum;Stigma;Was ist besser: Arbeitslose und Invalide mit Kontrollen oder bedingungslos zu unterstützen?;;;;;Kontrolle;Bedingungslos;"Arbeitslose, behinderte Menschen oder andere, die abhängig von
+staatlichen Leistungen sind, berichten, das Schlimmste an ihrer
+Situation seien die **Schikanen**, die sie von den Behörden erfahren.
+Auch litten sie unter dem Urteil der Gesellschaft, die sie in eine von
+**Vorurteilen** geprägte Schublade stecke.
+
+Bezügerinnen und Bezüger von Arbeitslosentaggeldern sehen sich daran
+gehindert, etwas Sinnvolles zu tun, weil sie sich auf unpassende Stellen
+bewerben müssen. Sie erzählen, dass sie **ohne behördliche Auflagen**
+schneller wieder in den Arbeitsmarkt einsteigen könnten. Oder, wenn dies
+ohnehin nicht gelingen kann, sich anderen schönen und nützlichen Dingen
+widmen würden: Die Enkel hüten, Musik machen, einen Gemüsegarten
+pflegen.
+
+Dagegen spricht, dass es für niemanden gut ist, einfach unterstützt zu
+werden. Zu Beginn ist es möglicherweise angenehmer, nicht aufs RAV zu
+gehen oder auf den Nachweis zu verzichten, dass man wirklich krank ist.
+Die Abhängigkeit von staatlicher Unterstützung – ob von heutigen Formen
+oder von einem Grundeinkommen – führt jedoch langfristig dazu, dass das
+Bewusstsein vom **Wert der eigenen Leistung** verloren geht. Auf dem
+Arbeitsmarkt Geld zu verdienen, ist in jedem Fall besser."
+9;I;Gesellschaft;Ablassprämie;Führt das Grundeinkommen zu einer Spaltung der Gesellschaft?;;;;;Ja;Nein, im Gegenteil;"Kritiker des bedingungslosen Grundeinkommens argumentieren oft, dass
+sich die Gesellschaft in verschiedene Gruppen spalten wird: Jene, für
+die das Grundeinkommen die einzige Einnahmequelle ist und jene, die
+weiterhin einer Lohnarbeit nachgehen.
+
+-   *Die Erfolgreichen:* Vom emanzipatorischen Potential des
+    Grundeinkommens profitieren würden eher Menschen aus einem
+    **bildungsnahen Umfeld**. Befreit von finanziellen Ängsten und
+    gesellschaftlichen Zwängen würden sich diese besser bilden und
+    **selbstbestimmt arbeiten**. Sie hätten hohe Löhne und würden sich
+    in politischen und anderen ehrenamtlichen Aktivitäten ausleben.
+
+-   *Die Verlierer:* Menschen aus einem **bildungsfernen oder schlecht
+    integrierten soziokulturellen Umfeld** haben schon heute eine
+    schlechtere Ausgangsposition, um gut bezahlte Jobs und
+    einflussreiche gesellschaftliche Stellungen zu erreichen. Diese
+    verlieren durch das Grundeinkommen den Druck, trotzdem eine
+    möglichst gute schulische Bildung zu erwerben, und die
+    Notwendigkeit, einer Erwerbsarbeit nachzugehen. Dadurch, dass sie
+    weder Bildung noch Arbeit haben, **verlieren sie jede Chance** auf
+    gesellschaftlichen Aufstieg und entlassen sich selbst vor
+    den Fernseher.
+
+-   *Die dazwischen:* Dazwischen bleibt dann noch eine **leidende
+    Mittelschicht**, die versucht, ein bisschen mehr vom Kuchen
+    zu kriegen. Sie zahlen hohe Steuern, um jene, die nicht
+    arbeiten, durchzufüttern. Trotz guter Ausbildung und einer intakten
+    Arbeitsmoral müssen sie hart kämpfen, um einigermassen gut zu leben.
+
+Andere sagen, dass es diese **Spaltung schon heute** gibt. Es ist nicht
+sicher, ob sie durch ein Grundeinkommen grösser würde. Das
+Grundeinkommen hat auch Effekte, die dieser Segregation entgegen wirken.
+Zum Beispiel wird es einfacher sein, eine verpasste Ausbildungen
+nachzuholen.
+
+Zudem ist fraglich, ob es wirklich erstrebenswert ist, Menschen ohne
+Chance auf einen gut bezahlten Job zu zwingen, einer sinnfreien und
+krank machenden Beschäftigung nachzugehen. Wenn doch klar ist, dass sie
+sich sofort in die Frühpensionierung zurückziehen würden, wenn dies
+möglich wäre. Vielleicht gibt es erfolgversprechendere Methoden, den
+Zusammenhalt in der Gesellschaft zu fördern als kollektiver Zwang zur
+Erwerbsarbeit."
+10;j;Wirtschaft;Ersetzen;Die Finanzierung des Grundeinkommens ist möglich, weil es weitgehend heutige Einkommen ersetzt. Einverstanden?;;;x;x;Ja;Nein ;"Wenn wir mit 2’500 Franken für Erwachsenen und 625 Franken für Kinder
+rechnen, dann müssen **rund 200 Milliarden Franken pro Jahr** verteilt
+werden.
+
+Befürworter argumentieren, dass der grössere Teil dieser Summe
+bestehenden Einkommens ersetzt. Wenn jemand zum Beispiel 6’000 Franken
+verdient, würde er neu 3’500 Franken verdienen und 2’500 Franken als
+Grundeinkommen erhalten. Der ersetzende Teil ist also **kein
+zusätzliches Geld**, der Lohn ist nur anders zusammen gesetzt, aus
+Erwerbseinkommen und Grundeinkommen.
+
+Anders macht es auch nicht viel Sinn. Geld fällt nicht vom Himmel. Der
+Staat kann Geld abschöpfen und dann wieder verteilen. Stammt das Geld
+von anderen Menschen als von denen, die es wieder bekommen, ist das
+Umverteilung.
+
+Befürworter argumentieren, dass das Grundeinkommen zu einem grossen Teil
+**umverteilungsneutral** ist. Viele Menschen zahlen gleich viel in den
+Grundeinkommenstopf ein, wie sie daraus bekommen. Ein grosser Teil der
+200 Milliarden fliesst wieder dahin zurück, wo er hergekommen ist.
+
+Ob das wirklich so sein wird – oder überhaupt möglich ist – hängt von
+vielen Faktoren ab. Zum Beispiel wie hoch das Grundeinkommen sein wird,
+wie viele Menschen einer Lohnarbeit nachgehen oder über welche Steuern
+das Grundeinkommen finanziert wird.
+
+Es hängt auch davon ab, was wir wollen. Es folgen drei verschiedene
+Beispiele, wie verschiedene Vorstellungen von Umverteilung mit der Idee
+Grundeinkommen vereinbar sind:
+
+-   Das Grundeinkommen soll die **Umverteilung von Oben nach Unten
+    stärken**. Weniger gut Verdienende sollen weniger als ihr
+    Grundeinkommen einbezahlen, besser Verdienenden mehr. Die Lohnschere
+    soll kleiner werden. Es gibt Leute, welche dieses Ziel mit einer
+    stärkeren Steuerprogression erreichen möchten. Auch andere
+    Mechanismen sind denkbar.
+
+-   Das Grundeinkommen soll die **Schmarotzer und Faulen bestrafen**:
+    Wer nicht fähig oder willig ist, sich auf dem Arbeitsmarkt zu
+    behaupten, soll weniger als heute bekommen. Das könnte erreicht
+    werden, indem man den Betrag für das Grundeinkommen sehr tief
+    ansetzt und alle anderen Sozialleistungen, wie IV oder
+    Sozialhilfe streicht.
+
+-   Das Grundeinkommen soll **so wenig wie möglich umverteilen**: Die
+    meisten Menschen hätten mit Grundeinkommen gleich viel Geld in der
+    Tasche wie ohne, sofern sie in ihrem Job weiter arbeiten. Nur jene
+    mit einem ein Einkommen von weniger als 2’500 Franken hätten mehr.
+    Die Frage ist lediglich, ob wir geeignete Instrumente finden, um das
+    Grundeinkommen aus fiskaler Sicht mehrheitlich als Nullsummenspiel
+    zu organisieren."
+11;f;Wirtschaft;Rest;Wer heute weniger als das Grundeinkommen verdient, hätte mit Grundeinkommen mehr Geld. Andere würden sich aus dem Arbeitsmarkt verabschieden. Ist die Finanzierung dieser Mehrkosten ein Problem?;;x;x;x;Ja;Nein ;"Wenn sich Menschen dazu entscheiden, mit dem Grundeinkommens keiner
+Erwerbsarbeit mehr nachzugehen, müssen die, die noch einer Erwerbsarbeit
+nachgehen, das Grundeinkommen für jene bezahlen. Es ist irrelevant wie
+viel Sinnvolles die Menschen tun, ob sie Kranke pflegen oder
+weltbewegende Bücher schreiben. Wenn sie diese **Arbeit ausserhalb der
+Geld-Wirtschaft** tun, können darauf **keine Steuern** erhoben werden,
+und sie tragen daher nicht direkt zur Finanzierung des Grundeinkommens
+bei.
+
+Die Frage ist also: wie viele Menschen können sich dafür entscheiden,
+keiner Erwerbsarbeit mehr nachzugehen, ohne dass das System
+zusammenbricht?
+
+Um diese Frage zu beantworten, müssen viele Faktoren berücksichtigt
+werden: Wie hoch ist das Grundeinkommen? Mit welchen Instrumenten
+erheben wir das Geld? Wer bezahlt den Grossteil? Wie viel sind sie
+bereit abzugeben, bevor sie auswandern oder das Grundeinkommen wieder
+abschaffen? Welche technologischen Entwicklungen bringen die nächsten
+Jahre?
+
+Ob das Grundeinkommen finanzierbar ist, hängt hauptsächlich von zwei
+Dingen ab: Erstens, wie viele Menschen sich dafür entscheiden, **aus dem
+heutigen Arbeitsmarkt auszusteigen** und zweitens, wie viel
+**produktiver die Verbleibenden arbeiten**."
+12;e;Gesellschaft;Herdprämie;Das Grundeinkommen fördertet finanziell ein veraltetes Familienmodell. Richtig?;;x;x;x;Ja;Nein ;"Durch ein bedingungsloses Grundeinkommen könnte sich die **Begünstigung
+der klassischen Rollenverteilung verstärken**: Es wird noch stärker als
+heute für Familien die vernünftige Entscheidung sein, dass der Mann
+vollzeit ausser Haus arbeitet und die Frau zuhause bleibt und sich um
+Kinder und Haushalt kümmert.
+
+*Weil:*
+
+-   das Grundeinkommen keine direkte Auswirkung auf die **ungleiche
+    Chancenverteilung** und Lohnstruktur zwischen Frau und Mann auf dem
+    Arbeitsmarkt hat.
+
+-   Menschen, die **keiner Erwerbsarbeit** nachgehen, finanziell am
+    stärksten von einem Grundeinkommen profitieren.
+
+-   der soziale Druck steigt, seine **Kinder bis zur Einschulung zu
+    Hause gross zu ziehen** – denn es sollte mit einem bedingungslosen
+    Grundeinkommen finaziell möglich sein.
+
+*Es gibt auch die Ansicht, dass das bedingungslose Grundeinkommen die
+Emanzipation der Frauen stärkt:*
+
+-   Obwohl es stimmt, dass das Grundeinkommen an den diskriminierenden
+    Strukturen des Arbeitsmarktes per se nichts ändert, wird es mit der
+    Zeit trotzdem besser. Weil die Menschen weniger Angst vor der
+    Arbeitslosigkeit haben, sind sie alle – Frauen und Männer – in einer
+    **stärkeren Position gegenüber den Arbeitgebern**. Dies bringt eine
+    neue Dynamik in Verhandlungen und dadurch eine neue Chance, diese
+    diskriminierenden Strukturen zu überwinden.
+
+-   Die Frauen haben ohne Grundeinkommen machmal keine Wahl und müssen
+    einer Erwerbsarbeit nachgehen. **Mit Grundeinkommen haben sie die
+    Wahl**. Mehr Wahlfreiheit ist immer besser.
+"
 13;d;Gesellschaft;Abhängigkeit;Heute verfügt oft ein Familienmitglied über das gesamte Haushalts-Einkommen. Das führt zu finanziellen Abhängigkeiten. Kann das bedingungslose Grundeinkommen diese reduzieren?;;x;x;;Ja;Nein ;
-14;g;Individuum;Roboter;Weil durch die Automatisierung viele Arbeitsplätze verschwinden, müssen neue Formen der Einkommensverteilung gefunden werden: Ist das Grundeinkommen dazu die richtige Form? ;;x;;;Ja;Nein ;
-15;e;Gesellschaft;Unbezahlt;Das Grundeinkommen erlaubt Menschen, die unbezahlte Arbeit leisten, finanziell unabhängig zu leben. Ist das gut?;;x;;;Ja;Nein ;
-16;f;Individuum;Unzufrieden;Wird es mit einem Grundeinkommen weniger Menschen geben, die mit ihrer beruflichen Situation unzufrieden oder krank sind?;;x;;;Ja;Nein, im Gegenteil;
-17;e;Staat;Markt;Der Arbeitsmarkt regelt Angebot und Nachfrage nach Arbeit. Mit dem Grundeinkommen gibt es mehr Entscheidungsfreiheit, nicht an diesem Markt teilzunehmen..Kommt das gut? ;;x;;;Ja;Nein ;
-18;g;Staat;Revolution;Das bedingungslose Grundeinkommen verändert die Ausgangslage für Sozialstaat-Reformen. Es wird...;;x;;;Besser;Schlechter;
-19;f;Gesellschaft;Alle;In einer arbeitsteiligen Gesellschaft gibt es keine Selbstversorger. Heute lebt keiner mehr direkt von den Früchten seiner Arbeit.  Passt das Grundeinkommen zu dieser Entwicklung?;;x;;;Ja;Nein ;
-20;e;Staat;Schweiz;Soll die Schweiz eine Vorreiterrolle in der Welt einnehmen, indem sie unerprobte Wege geht?;;x;;;Ja;Nein ;
-21;d;Staat;Demokratie;Die Demokratie wird gestärkt, weil die Menschen mehr Zeit dafür haben.;;x;x;;Ja;Nein ;
+14;g;Individuum;Roboter;Weil durch die Automatisierung viele Arbeitsplätze verschwinden, müssen neue Formen der Einkommensverteilung gefunden werden: Ist das Grundeinkommen dazu die richtige Form? ;;x;;;Ja;Nein ;"*Warum Grundeinkommen und Automatisierung gut zusammen passen:*
+
+
+-   **Arbeitslosigkeit** ist schlimm für die Betroffenen. Durch die
+    Automatisierung droht dies für mehr Menschen Realität zu werden.
+    Darum muss man darüber nachdenken, wie man besser damit
+    umgehen kann. Das Grundeinkommen ist ein Ansatz, den schwierigen
+    Gang zum Arbeitsamt und das damit verbundene Stigma aufzuheben.
+
+-   Wenn viele Arbeitsplätze verschwinden, verändern sich
+    die Rahmenbedingungen. Um neue Strukturen zu schaffen, braucht es
+    **Flexibilität** – auf Seiten der Arbeitnehmer und Arbeitgeber. Das
+    Grundeinkommen könnte mehr Flexibilität bringen, weil die Menschen
+    weniger existentielle Ängste hätten. Dadurch können sie frühzeitig
+    Umschulungen und Weiterbildungen machen oder eigene Ideen
+    selbständig verwirklichen. Zusätzlich könnte mehr Innovation und
+    dadurch neue Arbeitsplätze entstehen.
+
+-   Die Wirtschaft braucht **Konsum**. Wenn nun viele Menschen keinen
+    Job haben, haben sie auch kein Geld, das sie ausgeben können. Das
+    Grundeinkommen sorgt dafür, dass die Menschen weiter kaufen können
+    und die Wirtschaft nicht kollabiert.
+
+*Warum Grundeinkommen und Automatisierung nicht gut zusammen passen:*
+
+
+-   Man stelle sich vor, es gibt eines Tages wirklich fast keine
+    Jobs mehr. Die Roboter arbeiten. Wer die Roboter besitzt, hat
+    das Sagen. Damit die Menschen nicht ins Elend geraten und
+    revolutionäre Ideen entwickeln, bezahlt man ihnen
+    ein Grundeinkommen. Sie sind ruhig, konsumieren und halten die
+    Wirtschaft am Laufen. Ihr Einfluss auf die Gestaltung der Welt
+    jedoch schmilzt. **Wer finanziert, befiehlt**. Wenn die Mehrheit der
+    Menschen direkt vom Grundeinkommen abhängig ist, kann keine
+    Demokratie mehr funktionieren.
+"
+15;e;Gesellschaft;Unbezahlt;Das Grundeinkommen erlaubt Menschen, die unbezahlte Arbeit leisten, finanziell unabhängig zu leben. Ist das gut?;;x;;;Ja;Nein ;"Heute werden in der Schweiz **2,3 Milliarden Arbeitsstunden für
+unbezahlte Care-Arbeit** in Form von Betreuungs- und Pflegeaufgaben
+aufgewendet, was einem materiellen Wert von über 80 Milliarden Franken
+entspricht. Dazu kommen unbezahlte politische Arbeit und Arbeit in
+Vereinen.
+
+Die Menschen, die diese Arbeit leisten, sind oft finanziell abhängig,
+sei es von einem Ehegatten oder von Sozialleistungen – obwohl sie **für
+die Gesellschaft essentielle Dienste** erbringen. Das bedingungslose
+Grundeinkommen würde die finanzielle Situation dieser Menschen
+unmittelbar verbessern.
+
+Hingegen muss man sich fragen, ob die unbezahlte Care-Arbeit nicht auf
+**andere Weise abgegolten** werden kann, und wie sich potentielle andere
+Lösungen mit dem bedingungslosen Grundeinkommen vertragen würden:
+Ergänzen sie sich oder verhindern sie sich gegenseitig?"
+16;f;Individuum;Unzufrieden;Wird es mit einem Grundeinkommen weniger Menschen geben, die mit ihrer beruflichen Situation unzufrieden oder krank sind?;;x;;;Ja;Nein, im Gegenteil;"Viele Mensche leiden heute an Krankheiten, die eine Folge ihrer
+Erwerbsarbeit sind. Dies verursacht **individuelles Leid** aber auch
+**volkswirtschaftliche Kosten**.
+
+Das Grundeinkommen könnte zu einer Verbessern der Situation führen.
+Jemand, der wegen seiner Arbeit krank ist, hätte **weniger Hürden**,
+eine Auszeit zu nehmen, den Job zu wechseln oder auch einfach einmal
+nicht zu arbeiten.
+
+Doch es ist schliesslich **nicht nur das Geld**, das uns zur Arbeit
+drängt. Darum kann das Problem der Unzufriedenheit und der Krankheit
+durch Arbeit nicht nur mit Geld gelöst werden. Es könnte sein, dass der
+**Stress** eher zu- als abnimmt. Wir verlieren unter Umständen die
+Befriedigung, selber jeden Monat genug Geld zu verdienen und daher
+unabhängig zu sein. Nehmen wir an, vom Grundeinkommen zu leben, ist
+salonfähig und wir arbeiten alle freiwillig. Dann steigt der Druck, sich
+im Job selbst zu verwirklichen, einen Sinn darin zu sehen und uns selbst
+und anderen zu beweisen, dass wir Spass haben und unsere Arbeit wichtig
+ist. Das kann sehr anstrengend und **frustrierend** sein."
+17;e;Staat;Markt;Der Arbeitsmarkt regelt Angebot und Nachfrage nach Arbeit. Mit dem Grundeinkommen gibt es mehr Entscheidungsfreiheit, nicht an diesem Markt teilzunehmen. Kommt das gut? ;;x;;;Ja;Nein ;"Wenn man sich eine Welt mit bedingungslosem Grundeinkommen denkt, muss
+man sich fragen: Würde noch genug und **das Richtige produziert**
+werden, um unsere Bedürfnisse zu befriedigen? Dabei ist es wichtig, dass
+genug Menschen arbeiten. Und dass diese etwas herstellen, was auch
+wirklich nachgefragt wird.
+
+Heute müssen die meisten Menschen ihre Arbeit für Geld verkaufen. Dies
+tun sie im Rahmen der Märkte. Durch die Marktmechanismen entstehen die
+Preise für eine Arbeit. Wenn niemand bereit ist, für eine Arbeit, sei es
+in Form einer Dienstleistung oder eines Produktes, zu bezahlen, dann
+wird diese nicht ausgeführt. Nach diesem Angebot-Nachfrage-Prinzip
+entscheidet sich, was gearbeitet wird und was nicht.
+
+Zudem gibt es auch Güter, die auf einem unregulierten Markt nicht
+bezahlbar wären – zum Beipsiel Kultur, Bildung, Stromversorgung. Dies
+wird dann über staatliche Töpfe finanziert. Da entscheidet nicht das
+klassische Angebots-Nachfrage-Prizip darüber, ob ein Projekt realisiert
+wird, sondern die Demokratie.
+
+Durch das bedingungslose Grundeinkommen hätten die Meschen die Wahl,
+nicht an diesem Markt teilzunehmen. Sie könnten ihr ganzes Leben lang
+arbeiten, ohne für ihre Arbeit Geld zu verlangen – denn leben können sie
+ja vom Grundeinkommen – und sind so **weder auf das Feedback des
+Marktes, noch auf das der Demokratie angewiesen**.
+
+Dazu drei möglich Haltungen:
+
+-   Die herrschenden Bedingungen führen zu **schlechten
+    Produktionsverhältnissen und absurden Produkten**. Darum ist es gut,
+    wenn wir die Möglichkeit haben, nicht am Arbeitsmarkt teilzunehmen.
+
+-   Dadurch, dass die Menschen nicht mehr am Arbeitsmarkt teilnehmen
+    müssen, sondern können, **fällt eine grosse Verzerrung weg** und er
+    wird besser funktionierten.
+
+-   Es ist schlecht, wenn die Menschen nicht am Markt teilnehmen müssen.
+    Sie werden zwar weiterhin arbeiten, es ist jedoch unmöglich für den
+    einzelnen abzuschätzen, was jemand anderes braucht. Die Menschen
+    werden **an den Bedürfnissen vorbei arbeiten**."
+18;g;Staat;Revolution;Das bedingungslose Grundeinkommen verändert die Ausgangslage für Sozialstaat-Reformen. Es wird...;;x;;;Besser;Schlechter;"Diese Frage hat gar nicht nur mit der Idee des bedingungslosen
+Grundeinkommens an und für sich zu tun. Sondern es geht darum, welche
+anderen politischen Entwicklungen ausgelöst oder verhindert werden. Die
+Debatte um den Sozialstaat ist festgefahren, die Fronten zwischen denen,
+die mehr Sozialstaat fordern und denen, die diesen abbauen wollen, sind
+verhärtet.
+
+Die einen haben **Angst vor einem Abbau des Sozialstaates** durch die
+Einführung des Grundeinkommens. Sie befürchten, dass mit einem Verweis
+auf das existenzsichernde Grundeinkommen weitergehende
+Unterstützungsleistungen gestrichen werden könnten und sich die
+Situation von vielen vom Staat abhängiger Menschen verschlechtern würde.
+Dies könnte Subeventionen für Krippenplätze betreffen oder auch einfach
+nur jetzt noch kostenlose Beratungsleistungen der Sozialämter.
+
+Andere lehnen das Grundeinkommen von Anfang an ab, weil sie in ihm vor
+allem einen **massiven Ausbau des Sozialastaates sehen**.
+
+Fakt ist, dass im Moment des Entscheides zur Einführung des
+bedingungslosen Grundeinkommen gar nichts ab- oder ausgebaut wird. Wie
+die sozialstaatlichen Einrichtungen in einer Schweiz mit Grundeinkommen
+ausgestaltet sein werden, wird Gegenstand einer jahrelangen politischen
+Diskussion sein und sehr wahrscheinlich wird auch der eine oder andere
+Volksentscheid notwendig sein.
+"
+19;f;Gesellschaft;Alle;In einer arbeitsteiligen Gesellschaft gibt es keine Selbstversorger. Heute lebt keiner mehr direkt von den Früchten seiner Arbeit.  Passt das Grundeinkommen zu dieser Entwicklung?;;x;;;Ja;Nein ;"Viele Menschen glauben, dass sie unabhängig sind, weil sie mit dem
+Lohnihrer Arbeit die notwendigen Dinge zum Leben kaufen können. Nun kann
+man behaupten, dies sei eine Illusion.
+
+Die Schweiz ist wohlhabend, weil die allgemeine **Arbeitsproduktivität**
+hoch ist. Zentrales Element dafür ist die hohe **Arbeitsteilung**. Jede
+und jeder macht in seiner Arbeit einen spezifischen Arbeitsschritt. Am
+Ende sind an der Produktion einer Tomate Tausende indirekt beteiligt:
+Die Mechanikerin, die den Traktor flickt. Der Programmierer der Software
+für die Arbeitszeitenerfassung der Ölraffinerie in Saudiarabien, die das
+Benzin für das Auto des Bauerns liefert. Die Kleinkindererzieherin, die
+während der Ernte auf den Sohn der Bäuerin aufgepasst hat. Nun werden
+diese alle auch am Erlös aus dem Verkauf der Tomate beteiligt. Was ist
+aber mit dem Nachbarn, der kurzfristig eingesprungen ist, als die
+Bäuerin ihre kranke Mutter besuchte? Und der Autor des Buches, das den
+Bauer dazu inspirierte, Tomaten zu pflanzen? Und die Kinder im Dorf, die
+so schön singen, dass die Mechanikerin für einmal all ihre Sorgen
+vergessen kann und nicht in einer Depression versinkt, sodass sie
+weiterhin Traktoren flicken kann?
+
+Nun kann man argumentieren, dass alles mit allem zusammenhängt. Und alle
+tragen etwas bei. Aber am Ende haben die einen ganz viel Geld auf ihrem
+Konto und andere gar keines. Nur **unabhängig** ist bestimmt niemand. Es
+ist in unserer komplexen Welt unmöglich, einen fairen oder richtigen
+Verteilschlüssel für das Einkommen zu finden. Oder zu messen, wer
+effektiv wie viel zu etwas beigetragen hat.
+
+Das bedingungslose Grundeinkommen würde diesem Umstand teilweise gerecht
+werden. Denn das Grundeinkommen macht den Teil des Einkommens, den man
+unbedingt zum Leben braucht, bedingungslos.
+
+Dagegen kann man einwenden, dass es sehr wohl ein Intrument gibt, das
+misst, wer wie viel zu etwas beigetragen hat: Der **Markt** und das
+**Geld**. Ein Arbeit ist genau so viel wert, wie jemand anders bereit
+ist, dafür zu bezahlen. Es ist unbestreitbar, dass es Externalitäten
+gibt: Das sind Auswirkungen, für die niemand bezahlt oder einen
+Ausgleich erhält. Es stellte sich hier die Frage, wie diese
+Externalitäten vermindert werden können, anstatt einfach Geld zu verteilen."
+20;e;Staat;Schweiz;Soll die Schweiz eine Vorreiterrolle in der Welt einnehmen, indem sie unerprobte Wege geht?;;x;;;Ja;Nein ;"Zurzeit werden ähnliche Ideen wie das bedingungslose Grundeinkommen in
+verschiedenen Ländern getestet. Finnlands Regierung arbeitet an einem
+Versuch mit einem Grundeinkommen von 800 Euro. In Holland läuft ein
+Experiment mit einer handvoll Probanden. Das bedingungslose
+Grundeinkommen ist also durchaus ein Konzept, das aktuell internationale
+Beachtung findet.
+
+Es gibt immer wieder grosse Gesellschaftliche Veränderungen und irgendwo
+werden diese Ideen zuerst umgesetzt. Das beste Beispiel ist vielleicht
+die AHV: Es war Deutschland, das 1889 die damals neue und radikale Idee
+einer flächendeckenden Rente einführte. Danach zogen die meisten
+europäischen Staaten und die USA nach.
+
+Man kann argumentieren, dass die Schweiz als reiches und demokratisches
+Land in einer sehr guten Position ist, um fortschrittliche Ideen
+umzusetzen und zu testen. Die Schweiz kann es sich leisten, mit
+**internationalen Trends voranzugehen**.
+
+Dagegen kann man sagen, dass sich das differenzierte und bedarfsgerechte
+System der Sozialleistungen in der Schweiz bewährt hat. Wir sind so
+wohlhabend und demokratisch, weil wir **Bewährtes nicht leichtfertig
+aufgeben**. Eine Vorreiterrolle ist kein Wert für sich. Oder: Wir warten
+noch ein bisschen bis eine radikalere und **bessere Idee** als das
+Grundeinkommen auftaucht, um unsere Fortschrittlichkeit unter Beweis zu
+Stellen."
+21;d;Staat;Demokratie;Die Demokratie wird gestärkt, weil die Menschen mehr Zeit dafür haben.;;x;x;;Ja;Nein ;"Politisches Engagement braucht viel Zeit – vom gut informierten
+Abstimmen über das Sammeln von Unterschriften bis hin zum Kandidieren
+für ein Parlament. Um die politischen Pflichten und Rechte ernst zu
+nehmen, braucht man Zeit. Ein bedingungsloses Grundeinkommen könnte zur
+**Chancengleichheit in der Politik** beitragen. Heute gibt es Menschen,
+die es sich leisten können, grössere politische Verantwortung zu
+übernehmen und sich zum Beispiel in einer Partei einzubringen und
+solche, die dies nicht können, weil sie von morgens bis abends Geld
+verdienen müssen."
