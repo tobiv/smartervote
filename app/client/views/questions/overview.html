@@ -3,7 +3,7 @@
     <h1>Alle Fragen &amp; Informationen</h1>
     {{#each questions}}
     <h2>{{index}}. {{label}}</h2>
-      <p>{{{info}}}</p>
+      <p>{{#markdown}}{{info}}{{/markdown}}</p>
     {{/each}}
   </div>
 </template>

@@ -92,7 +92,7 @@
           <div class="info">
             {{#if showInfo}}
             <div class="hideInfo">
-              {{{question.info}}}
+              {{#markdown}}{{question.info}}{{/markdown}}
               <br><a href="#">{{_ "lessInformation"}}</a>
             </div>
             {{else}}
