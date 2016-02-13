@@ -122,11 +122,12 @@ doResize = ->
 
 upsertClusters = ->
   numClusters = _clusters.length
-  width = getBubblesWidth()
+  bubblesWidth = getBubblesWidth()
+  width = bubblesWidth*3/5
   height = $(window).height()
   i = 0
   _clusters.forEach (c) ->
-    x = 40+Math.round(width/numClusters*i)
+    x = (bubblesWidth/5)+Math.round(width/numClusters*i)
     i += 1
     if !_clustersAdded
       _network.addNode
