@@ -569,6 +569,10 @@ Template.slider.rendered = ->
         min: 0
         max: 1
     )
+    if answer.consent is 0
+      $('.nouislider').attr('disabled', true)
+    else
+      $('.nouislider').attr('disabled', false)
     return
   return
 
@@ -649,6 +653,11 @@ updateAnswer = (consent, importance, question) ->
     newStatus = 'dead'
   else if newConsent is null
     newStatus = 'skipped'
+
+  if newStatus is 'dead' and newConsent is 0
+    $('.nouislider').attr('disabled', true)
+  else
+    $('.nouislider').attr('disabled', false)
 
   newAnswer = _.extend answer,
     consent: newConsent
