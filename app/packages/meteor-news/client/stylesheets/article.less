@@ -9,6 +9,28 @@ article {
     padding-top: 1rem;
   }
   
+  &:not(.container-fluid) {
+    a {
+      img {
+        -webkit-filter: grayscale(1);
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: url(#greyscale);
+        filter: gray;
+      }
+      
+      &:hover {
+        img {
+          -webkit-filter: none;
+          -webkit-filter: none;
+          filter: none;
+          filter: none;
+          filter: none;
+        }
+      }
+    }
+  }
+  
   .date {
     font-size: 0.85em;
   }
