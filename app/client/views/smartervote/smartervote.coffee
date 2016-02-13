@@ -347,9 +347,7 @@ Template.smartervote.rendered = ->
         _answers[question._id] = answer
         _chain.buildAndCatch answer
     #init proPercent
-    _proPercent.set Answer.getProPercent( Object.keys(_answers).map (key) ->
-      _answers[key]
-    )
+    updateProPercent()
     goNext()
     Meteor.setTimeout ->
       resize()
@@ -371,6 +369,15 @@ Template.smartervote.rendered = ->
       classes: "selected"
     _previousSelectedId = question._id
 
+updateProPercent = ->
+  #maintain proPercent
+  answers = Object.keys(_answers).map (key) ->
+    _answers[key]
+  activeTopic = Session.get('activeTopic')
+  if activeTopic?
+    answers = answers.filter (a) ->
+      a.question.topic is activeTopic
+  _proPercent.set Answer.getProPercent(answers) 
 
 
 Template.smartervote.helpers
@@ -723,10 +730,7 @@ updateAnswer = (consent, importance, question) ->
 
   _answers[question._id] = newAnswer
 
-  #update proPercent
-  _proPercent.set Answer.getProPercent( Object.keys(_answers).map (key) ->
-    _answers[key]
-  )
+  updateProPercent()
 
   if newAnswer.status isnt 'skipped'
     _answerSaver.upsertAnswer question._id
@@ -1240,6 +1244,7 @@ Template.evaluation.events
     if Session.get('activeTopic') is topic
       topic = null
     Session.set 'activeTopic', topic
+    updateProPercent()
     Object.keys(_answers).forEach (key) ->
       answer = _answers[key]
       question = answer.question
