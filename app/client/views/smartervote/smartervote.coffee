@@ -667,6 +667,8 @@ updateAnswer = (consent, importance, question) ->
   else
     $('.nouislider').attr('disabled', false)
 
+  # this doesn't clone and therefor changes on answer directly
+  # TODO: cleanup
   newAnswer = _.extend answer,
     consent: newConsent
     importance: newImportance
@@ -676,20 +678,23 @@ updateAnswer = (consent, importance, question) ->
 
   if importance isnt null and consent is null #updated importance
     if answer.position is 'pitcher'
-      _pitcher.update newAnswer
-    else if answer.position is 'field'
-      if newAnswer.status is 'valid'
-        _field.update newAnswer
-      else
-        debugger if newAnswer.status is 'skipped'
-        #new: stay on field instead of back to chain
-        _field.update newAnswer
-    else if answer.position is 'chain'
-      if newAnswer.status is 'valid'
-        #console.log "back to field"
+      if newAnswer.status is 'valid' or newAnswer.status is 'skipped'
+        _pitcher.update newAnswer
+      else if newAnswer.status is 'dead'
+        #new new to field
         newAnswer.position = "field"
         _field.catch newAnswer
-        _chain.free newAnswer
+        _pitcher.free()
+    else if answer.position is 'field'
+      if newAnswer.status is 'skipped'
+        #new: stay on field instead of back to chain
+        #new new: back to pitcher instead of stay on field
+        newAnswer.position = "pitcher"
+        _pitcher.catch newAnswer
+        _field.free newAnswer
+      else
+        _field.update newAnswer
+    #no else, you can't change importance for questions in chain
 
   if consent isnt null and importance is null #updated consent
     if answer.position is 'pitcher'
@@ -704,11 +709,7 @@ updateAnswer = (consent, importance, question) ->
         debugger if newAnswer.status is 'skipped'
         #new: stay on field instead of back to chain
         _field.update newAnswer
-    else if answer.position is 'chain'
-      #new to field anyway instead of back to field if valid
-      newAnswer.position = "field"
-      _field.catch newAnswer
-      _chain.free newAnswer
+    #no else, you can't change consent for questions in chain
 
   if consent is -1 and importance is -1#next / back
     if answer.position is 'pitcher'
@@ -815,6 +816,8 @@ class Pitcher
       radius: answer.radius
       fillColor: "url(#color_#{answer.question.index})"
       strokeWidth: 0
+      isFavorite: answer.isFavorite
+      isDead: answer.status is 'dead'
 
   free: ->
     @network.removeLink
@@ -859,7 +862,7 @@ class Field
       xMax: @xMax if @xMax?
       xMaxT: Date.now()+3000
       isFavorite: answer.isFavorite
-      isDead: answer.status isnt 'valid'
+      isDead: answer.status is 'dead'
 
     @network.addLink
       sourceId: question._id
@@ -882,7 +885,7 @@ class Field
       strokeWidth: 0
       xMax: @xMax if @xMax?
       isFavorite: answer.isFavorite
-      isDead: answer.status isnt 'valid'
+      isDead: answer.status is 'dead'
 
     ldMin = _linkDistanceScale(answer.value)
     @network.changeLink
