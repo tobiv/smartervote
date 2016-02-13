@@ -10,6 +10,11 @@ article {
   }
   
   &:not(.container-fluid) {
+    &:hover {
+      background: #ebebeb;
+      box-shadow: 0 0 0 15px #ebebeb;
+    }
+    
     a {
       img {
         -webkit-filter: grayscale(1);
@@ -20,6 +25,8 @@ article {
       }
       
       &:hover {
+        text-decoration: none;
+        
         img {
           -webkit-filter: none;
           -webkit-filter: none;
