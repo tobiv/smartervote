@@ -83,3 +83,40 @@ Meteor.publishComposite 'answers', ->
       Answers.find
         visitId: visit._id
   ]
+
+Meteor.publishComposite 'visitsOfRegisteredUsers', ->
+  return unless onlyIfAdmin.call(@)
+  find: ->
+    Meteor.users.find
+      emails: {$exists: true}
+  children: [
+    find: (user) ->
+      Visits.find
+        userId: user._id
+    children: [
+      find: (visit) ->
+        Answers.find
+          visitId: visit._id
+    ]
+  ]
+
+Meteor.publish "publishedVisits", ->
+  Visits.find
+    isPublished: true
+  ,
+    fields:
+      _id: 1
+      name: 1
+      isPublished: 1
+      savedProPercent: 1
+
+Meteor.publishComposite 'answersForPublishedVisit', (id) ->
+  find: ->
+    Visits.find
+      _id: id
+      isPublished: true
+  children: [
+    find: (visit) ->
+      Answers.find
+        visitId: visit._id
+  ]

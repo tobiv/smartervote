@@ -188,13 +188,11 @@ Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im
   
   <div class="compare">
     <h2>{{_ "compareScoreWith"}}:</h2>
-    <button type="button" class="person-of-interest {{personCSS}} btn btn-default">
-      <strong>Viktor Giaciobbo</strong> (55% pro)
-    </button>
-    <button type="button" class="person-of-interest {{personCSS}} btn btn-default">
-      <strong>Loulou von Brochwitz</strong> (61% pro)
-    </button>
-    
+    {{#each publishedVisits}}
+      <button type="button" class="person-of-interest {{personCSS}} btn btn-default">
+        <strong>{{name}}</strong> ({{savedProPercent}}% pro)
+      </button>
+    {{/each}}
     <button type="button" id="mobile-content-toggle-compare" class="mobile-content-toggle"><i class="fa fa-eye"></i> Ansehen</button>
   </div>
 </div>

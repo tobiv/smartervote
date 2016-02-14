@@ -35,6 +35,7 @@ Router.route 'smartervote',
       Meteor.subscribe('questions', TAPi18n.getLanguage())
       Meteor.subscribe('visits')
       Meteor.subscribe('answers')
+      Meteor.subscribe('publishedVisits')
     ]
   action: ->
     @render 'smartervote'
@@ -75,6 +76,12 @@ Router.route '/admin/cnc',
     Meteor.subscribe('questions', TAPi18n.getLanguage())
   action: ->
     @render 'cnc'
+
+Router.route '/admin/smartervote',
+  waitOn: ->
+    Meteor.subscribe('visitsOfRegisteredUsers')
+  action: ->
+    @render 'smartervoteAdmin'
 
 Router.route '/account',
   action: ->

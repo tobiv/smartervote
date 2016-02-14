@@ -17,6 +17,13 @@ class @Visit
 Visits.before.insert BeforeInsertTimestampHook
 Visits.before.update BeforeUpdateTimestampHook
 
+Visits.allow
+  update: (userId, doc, fieldNames, modifier) ->
+    if Roles.userIsInRole userId, ['admin']
+      return true
+    false
+
+
 Meteor.methods
   "createVisit": ->
     throw new Meteor.Error(400, "you need to log in to init a visit") unless Meteor.userId()?

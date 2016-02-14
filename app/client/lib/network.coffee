@@ -48,11 +48,19 @@ class @Network
     node
       .attr("class", (d) -> if d.classes? then "node "+d.classes else "node")
     node.selectAll('circle')
-      .attr("r", (d) -> d.radius)
       .style("fill", (d) -> d.fillColor)
       .style("fill-opacity", (d) -> if d.fillOpacity? then d.fillOpacity else 1.0)
       .style("stroke", (d) -> d.strokeColor)
       .style("stroke-width", (d) -> d.strokeWidth)
+
+    if @animateRadiusChange
+      node.selectAll('circle')
+        .transition()
+        .duration(1200)
+          .attr("r", (d) -> d.radius)
+    else
+      node.selectAll('circle')
+        .attr("r", (d) -> d.radius)
 
     #TODO only append image if isFavorite and remove again
     #node.filter( (d) -> d.isFavorite ).selectAll('g.node')

@@ -225,6 +225,7 @@ Template.smartervote.destroyed = ->
 
 Template.smartervote.rendered = ->
   Session.set 'showEvaluation', false
+  Session.set('showPublishedVisitId', null)
 
   refreshRadius()
   refreshLinkDistances()
@@ -289,7 +290,9 @@ Template.smartervote.rendered = ->
     if selectedVisitId?
       visit = Visits.findOne selectedVisitId
     else
-      visit = Visits.findOne {},
+      visit = Visits.findOne
+        userId: Meteor.userId()
+      ,
         sort: {createdAt: -1, limit: 1}
 
     if visit?
@@ -694,9 +697,7 @@ updateAnswer = (consent, importance, question) ->
   else
     $('.nouislider').attr('disabled', false)
 
-  # this doesn't clone and therefor changes on answer directly
-  # TODO: cleanup
-  newAnswer = _.extend answer,
+  newAnswer = _.extend _.clone(answer),
     consent: newConsent
     importance: newImportance
     value: newValue
@@ -763,6 +764,9 @@ class AnswerSaver
     @saveAgain = false
 
   upsertAnswer: (id) ->
+    if Session.get('showPublishedVisitId')?
+      #console.log "ignoring saveAll"
+      return
     @ids.unshift id
     @ids = _.unique @ids
     @saveAll()
@@ -989,6 +993,8 @@ class Chain
         radius: _radiusChain
         fillColor: "url(#color_#{answer.question.index})"
         strokeWidth: 0
+        isFavorite: false
+        isDead: false
     else if answer.status is 'skipped'
       @network.changeNode
         id: answer.question._id
@@ -996,6 +1002,8 @@ class Chain
         fillColor: "#fff"
         strokeColor: "url(#color_#{answer.question.index})"
         strokeWidth: 5
+        isFavorite: false
+        isDead: false
 
     #link up
     targetId = null
@@ -1255,6 +1263,18 @@ Template.evaluation.helpers
     else
       ""
 
+   publishedVisits: ->
+     Visits.find
+      isPublished: true
+
+   personCSS: ->
+     if @_id is Session.get('showPublishedVisitId')
+       return "active"
+     ""
+
+_publishedVisitAnswersSubscription = null
+_othersAnswers = {}
+_changingAnswers = false
 Template.evaluation.events
   "click #gotoQuestions": (evt) ->
     Session.set 'showEvaluation', false
@@ -1279,3 +1299,94 @@ Template.evaluation.events
           fillOpacity: 0.05
           hoverable: false
     $('#mobile-content-toggle-topics').slideDown(300)
+
+  "click .person-of-interest": (evt, tmpl) ->
+    if _changingAnswers
+      return
+    _changingAnswers = true
+    pVisitId = Session.get 'showPublishedVisitId'
+    if pVisitId is @_id
+      pVisitId = null
+    else
+      pVisitId = @_id
+      Session.set('showPublishedVisitId', pVisitId)
+    if _publishedVisitAnswersSubscription?
+      _publishedVisitAnswersSubscription.stop()
+    if pVisitId?
+      _publishedVisitAnswersSubscription = tmpl.subscribe("answersForPublishedVisit", pVisitId, ->
+        #on ready
+        answers = Answers.find(
+          visitId: pVisitId
+        ).map (answer) ->
+          answer.question = Questions.findOne answer.questionId
+          answer
+        #throw answer on pitcher back to chain
+        if _pitcher.holdingAnswer?
+          answer = _pitcher.holdingAnswer
+          answer.position = 'chain'
+          _chain.catch answer
+          _pitcher.free()
+        answers.forEach (answer) ->
+        _network.animateRadiusChange = true
+        Promise.each(answers, (answer)->
+          if answer.status is 'valid' or answer.status is 'dead'
+            answer.radius = _radiusScale( Math.abs(answer.value) )
+            answer.position = 'field'
+          else
+            answer.position = 'chain'
+          fromAnswer = _answers[answer.question._id]
+          _othersAnswers[answer.question._id] = answer
+          moveAnswer(fromAnswer, answer)
+        ).finally ->
+          _network.animateRadiusChange = false
+          _changingAnswers = false
+      )
+    else
+      _network.animateRadiusChange = true
+      Promise.each(Object.keys(_answers), (key)->
+        answer = _answers[key]
+        fromAnswer = _othersAnswers[answer.question._id]
+        moveAnswer(fromAnswer, answer)
+      ).finally ->
+        _network.animateRadiusChange = false
+        _othersAnswers = {}
+        Session.set('showPublishedVisitId', null) #don't do this before to avoid saving
+        _changingAnswers = false
+
+moveAnswer = (answer, toAnswer) ->
+  chainCatch = false
+  if answer.position is toAnswer.position
+    if answer.position is "field"
+      _field.update toAnswer
+    else
+      debugger
+  else
+    if answer.position is "chain"
+      _chain.free answer
+    else if answer.position is "field"
+      _field.free answer
+    else
+      debugger
+
+    if toAnswer.position is "chain"
+      _chain.catch toAnswer
+      chainCatch = true
+    else if toAnswer.position is "field"
+      _field.catch toAnswer
+    else
+      debugger
+
+  if chainCatch
+    bc = $('#bubbles-container')
+    bcw = bc.width()
+    bch = bc.height()
+    _chain.items.forEach (item) ->
+      _network.changeNode
+        id: item.question._id
+        x: bcw-_radiusChain
+
+  deferred = Promise.pending()
+  Meteor.setTimeout ->
+    deferred.resolve()
+  , 1100
+  deferred.promise
