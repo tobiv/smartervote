@@ -7,7 +7,7 @@
     
     <div id="bubbles-container"></div>
     
-    <button type="button" id="mobile-content-toggle"><i class="fa fa-eye"></i></button>
+    <button type="button" id="mobile-content-toggle" class="mobile-content-toggle"><i class="fa fa-eye"></i></button>
     <div id="content">
       {{#if showEvaluation}}
         {{> evaluation}}
@@ -183,6 +183,7 @@ Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im
       <strong>{{title}}</strong> ({{pp}} %) 
     </button>
     {{/each}}
+    <button type="button" id="mobile-content-toggle-topics" class="mobile-content-toggle"><i class="fa fa-eye"></i> Ansehen</button>
   </div>
   
   <div class="compare">
@@ -193,6 +194,8 @@ Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im
     <button type="button" class="person-of-interest {{personCSS}} btn btn-default">
       <strong>Loulou von Brochwitz</strong> (61% pro)
     </button>
+    
+    <button type="button" id="mobile-content-toggle-compare" class="mobile-content-toggle"><i class="fa fa-eye"></i> Ansehen</button>
   </div>
 </div>
 </template>

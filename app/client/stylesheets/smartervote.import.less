@@ -795,6 +795,15 @@ html {
   }
 }
 
+#mobile-content-toggle-topics,
+#mobile-content-toggle-compare {
+  display: none;
+  
+  @media only screen and (min-width: @screen-sm-min) {
+    display: none !important;
+  }
+}
+
 
 
 /*
@@ -875,6 +884,11 @@ html {
   h2 {
     margin: 1.5em 0 1em;
     font-size: 1.2em;
+  }
+  
+  p a {
+    color: @color-brand;
+    &:hover  { color: black; }
   }
   
   @media only screen and (min-width: @screen-sm-min) {

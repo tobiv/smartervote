@@ -403,7 +403,7 @@ Template.smartervote.events
   'click .site-menu-toggle': () ->
     $('#overlay-menu').fadeIn(200)
 
-  'click #mobile-content-toggle': () ->
+  'click .mobile-content-toggle': () ->
     $('#content').fadeToggle(200)
     $('#bubbles-container').toggleClass('dim')
 
@@ -1261,3 +1261,4 @@ Template.evaluation.events
           id: question._id
           fillOpacity: 0.05
           hoverable: false
+    $('#mobile-content-toggle-topics').slideDown(300)
