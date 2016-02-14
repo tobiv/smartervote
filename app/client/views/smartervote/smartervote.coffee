@@ -398,6 +398,16 @@ Template.smartervote.helpers
   proPercentGauge: ->
     _proPercent.get() * 0.88
 
+  label: ->
+    lang = TAPi18n.getLanguage()
+    if @languages[lang]?
+      @languages[lang].label
+
+  info: ->
+    lang = TAPi18n.getLanguage()
+    if @languages[lang]?
+      @languages[lang].info
+
 
 Template.smartervote.events
   'click .site-menu-toggle': () ->
@@ -420,32 +430,39 @@ Template.question.rendered = ->
 
 Template.question.helpers
   question: ->
-    Questions.findOne
+    lang = TAPi18n.getLanguage()
+    q = Questions.findOne
       index: _questionIndex.get()
+    if q? and q.languages[lang]?
+      q.label = q.languages[lang].label
+      q.minLabel = q.languages[lang].minLabel
+      q.maxLabel = q.languages[lang].maxLabel
+      q.info = q.languages[lang].info
+    q
 
   maxLabel: ->
-    if @question?
+    if @question? and @question.maxLabel?
       if @question.maxLabel.indexOf(',') is -1 and
       @question.maxLabel.length > _questionLabelLengthMax
         return ''
       @question.maxLabel.split(',')[0]
 
   maxLabelAffix: ->
-    if @question?
+    if @question? and @question.maxLabel?
       if @question.maxLabel.indexOf(',') is -1 and
       @question.maxLabel.length > _questionLabelLengthMax
         return @question.maxLabel
       @question.maxLabel.split(',')[1]
 
   minLabel: ->
-    if @question?
+    if @question? and @question.minLabel?
       if @question.minLabel.indexOf(',') is -1 and
       @question.minLabel.length > _questionLabelLengthMax
         return ''
       @question.minLabel.split(',')[0]
 
   minLabelAffix: ->
-    if @question?
+    if @question? and @question.minLabelAffix?
       if @question.minLabel.indexOf(',') is -1 and
       @question.minLabel.length > _questionLabelLengthMax
         return @question.minLabel

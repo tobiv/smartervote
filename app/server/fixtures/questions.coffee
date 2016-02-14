@@ -54,19 +54,35 @@ deleteAndImportQuestions = ->
         cluster: columns[1]
         topic: columns[2]
         hrid: columns[3]
-        label: columns[4]
-        info: columns[11].replace(/"/g, '') if columns[11]?
+        #label: columns[4]
+        #info: columns[11].replace(/"/g, '') if columns[11]?
         optional: true
         type: "scale"
         min: min
         max: max
-        minLabel: columns[9]
-        maxLabel: columns[10]
+        #minLabel: columns[9]
+        #maxLabel: columns[10]
         step: Math.abs(max-min)/10
         start: 0
         isOneSided: oneSided
         isOnlyNegative: onlyNegativ
         isLeftPositiv: leftPositiv
+        languages:
+          de:
+            label: columns[4]
+            minLabel: columns[9]
+            maxLabel: columns[10]
+            info: columns[11].replace(/"/g, '') if columns[11]?
+          fr:
+            label: columns[12]
+            minLabel: columns[13]
+            maxLabel: columns[14]
+            info: columns[15].replace(/"/g, '') if columns[15]?
+          it:
+            label: columns[16]
+            minLabel: columns[17]
+            maxLabel: columns[18]
+            info: columns[19].replace(/"/g, '') if columns[19]?
       console.log question
       Questions.insert question
       return

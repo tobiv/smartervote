@@ -32,7 +32,7 @@ Router.route 'smartervote',
   layoutTemplate: 'layoutSmartervote'
   waitOn: ->
     [
-      Meteor.subscribe('questions')
+      Meteor.subscribe('questions', TAPi18n.getLanguage())
       Meteor.subscribe('visits')
       Meteor.subscribe('answers')
     ]
@@ -53,7 +53,7 @@ Router.route 'myBubbles/:id',
 
 Router.route 'smartervote-content',
   waitOn: ->
-    Meteor.subscribe('questions')
+    Meteor.subscribe('questions', TAPi18n.getLanguage())
   action: ->
     @render 'questionOverview'
 
@@ -66,13 +66,13 @@ Router.route '/admin/users',
 
 Router.route '/admin/editQuestions',
   waitOn: ->
-    Meteor.subscribe('questions')
+    Meteor.subscribe('questions', TAPi18n.getLanguage())
   action: ->
     @render 'editQuestions'
 
 Router.route '/admin/cnc',
   waitOn: ->
-    Meteor.subscribe('questions')
+    Meteor.subscribe('questions', TAPi18n.getLanguage())
   action: ->
     @render 'cnc'
 
