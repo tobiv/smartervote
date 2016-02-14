@@ -20,26 +20,24 @@
 <template name="myBlogShowBody">
   <div class="col-sm-9 col-md-8 col-lg-6 body-container">
     <div class="meteor-blog-post-main">
-      {{#unless titleBackground}}
-        <div class="meteor-blog-post-meta">
-          {{#if isAdmin}}
-             <small><a href="#" data-action="edit-post">{{ BlogLanguage.edit }}</a></small>
-             --
-          {{/if}}
-          {{dateSani publishedAt}}<br>
+      <div class="meteor-blog-post-meta">
+        {{#if isAdmin}}
+           <small><a href="#" data-action="edit-post">{{ BlogLanguage.edit }}</a></small>
+           --
+        {{/if}}
+        {{dateSani publishedAt}}<br>
 <!--           {{authorName}} -->
-          <!--{{> blogTags }}-->
-        </div>
-        <h1 class="meteor-blog-post-title">
-          {{title}}
-        </h1>
-      {{/unless}}
+        <!--{{> blogTags }}-->
+      </div>
+      <h1 class="meteor-blog-post-title">
+        {{title}}
+      </h1>
       <div id="commentable-area">
         {{{html}}}
       </div>
     </div>
     <div class="meteor-blog-back-link pull-left">
-      <a href="{{blogPathFor 'blogIndex'}}"><i class="fa fa-caret-left"></i> Blog </a>
+      <a href="{{blogPathFor 'blogIndex'}}"><i class="fa fa-caret-left"></i> Debattenblog </a>
     </div>
     {{> shareit shareData}}
     <br style="clear:both">
@@ -50,22 +48,6 @@
 <template name="myBlogShowFeaturedImage">
   <div class="col-sm-3 col-md-4 col-lg-3">
       <img src="{{featuredImage}}" alt="" class="img-responsive center-block">
-      {{#if titleBackground}}
-        <div class="meteor-blog-background-title">
-          <div class="center-block">
-            <h1 class="text-center">
-              {{title}}
-              {{#if isAdmin}}
-                 <small><a href="#" data-action="edit-post">{{ BlogLanguage.edit }}</a></small>
-              {{/if}}
-            </h1>
-            <div class="meteor-blog-post-meta text-center">
-              {{ BlogLanguage.metaAuthorBy }} {{authorName}} {{ BlogLanguage.metaAuthorOn }} {{blogFormatDate publishedAt}}
-              {{> blogTags }}
-            </div>
-          </div>
-        </div>
-      {{/if}}
   </div>
   {{#if fullWidthFeaturedImage}}
     <div class="meteor-blog-aspect-ratio-fill" style="height: {{fullWidthFeaturedImageHeight}}px;"></div>
