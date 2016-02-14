@@ -1138,6 +1138,7 @@ class Chain
 
 
 _lastUploadTime = null
+_lastHash = null
 Template.evaluation.rendered = ->
   #render SVG as PNG
   #http://phrogz.net/SVG/svg_to_png.xhtml
@@ -1179,11 +1180,13 @@ Template.evaluation.rendered = ->
     $('#mybubbles-preview').attr 'src', pngData
 
     if _visitId?
-      if !_lastUploadTime? or _lastUploadTime < (Date.now() - 5000)
-        _lastUploadTime = Date.now()
-        console.log "upload"
-        Meteor.call "uploadMyBubbles", _visitId, pngData, (error, url) ->
-          throwError error if error?
+      if !_lastHash or _lastHash isnt svgSrc.hashCode()
+        _lastHash = svgSrc.hashCode()
+        if !_lastUploadTime? or _lastUploadTime < (Date.now() - 5000)
+          _lastUploadTime = Date.now()
+          console.log "upload"
+          Meteor.call "uploadMyBubbles", _visitId, pngData, (error, url) ->
+            throwError error if error?
 
     return
   image.src = svgSrc
