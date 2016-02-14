@@ -5,6 +5,8 @@ Blog.config
   pageSize: 100
   blogIndexTemplate: 'myBlogIndex'
   blogShowTemplate: 'myBlogPost'
+  excerptFunction: (body) ->
+    _.str.prune(body, 392)
   comments: 
     disqusShortname: 'bedingungslos'
   rss:

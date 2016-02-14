@@ -20,9 +20,15 @@
       <span>{{proPercent}}%</span>
     </div>
     
-    <div id="smartervote-modal">
-      <p><a href="#" class="toggle-about pull-right">Schliessen</a></p>
-      <h1 id="myModalLabel">Alle Fragen &amp; Informationen</h1>
+    <div id="smartervote-modal" tabindex="-1" aria-role="dialog" aria-labelledby="modalLabel">
+      <div class="smartervote-modal-header clearfix">
+        <a href="#" class="toggle-about pull-right">Schliessen</a>
+        <a href="#" class="pull-left">About</a>
+        <a href="#" class="pull-left">Impressum</a>
+        <a href="#" class="pull-left">Alle Fragen &amp; Infos</a>
+        <a href="#" class="pull-left">Daten</a>
+      </div>
+      <h1 id="modalLabel">Alle Fragen &amp; Informationen</h1>
       {{#each questions}}
         <h2>{{index}}. {{label}}</h2>
         <p>{{#markdown}}{{info}}{{/markdown}}</p>

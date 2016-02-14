@@ -1,36 +1,41 @@
 <template name="myBlogIndex">
   <div class="container-fluid blog">
+    <div class="grid">
+      <div class="grid-sizer col-lg-6 blog-post"></div>
     {{#if blogReady}}
       {{> myBlogIndexLoop posts=posts}}
       {{blogPager}}
     {{else}}
       {{> blogLoading}}
     {{/if}}
+    </div>
   </div>
 </template>
 
 <template name="myBlogIndexLoop">
   {{#each posts}}
-    <article class="col-lg-6 blog-post">
-      <div class="row">
-        <div class="col-sm-4 col-md-3">
-          <div class="post-meta">
-            {{dateSani publishedAt}}<br>
-<!--             {{authorName}} -->
+    <article class="grid-item col-lg-6 blog-post">
+      <div class="grid-item-content">
+        <div class="row">
+          <div class="col-sm-4 col-md-3">
+            <div class="post-meta">
+              {{dateSani publishedAt}}<br>
+  <!--             {{authorName}} -->
+            </div>
+            
+            {{#if featuredImage}}
+            <div class="meteor-blog-post-thumbnail">
+              <a href="{{blogPathFor 'blogShow'}}">
+                <img src="{{featuredImage}}" alt="{{title}}">
+              </a>
+            </div>
+            {{/if}}
           </div>
-          
-          {{#if featuredImage}}
-          <div class="meteor-blog-post-thumbnail">
-            <a href="{{blogPathFor 'blogShow'}}">
-              <img src="{{featuredImage}}" alt="{{title}}">
-            </a>
-          </div>
-          {{/if}}
-        </div>
-        <div class="col-sm-8 col-md-7 col-lg-9">
-          <a href="{{blogPathFor 'blogShow'}}"><h1>{{title}}</h1></a>
-          <div class="meteor-blog-post-excerpt">
-            {{{excerpt}}}
+          <div class="col-sm-8 col-md-7 col-lg-9">
+            <a href="{{blogPathFor 'blogShow'}}"><h1>{{title}}</h1></a>
+            <div class="meteor-blog-post-excerpt">
+              {{{excerpt}}}
+            </div>
           </div>
         </div>
       </div>
