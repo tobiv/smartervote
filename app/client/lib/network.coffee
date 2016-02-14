@@ -14,6 +14,8 @@ class @Network
       .attr("height", @height)
       .attr('pointer-events', 'all')
       .attr('xmlns', 'http://www.w3.org/2000/svg')
+      .attr('xmlns:xlink', "http://www.w3.org/1999/xlink")
+      .attr('version', "1.1")
       #.attr('viewBox', '0 0 ' + @width + ' ' + @height)
       #.attr('viewBox', '0 0 800 600')
       #.attr('perserveAspectRatio', 'xMinYMid')
@@ -192,7 +194,7 @@ class @Network
       if node.isFavorite?
         if node.isFavorite
           n.isFavorite = true
-          n.image = "/img/icon-star-white.svg"
+          n.image = 'data:image/svg+xml;base64,PHN2ZyBpZD0ic3RhciIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjcgMjYiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOiNmZmY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5pY29uLXN0YXItd2hpdGU8L3RpdGxlPjxwYXRoIGNsYXNzPSJhIiBkPSJNMTMuNSwwLjE2TDkuMzMsOC42MSwwLDEwbDYuNzUsNi41OEw1LjE2LDI1Ljg0bDguMzQtNC4zOSw4LjM0LDQuMzktMS41OS05LjI5TDI3LDEwLDE3LjY3LDguNjFaIi8+PC9zdmc+'
           n.imageWidth = 20
           n.imageHeight = 20
           n.imageX = -10
@@ -202,7 +204,7 @@ class @Network
       if node.isDead? and not n.isFavorite
         if node.isDead
           n.isDead = true
-          n.image = "/img/icon-deadQuestion.svg"
+          n.image = 'data:image/svg+xml;base64,PHN2ZyBpZD0iZGVhZFF1ZXN0aW9uIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCA2Ij48ZGVmcz48c3R5bGU+LmF7ZmlsbDojZmZmO308L3N0eWxlPjwvZGVmcz48dGl0bGU+aWNvbi1kZWFkUXVlc3Rpb248L3RpdGxlPjxyZWN0IGNsYXNzPSJhIiB3aWR0aD0iNTAiIGhlaWdodD0iNiIvPjwvc3ZnPg==' 
           n.imageWidth = 40
           n.imageHeight = 20
           n.imageX = -20
