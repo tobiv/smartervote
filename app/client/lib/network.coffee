@@ -13,6 +13,7 @@ class @Network
       .attr("width", @width)
       .attr("height", @height)
       .attr('pointer-events', 'all')
+      .attr('xmlns', 'http://www.w3.org/2000/svg')
       #.attr('viewBox', '0 0 ' + @width + ' ' + @height)
       #.attr('viewBox', '0 0 800 600')
       #.attr('perserveAspectRatio', 'xMinYMid')

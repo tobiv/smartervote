@@ -1139,17 +1139,12 @@ class Chain
 
 _lastUploadTime = null
 Template.evaluation.rendered = ->
-  #@$("#evaluation").mCustomScrollbar({ theme: 'minimal-dark', mouseWheel: { preventDefault: true }, scrollButtons: { enable: false } })
-
   #render SVG as PNG
   return if !_network?
-  bubblesSVG = d3.select('#'+_network.svgElementId)
-    .attr('version', 1.1)
-    .attr('xmlns', 'http://www.w3.org/2000/svg')
-    .node()
-  if !bubblesSVG
-    return
-  svgAsXML = bubblesSVG.parentNode.innerHTML
+
+  svgElement = document.querySelector('#bubblesSVG')
+  svgAsXML = (new XMLSerializer).serializeToString( svgElement )
+  svgSrc = 'data:image/svg+xml,' + encodeURIComponent( svgAsXML )
 
   width = _network.width
   height = _network.height
@@ -1167,18 +1162,19 @@ Template.evaluation.rendered = ->
   #console.log "width: #{width}  height: #{height}"
   #console.log "fieldWidthScaled: #{fieldWidth}"
 
-  image = new Image
-  image.width = width
-  image.height = height
-
   canvas = document.createElement('canvas')
   ctx = canvas.getContext('2d')
   canvas.width = fieldWidth
   canvas.height = height
 
+  image = new Image
+  image.width = width
+  image.height = height
+
   image.onload = ->
     ctx.drawImage image, 0, 0, fieldWidth, height, 0, 0, fieldWidth, height
-    pngData = canvas.toDataURL()
+    pngData = canvas.toDataURL("image/png")
+    #TODO remove canvas
     $('#mybubbles-preview').attr 'src', pngData
 
     if _visitId?
@@ -1189,8 +1185,10 @@ Template.evaluation.rendered = ->
           throwError error if error?
 
     return
+  image.src = svgSrc
 
-  image.src = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML)
+
+  return
 
 
 Template.evaluation.events
