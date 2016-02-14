@@ -1392,5 +1392,5 @@ moveAnswer = (answer, toAnswer) ->
   deferred = Promise.pending()
   Meteor.setTimeout ->
     deferred.resolve()
-  , 1100
+  , 900
   deferred.promise
