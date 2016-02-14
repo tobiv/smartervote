@@ -197,5 +197,6 @@ underscore@1.0.4
 url@1.0.5
 webapp@1.2.3
 webapp-hashing@1.0.5
+workman:x-editable-reactive-template@1.0.2
 yasinuslu:blaze-meta@0.3.3
 yogiben:autoform-file@0.4.2

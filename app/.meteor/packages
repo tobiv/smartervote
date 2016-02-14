@@ -70,3 +70,4 @@ cfs:gridfs
 gadicohen:sitemaps
 practicalmeteor:underscore.string
 hitchcott:app-dump
+workman:x-editable-reactive-template
