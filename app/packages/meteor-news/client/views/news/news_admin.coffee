@@ -5,7 +5,7 @@ Template.newsAdmin.helpers
       languages: lang
     ,
       sort:
-        createdAt: -1
+        publishedAt: -1
 
 Template.newsAdmin.events
   'click .edit': (evt) ->

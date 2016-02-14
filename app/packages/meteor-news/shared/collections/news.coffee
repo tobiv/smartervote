@@ -51,6 +51,12 @@ schema = new SimpleSchema(
         type: 'fileUpload'
         collection: 'NewsImages'
         label: 'Choose file'
+  publishedAt:
+    type: Date
+    label: "published at"
+    autoform:
+      afFieldInput: 
+        type: "bootstrap-datetimepicker"
 )
 News.attachSchema schema
 

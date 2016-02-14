@@ -6,6 +6,7 @@ accounts-password@1.1.4
 accounts-twitter@1.0.6
 alanning:roles@1.2.14
 aldeed:autoform@5.8.1
+aldeed:autoform-bs-datetimepicker@1.0.6
 aldeed:collection2@2.8.0
 aldeed:collection2-core@1.0.0
 aldeed:schema-deny@1.0.1
@@ -188,6 +189,7 @@ tap:i18n-ui@0.7.0
 templating@1.1.5
 templating-tools@1.0.0
 tracker@1.0.9
+tsega:bootstrap3-datetimepicker@3.1.3_3
 twitter@1.1.5
 ui@1.0.8
 underscore@1.0.4
