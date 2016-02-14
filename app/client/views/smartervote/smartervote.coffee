@@ -1146,7 +1146,8 @@ Template.evaluation.rendered = ->
 
   svgElement = document.querySelector('#bubblesSVG')
   svgAsXML = (new XMLSerializer).serializeToString( svgElement )
-  svgSrc = 'data:image/svg+xml,' + encodeURIComponent( svgAsXML )
+  #svgSrc = 'data:image/svg+xml,' + encodeURIComponent( svgAsXML )
+  svgSrc = "data:image/svg+xml;base64,"+btoa(svgAsXML)
 
   width = _network.width
   height = _network.height
