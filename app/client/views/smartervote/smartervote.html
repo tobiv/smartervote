@@ -186,6 +186,7 @@ Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im
     <button type="button" id="mobile-content-toggle-topics" class="mobile-content-toggle"><i class="fa fa-eye"></i> Ansehen</button>
   </div>
   
+  {{#if hasPublishedVisits}}
   <div class="compare">
     <h2>{{_ "compareScoreWith"}}:</h2>
     {{#each publishedVisits}}
@@ -195,5 +196,6 @@ Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im
     {{/each}}
     <button type="button" id="mobile-content-toggle-compare" class="mobile-content-toggle"><i class="fa fa-eye"></i> Ansehen</button>
   </div>
+  {{/if}}
 </div>
 </template>

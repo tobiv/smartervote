@@ -1263,6 +1263,10 @@ Template.evaluation.helpers
     else
       ""
 
+   hasPublishedVisits: ->
+     Visits.find(
+      isPublished: true
+      ).count() > 0
    publishedVisits: ->
      Visits.find
       isPublished: true
