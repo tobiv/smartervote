@@ -1140,6 +1140,7 @@ class Chain
 _lastUploadTime = null
 Template.evaluation.rendered = ->
   #render SVG as PNG
+  #http://phrogz.net/SVG/svg_to_png.xhtml
   return if !_network?
 
   svgElement = document.querySelector('#bubblesSVG')
