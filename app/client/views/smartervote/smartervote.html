@@ -23,12 +23,53 @@
     <div id="smartervote-modal" tabindex="-1" aria-role="dialog" aria-labelledby="modalLabel">
       <div class="smartervote-modal-header clearfix">
         <a href="#" class="toggle-about pull-right">Schliessen</a>
-        <a href="#" class="pull-left">About</a>
-        <a href="#" class="pull-left">Impressum</a>
-        <a href="#" class="pull-left">Alle Fragen &amp; Infos</a>
-        <a href="#" class="pull-left">Daten</a>
+        <a href="#about" class="pull-left">About</a>
+        <a href="#impressum" class="pull-left">Impressum</a>
+        <a href="#daten-und-technisches" class="pull-left">Daten und Technisches</a>
+        <a href="#alle-fragen-und-infos" class="pull-left">Alle Fragen und Infos</a>
       </div>
+      {{#markdown}}
+# About
+
+Finde heraus, wie Du zum bedingungslosen Grundeinkommen stehst! 
+
+Beantworte die Fragen zu den Auswirkungen des Grundeinkommens. Dadurch baust du dein persönliches differenziertes Bild zu dieser Grundlegenden Idee für die Zukunft der Schweiz. Smartervote ist keine Propaganda, sondern der Versuch, die Chancen und Gefahren des Grundeinkommens aufzuzeigen - damit du deine eigene Meinung (ab)bilden kannst. 
+
+Danach kannst Du Dein Bild über Facebook, Twitter oder per Mail mit Freunden teilen. 
+
+# Impressum
+
+Idee & Konzept: Patrick Recher und Clara Vuillemin
+
+Inhaltliche Umsetzung & Projektleitung: Clara Vuillemin
+
+Technische Umsetzung: Patrick Recher
+
+Design: By Heart
+
+Umsetzung des Designs: Tobias Vogel
+
+Grossen Dank an Daniel Straub und Christian Müller, dass sie dieses Projekt ermöglicht haben und für ihr wertvolles Feedback.
+
+Kontakt: [bge@patpat.org](mailto:bge@patpat.org) (PGP ID: 417420A2)
+
+# Daten und Technisches
+
+Wir speichern sämtliche Antworten und Daten zu den Benutzerinteraktionen auf der Website. Zur Analyse des Surf-Verhaltens verwenden wir kein Google Analytics, sondern die open-source Lösung [PIWIK](http://piwik.org/).
+
+Wir geben niemals personenbezogene Daten (IP-Adresse, e-mail etc.) an Dritte weiter.
+
+Wir sind kein böser Datenpolyp und betrachten Daten nicht als Eigentum. Wenn du interessiert bist an den anonymisierten Daten, schreib uns an: [bge@patpat.org](mailto:bge@patpat.org) (PGP ID: 417420A2)
+
+Der ganze Quellcode ist auf [Github](https://github.com/patte/bge/) verfügbar und steht unter der GNU General Public License.
+
+Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im Prozess auf gemietete Server von [Exoscale](https://www.exoscale.ch/) umzusteigen. Wenn du gerade zu viel Zeit hast, dann darfst du uns gerne bei der Migration helfen.
+
+# Alle Fragen und Infos
+{{/markdown}}
+			<!--
       <h1 id="modalLabel">Alle Fragen &amp; Informationen</h1>
+			-->
       {{#each questions}}
         <h2>{{index}}. {{label}}</h2>
         <p>{{#markdown}}{{info}}{{/markdown}}</p>
