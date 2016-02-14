@@ -69,3 +69,4 @@ cfs:standard-packages
 cfs:gridfs
 gadicohen:sitemaps
 practicalmeteor:underscore.string
+hitchcott:app-dump

@@ -91,6 +91,7 @@ geojson-utils@1.0.4
 gildaspk:autoform-medium@0.0.5
 google@1.1.7
 handlebars@1.0.4
+hitchcott:app-dump@0.4.2
 hot-code-push@1.0.0
 html-tools@1.0.5
 htmljs@1.0.5
