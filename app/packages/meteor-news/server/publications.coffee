@@ -1,5 +1,5 @@
 Meteor.publish "news", ->
-  News.find({}, { limit: 8 })
+  News.find({}, { sort: {publishedAt: -1}, limit: 8 })
 
 Meteor.publish "newsItem", (id) ->
   News.find(id)
