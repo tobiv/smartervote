@@ -5,7 +5,7 @@ Template.home.helpers
       languages: lang
     ,
       sort:
-        createdAt: -1
+        publishedAt: -1
 
 Template.home.events
   #open links in news in a new page
