@@ -465,7 +465,7 @@ Template.question.helpers
       @question.minLabel.split(',')[0]
 
   minLabelAffix: ->
-    if @question? and @question.minLabelAffix?
+    if @question? and @question.minLabel?
       if @question.minLabel.indexOf(',') is -1 and
       @question.minLabel.length > _questionLabelLengthMax
         return @question.minLabel
