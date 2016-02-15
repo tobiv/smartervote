@@ -65,11 +65,9 @@ Der ganze Quellcode ist auf [Github](https://github.com/patte/bge/) verfügbar u
 
 Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im Prozess auf gemietete Server von [Exoscale](https://www.exoscale.ch/) umzusteigen. Wenn du gerade zu viel Zeit hast, dann darfst du uns gerne bei der Migration helfen.
 
-# Alle Fragen und Infos
 {{/markdown}}
-			<!--
-      <h1 id="modalLabel">Alle Fragen &amp; Informationen</h1>
-			-->
+      
+      <h1>{{_ "questionOverview"}}</h1>
       {{#each questions}}
         <h2>{{index}}. {{label}}</h2>
         <p>{{#markdown}}{{info}}{{/markdown}}</p>
@@ -86,7 +84,7 @@ Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im
       <div id="header">
         <span class="sr-only">{{_ "question"}} </span><span id="question-index">{{index}}</span>
         <button type="button" id="toggle-favorite" class="btn {{favoriteActive}}"><span class="sr-only">{{_ "favorite"}}</span></button>
-        <a id="show-all-questions" class="toggle-about" href="/smartervote-content" target="_blank">{{_ "questionOverview"}}</a>
+        <a id="show-all-questions" class="toggle-about" href="/smartervote-content" target="_blank">About</a>
         <span id="mobile-score">{{proPercent}}% pro</span>
         <br>
         
