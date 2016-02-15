@@ -18,4 +18,4 @@ meteor
 
 Copyright and license
 -------
-Code and documentation copyright 2016 Patrick Recher. Code released under the GPLv3 license.
+Code and documentation copyright 2016 Patrick Recher and Tobias Vogler. Code released under the GPLv3 license.
