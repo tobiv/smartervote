@@ -1243,8 +1243,8 @@ Template.evaluation.helpers
 
   shareData: ->
     title: 'smartervote - bedingungslos.ch'
-    url: 'https://bge.patpat.org/myBubbles/'+_visitId
-    thumbnail: "https://bge.patpat.org/#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
+    url: 'https://bedingungslos.ch/myBubbles/'+_visitId
+    thumbnail: "https://bedingungslos.ch/#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
 
   topics: ->
     _topics.map (topic) ->
