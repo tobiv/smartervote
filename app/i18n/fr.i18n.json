@@ -31,5 +31,7 @@
   "question": "Question",
   "favorite": "Favorite",
   "readmore": "Lire la suite",
-  "readless": "Lire moins"
+  "readless": "Lire moins",
+  "sentenceAgainst": "Vous êtes seulement %s%% pour un revenu de base inconditionnel. Par conséquent, vous devriez voter contre l'initiative populaire le 5 Juin 2016.",
+  "sentencePro": "Vous êtes %s%% pour un revenu de base inconditionnel. Par conséquent, vous devriez plutôt voter oui le 5 Juin 2016."
 }
