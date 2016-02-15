@@ -11,7 +11,7 @@ Template.newsListItem.rendered = ->
         $('.grid').masonry('layout')
       catch e
         # nüt
-    , 200
+    , 300
   
 Template.newsListItem.helpers
   image: ->
