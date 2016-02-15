@@ -4,7 +4,7 @@ Router.configure
   notFoundTemplate: "not_found"
   i18n:
     exclude: [
-      '\/admin', '\/blog', '\/img\/'
+      '\/admin', '\/blog', '\/img\/', '\/reset-password'
     ]
     server:
       exclude:
