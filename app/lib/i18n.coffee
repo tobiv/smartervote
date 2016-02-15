@@ -10,3 +10,4 @@ I18NConf.configure
 
 I18NConf.onLanguageChange (oldLang, newLang) ->
   TAPi18n.setLanguage(newLang)
+  accountsUIBootstrap3.setLanguage(newLang)
