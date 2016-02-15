@@ -154,6 +154,11 @@ Wir sind chronisch überlastet und deshalb noch bei Google gehostet. Wir sind im
   <div class="final-score">
     <h2>{{_ "yourScore"}}:</h2>
     <span>{{proPercent}}% pro</span>
+    {{#if sentencePro}}
+      {{_ 'sentencePro' proPercent}}
+    {{else}}
+      {{_ 'sentenceAgainst' proPercent}}
+    {{/if}}
   </div>
 
   <div class="sharing">

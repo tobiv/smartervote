@@ -1276,6 +1276,9 @@ Template.evaluation.helpers
        return "active"
      ""
 
+   sentencePro: ->
+     _proPercent.get() >= 50
+
 _publishedVisitAnswersSubscription = null
 _othersAnswers = {}
 _changingAnswers = false
