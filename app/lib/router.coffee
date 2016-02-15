@@ -11,11 +11,11 @@ Router.configure
         sitemap: '^\/sitemap\.xml'
 
 
-if Meteor.isClient
-  AccountsEntry.config
-    homeRoute: '/home' #redirect to this path after sign-out
-    dashboardRoute: '/home'  #redirect to this path after sign-in
-    passwordSignupFields: 'EMAIL_ONLY'
+#if Meteor.isClient
+#  AccountsEntry.config
+#    homeRoute: '/home' #redirect to this path after sign-out
+#    dashboardRoute: '/home'  #redirect to this path after sign-in
+#    passwordSignupFields: 'EMAIL_ONLY'
 
 
 Router.route '/',
