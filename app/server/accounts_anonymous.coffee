@@ -9,7 +9,7 @@ AccountsAnonymous.onAbandoned (anon) ->
   ).fetch()[0]
 
   if newestVisit?
-    numAnswers = Answer.find(
+    numAnswers = Answers.find(
       visitId: newestVisit._id
     ).count()
     if numAnswers < 5
