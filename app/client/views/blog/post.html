@@ -39,8 +39,9 @@
     <div class="meteor-blog-back-link pull-left">
       <a href="{{blogPathFor 'blogIndex'}}"><i class="fa fa-caret-left"></i> Debattenblog </a>
     </div>
-    
-    {{> disqus this}}
+    {{> shareit shareData}}
+    <br style="clear:both">
+    {{> mydisqus this}}
   </div>
 </template>
 
@@ -53,7 +54,7 @@
   {{/if}}
 </template>
 
-<template name="disqus">
+<template name="mydisqus">
   {{#if useDisqus}}
     <div id="disqus_thread"></div>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
