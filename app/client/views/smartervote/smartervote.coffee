@@ -399,7 +399,7 @@ Template.smartervote.helpers
     _proPercent.get()
 
   proPercentGauge: ->
-    _proPercent.get() * 0.88
+    _proPercent.get() * 0.85 + 7.5
 
   label: ->
     lang = TAPi18n.getLanguage()
