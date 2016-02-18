@@ -1308,6 +1308,7 @@ Template.evaluation.events
     $('#mobile-content-toggle-topics').slideDown(300)
 
   "click .person-of-interest": (evt, tmpl) ->
+    $('#mobile-content-toggle-compare').slideDown(300)
     if _changingAnswers
       return
     _changingAnswers = true
