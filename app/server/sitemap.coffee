@@ -17,13 +17,9 @@ sitemaps.add '/sitemap.xml', ->
       page: "/#{lang}/blog"
       #lastmod: new Date()
       changefreq: 'weekly'
-    pages.push
-      page: "/#{lang}/news"
-      #lastmod: new Date()
-      changefreq: 'weekly'
     Posts.find({published: true}).forEach (page) ->
       pages.push
-        page: "/#{lang}/#{page.slug}"
+        page: "/#{lang}/pages/#{page.slug}"
         lastmod: page.updatedAt
       return
   #doesn't work for some unknown reason
