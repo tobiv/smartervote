@@ -48,7 +48,7 @@ Router.route 'myBubbles/:id',
     Visits.findOne(@params.id)
   seo:
     image: -> 
-      Meteor.absoluteUrl()+@data().myBubblesUrl
+      Meteor.absoluteUrl().slice(0, -1)+@data().myBubblesUrl
   action: ->
     @render 'myBubbles'
 
