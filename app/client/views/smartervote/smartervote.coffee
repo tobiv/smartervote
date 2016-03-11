@@ -506,12 +506,28 @@ Template.question.events
     evt.target.blur()
     updateAnswer(@question.max, null, @question)
     _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
+
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: 'max'
+      value: @question.max
+    },
+      '1': [ 'question', @question._id, _visitId ]
     return
 
   'click .min': (evt, tmpl) ->
     evt.target.blur()
     updateAnswer(@question.min, null, @question)
     _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
+
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: 'min'
+      value: @question.min
+    },
+      '1': [ 'question', @question._id, _visitId ]
     return
 
   'slide': (evt, tmpl, val) ->
@@ -519,6 +535,14 @@ Template.question.events
     importance = parseFloat val
     updateAnswer(null, importance, @question)
     _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
+
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: 'slide'
+      value: importance
+    },
+      '1': [ 'question', @question._id, _visitId ]
     return
 
   'mouseup': () ->
@@ -534,6 +558,15 @@ Template.question.events
     _showInfo.set false
     next(@question)
 
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: 'next'
+      value: 0
+    },
+      '1': [ 'question', @question._id, _visitId ]
+    return
+
   'click #back': (evt, tmpl) ->
     _showInfo.set false
     qi = Session_.pop 'questionIndices'
@@ -545,6 +578,15 @@ Template.question.events
     if qi < 0
       qi = _numQuestions-1
     gotoQuestionIndex qi
+
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: 'back'
+      value: 0
+    },
+      '1': [ 'question', @question._id, _visitId ]
+    return
 
   'click #toggle-favorite': (evt) ->
     answer = _answers[@question._id]
@@ -558,6 +600,18 @@ Template.question.events
       isFavorite: answer.isFavorite
       isDead: answer.status isnt 'valid'
     _answerSaver.upsertAnswer @question._id
+
+    name = "favorite"
+    if answer.isFavorite? and !answer.isFavorite
+      name = "unfavorite"
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: name
+      value: 0
+    },
+      '1': [ 'question', @question._id, _visitId ]
+    return
 
   'click .showInfo': (evt) ->
     evt.preventDefault()
