@@ -1247,7 +1247,7 @@ Template.evaluation.helpers
   shareData: ->
     title: 'smartervote - bedingungslos.ch'
     url: 'https://bedingungslos.ch/myBubbles/'+_visitId
-    thumbnail: "https://bedingungslos.ch/#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
+    thumbnail: "https://bedingungslos.ch#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
 
   topics: ->
     _topics.map (topic) ->
