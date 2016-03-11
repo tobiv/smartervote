@@ -432,6 +432,9 @@ Template.question.rendered = ->
   $('#question').css( 'padding-bottom', footerHeight )
 
 Template.question.helpers
+  proPercent: ->
+    _proPercent.get()
+
   question: ->
     lang = TAPi18n.getLanguage()
     q = Questions.findOne
