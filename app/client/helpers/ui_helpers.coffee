@@ -6,3 +6,6 @@ Template.registerHelper "dateSani", (date) ->
   moment(date)
     .locale(TAPi18n.getLanguage())
     .calendar()
+
+Template.registerHelper "absoluteUrl", ->
+  Meteor.absoluteUrl()
