@@ -71,7 +71,6 @@ ddp-common@1.2.2
 ddp-rate-limiter@1.0.0
 ddp-server@1.2.2
 deps@1.0.9
-dfischer:prerenderio@1.0.7
 diff-sequence@1.0.1
 drskullster:bootstrap@3.3.1_1
 ecmascript@0.1.6
@@ -151,6 +150,7 @@ oauth@1.1.6
 oauth1@1.1.5
 oauth2@1.1.5
 observe-sequence@1.0.7
+ongoworks:spiderable@1.0.7
 ordered-dict@1.0.4
 patte:ghostdown@0.5.2
 patte:meteor-news@0.0.1

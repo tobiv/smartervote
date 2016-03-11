@@ -62,7 +62,6 @@ rzymek:moment
 rzymek:moment-locale-de
 rzymek:moment-locale-fr
 rzymek:moment-locale-it
-dfischer:prerenderio
 lookback:seo
 cfs:standard-packages
 cfs:gridfs
@@ -71,3 +70,4 @@ practicalmeteor:underscore.string
 hitchcott:app-dump
 workman:x-editable-reactive-template
 zimme:active-route
+ongoworks:spiderable
