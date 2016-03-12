@@ -501,6 +501,7 @@ Template.question.helpers
 
 
 
+piwikSlideTimeout = null
 Template.question.events
   'click .max': (evt, tmpl) ->
     evt.target.blur()
@@ -536,13 +537,16 @@ Template.question.events
     updateAnswer(null, importance, @question)
     _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
 
-    Meteor.Piwik.trackEvent Router.current().route.path(this), {
-      category: 'smartervote'
-      action: 'play'
-      name: 'slide'
-      value: importance
-    },
-      '1': [ 'question', @question._id, _visitId ]
+    Meteor.clearTimeout(piwikSlideTimeout) if piwikSlideTimeout?
+    piwikSlideTimeout = Meteor.setTimeout ->
+      Meteor.Piwik.trackEvent Router.current().route.path(this), {
+        category: 'smartervote'
+        action: 'play'
+        name: 'slide'
+        value: importance
+      },
+        '1': [ 'question', @question._id, _visitId ]
+    , 600
     return
 
   'mouseup': () ->
@@ -623,20 +627,54 @@ Template.question.events
     document.getElementById('header').offsetHeight
     document.getElementById('header').style.display = ''
 
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: 'showInfo'
+      value: 0
+    },
+      '1': [ 'question', @question._id, _visitId ]
+    return
+
   'click .hideInfo a': (evt) ->
     evt.preventDefault()
     _showInfo.set false
     $('#header').hide().show(0)
 
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: 'hideInfo'
+      value: 0
+    },
+      '1': [ 'question', @question._id, _visitId ]
+    return
+
   "click #reset": (evt, tmpl) ->
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'play'
+      name: 'reset'
+      value: 0
+    },
+      '1': [ 'question', @question._id, _visitId ]
     Meteor.call "resetVisit", _visitId, (error, id) ->
       throwError error if error?
       if Session.get('selectedVisitId')?
         Session.set 'selectedVisitId', id
+    return
 
   'click #gotoEvaluation': (evt) ->
     evt.preventDefault()
     Session.set 'showEvaluation', true
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'goto'
+      name: 'evaluation'
+      value: 0
+    },
+      '1': [ 'question', @question._id, _visitId ]
+    return
 
 
 Template.slider.rendered = ->
