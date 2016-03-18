@@ -38,24 +38,24 @@ body {
 	//padding: @viewport-border-width;
 	overflow-x: hidden;
 	//overflow-y: scroll;
-	
+
 	background: white;
 	color: black;
-	
+
 	font-family: 'SabonLTStd-Roman', serif;
 	line-height: @line-height-default;
-	
+
 	@media only screen and (min-width: @screen-sm-min) {
   	padding: @viewport-border-width;
 	}
 }
 
-h1, h2, h3, h4 {	
+h1, h2, h3, h4 {
   border: none;
   color: black;
 	font-family: 'BuenosAires', sans-serif;
 	font-weight: bold;
-	
+
 	-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -66,7 +66,7 @@ img {
 
 a {
   color: #e7a73f;
-  
+
   &:hover {
     color: black;
   }
@@ -85,9 +85,9 @@ a {
   z-index: 2100;
   margin: @padding-body-vertical @padding-body-horizontal;
   padding-bottom: 1.5rem;
-  
+
   border-bottom: @border-default;
-  
+
   font-family: 'BuenosAires', sans-serif;
 	font-weight: bold;
 }
@@ -95,7 +95,7 @@ a {
 #site-brand {
   a {
     color: black;
-    
+
     &:hover {
       text-decoration: none;
     }
@@ -107,15 +107,15 @@ a {
   width: 2.2 * @font-size-logo-medium;
   height: 2.2 * @font-size-logo-medium;
   margin-right: 1rem;
-  
+
   border-radius: 50%;
   background: @color-brand;
   background: linear-gradient(141deg, #ffed00 0%, #ffcc00 100%);
-  
+
   @media only screen and (min-width: @screen-sm-min) {
     margin-right: 1.5rem;
   }
-  
+
   @media only screen and (min-width: @screen-lg-min) {
     width: 3 * @font-size-logo-medium;
     height: 3 * @font-size-logo-medium;
@@ -126,21 +126,21 @@ a {
 .logo-text {
   max-width: 20em;
   padding-top: 0.25rem;
-  
+
   font-weight: bold;
   font-size: @font-size-logo-min;
   line-height: @line-height-logo;
-  
+
 	-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
   @media only screen and (min-width: @screen-sm-min) {
     //max-width: none;
     padding: 0;
-    
+
     font-size: @font-size-logo-medium;
   }
-  
+
   @media only screen and (min-width: @screen-lg-min) {
     font-size: @font-size-logo-large;
   }
@@ -148,35 +148,35 @@ a {
 
 #site-menu {
   float: right;
-  
+
   font-weight: bold;
-  
+
   .languages {
     display: none;
     font-size: 1.5rem;
   }
-  
+
   @media only screen and (min-width: @screen-sm-min) {
     margin-top: 0.5rem;
-    
+
     .languages {
       display: inline-block;
       font-size: 1.8rem;
     }
-  } 
+  }
 }
 
 .site-menu-toggle {
   width: 33px;
   height: 18px;
   margin-top: 1.95 * @font-size-logo-min;
-  
+
   background: transparent url(/img/icon-menu.svg) 50% 50% no-repeat;
   background-size: contain;
   border: 0;
-  
+
   text-indent: -9999em;
-  
+
   @media only screen and (min-width: @screen-sm-min) {
     width: 44px;
     height: 24px;
@@ -191,13 +191,13 @@ a {
 .container {
   max-width: 42em; // make it readable
   padding: 0 @padding-body-horizontal;
-  
+
   p {
     margin-bottom: 1em;
   }
 }
 
-#main { 
+#main {
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
@@ -214,71 +214,72 @@ a {
 .jumbotron {
   margin: 0 @padding-body-horizontal @padding-body-vertical;
   padding: 0;
-  
+
   background: transparent;
   border-radius: 0 !important;
-  
+
   &.shrink {
     display: none;
   }
-  
+
   .svg-container {
     position: relative;
     height: 0;
     padding-bottom: 100%;
   }
   
-  svg {
+  svg,
+  object {
     position: absolute;
     top: 0;
     left: 0;
-    
+
     width: 100%;
     height: 100%;
   }
-  
+
   p {
     font-size: 1em;
   }
-  
+
   a {
     display: inline-block;
     max-width: 200px;
     margin: 0 auto;
-    
+
     &:hover {
       .black {
         fill: white;
       }
     }
   }
-  
+
   .col-sm-4 {
     padding: 0 0 1.5rem;
     border-bottom: @border-default;
     text-align: center;
   }
-  
+
   @media only screen and (min-width: @screen-sm-min) {
     border-bottom: @border-default;
-    
+
     a {
       width: 100%;
       max-width: 300px;
     }
-    
+
     .col-sm-4 {
       border: 0;
     }
-    
+
     &.shrink {
       display: block;
       margin-top: -1.5rem;
-      
+
       .svg-container {
         padding-bottom: 40%;
       }
-      
+
       .col-sm-4 {
         padding-bottom: 0;
       }
@@ -295,9 +296,9 @@ a {
   background-size: cover;
 }
 
-#link-smartervote:hover { background-image: url(/img/logobg-smartervote@2x.jpg); } 
-#link-debattenblog:hover { background-image: url(/img/logobg-debattenblog@2x.jpg); } 
-#link-expo16:hover { background-image: url(/img/logobg-expo16@2x.jpg); } 
+#link-smartervote:hover { background-image: url(/img/logobg-smartervote@2x.jpg); }
+#link-debattenblog:hover { background-image: url(/img/logobg-debattenblog@2x.jpg); }
+#link-expo16:hover { background-image: url(/img/logobg-expo16@2x.jpg); }
 
 .meteor-blog-index {
   &:extend(.container);
@@ -317,27 +318,27 @@ a {
 
 #post {
   margin-bottom: 3em;
-  
+
   h1 {
     margin: 0.25em 0 0.5em;
     font-size: 1.2em;
   }
-  
+
   p {
     margin-bottom: 1em;
   }
-  
+
   @media only screen and (min-width: @screen-sm-min) {
     font-size: 1.1em;
-    
+
     h1 {
       font-size: 1.3em;
     }
   }
-  
+
   @media only screen and (min-width: @screen-lg-min) {
     font-size: 1.2em;
-    
+
     h1 {
       font-size: 1.5em;
     }
