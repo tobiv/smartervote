@@ -57,6 +57,41 @@ _questionLabelLengthMax = 5
 
 _breakpointX = 768
 
+_startTutorial = true
+_showTutorial = new ReactiveVar(false)
+
+_tutorialEmitter = new EventEmitter
+_tutorialSteps = [
+  {
+    template: Template.tutorialDummy
+    spot: '.answers, .the-question'
+    require: 
+      event: 'consentClicked'
+      autoContinue: true
+  }
+  {
+    template: Template.tutorialDummy
+    spot: '.at-nouislider'
+    require: 
+      event: 'sliderMoved'
+      autoContinue: true
+  }
+  {
+    template: Template.tutorialDummy
+    spot: '#next'
+    require: 
+      event: 'nextClicked'
+      autoContinue: true
+  }
+  {
+    template: Template.tutorialDummy
+    onLoad: ->
+      Meteor.setTimeout ->
+        $('.action-tutorial-finish').click()
+      , 500
+  }
+]
+
 
 getBubblesWidth = ->
   wWidth = $(window).width()
@@ -222,6 +257,7 @@ Template.smartervote.destroyed = ->
   _clustersAdded = false
   _numQuestions = 0
   _previousSelectedId = null
+  _showTutorial.set false
 
 Template.smartervote.rendered = ->
   Session.set 'showEvaluation', false
@@ -329,6 +365,7 @@ Template.smartervote.rendered = ->
           visitId: _visitId
           questionId: question._id
       if answer?
+        _startTutorial = false
         answer.question = question
         if answer.status is 'valid' or answer.status is 'dead'
           answer.radius = _radiusScale( Math.abs(answer.value) )
@@ -357,6 +394,12 @@ Template.smartervote.rendered = ->
       if _questionIndex.get() is -1
         goNext()
     , 500
+    #start tutorial
+    Meteor.setTimeout ->
+      if _startTutorial
+        _startTutorial = false
+        _showTutorial.set true
+    , 600
 
   @autorun ->
     #maintain selected node
@@ -410,6 +453,9 @@ Template.smartervote.helpers
     lang = TAPi18n.getLanguage()
     if @languages[lang]?
       @languages[lang].info
+
+  showTutorial: ->
+    _showTutorial.get()
 
 
 Template.smartervote.events
@@ -508,6 +554,8 @@ Template.question.events
     updateAnswer(@question.max, null, @question)
     _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
 
+    _tutorialEmitter.emit 'consentClicked'
+
     Meteor.Piwik.trackEvent Router.current().route.path(this), {
       category: 'smartervote'
       action: 'play'
@@ -521,6 +569,8 @@ Template.question.events
     evt.target.blur()
     updateAnswer(@question.min, null, @question)
     _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
+
+    _tutorialEmitter.emit 'consentClicked'
 
     Meteor.Piwik.trackEvent Router.current().route.path(this), {
       category: 'smartervote'
@@ -536,6 +586,10 @@ Template.question.events
     importance = parseFloat val
     updateAnswer(null, importance, @question)
     _activeAnswerTrigger.set(!_activeAnswerTrigger.get())
+
+    Meteor.setTimeout ->
+      _tutorialEmitter.emit 'sliderMoved'
+    , 3000
 
     Meteor.clearTimeout(piwikSlideTimeout) if piwikSlideTimeout?
     piwikSlideTimeout = Meteor.setTimeout ->
@@ -561,6 +615,8 @@ Template.question.events
   'click #next': (evt, tmpl) ->
     _showInfo.set false
     next(@question)
+
+    _tutorialEmitter.emit 'nextClicked'
 
     Meteor.Piwik.trackEvent Router.current().route.path(this), {
       category: 'smartervote'
@@ -1495,3 +1551,12 @@ moveAnswer = (answer, toAnswer) ->
     deferred.resolve()
   , 900
   deferred.promise
+
+
+Template.myTutorial.helpers
+  tutorialOptions: ->
+    steps: _tutorialSteps
+    emitter: _tutorialEmitter
+    onFinish: ->
+      _showTutorial.set false
+      return

@@ -76,6 +76,9 @@ Wir sind auf gemieteten Servern von [Exoscale](https://www.exoscale.ch/) in der 
     </div>
 
   </div>
+  {{#if showTutorial}}
+    {{> myTutorial}}
+  {{/if}}
 </template>
 
 <template name="question">
@@ -89,7 +92,7 @@ Wir sind auf gemieteten Servern von [Exoscale](https://www.exoscale.ch/) in der 
         <br>
         
         
-        <label for={{question._id}} class="control-label">
+        <label for={{question._id}} class="the-question control-label">
           {{{question.label}}}
         </label>
         {{#if question.info}}
@@ -205,4 +208,10 @@ Wir sind auf gemieteten Servern von [Exoscale](https://www.exoscale.ch/) in der 
   </div>
   {{/if}}
 </div>
+</template>
+
+<template name="myTutorial">
+  {{> tutorial tutorialOptions}}
+</template>
+<template name="tutorialDummy">
 </template>
