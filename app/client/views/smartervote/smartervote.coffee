@@ -667,15 +667,7 @@ Template.question.events
   'click #gotoEvaluation': (evt) ->
     evt.preventDefault()
     Session.set 'showEvaluation', true
-    Meteor.Piwik.trackEvent Router.current().route.path(this), {
-      category: 'smartervote'
-      action: 'goto'
-      name: 'evaluation'
-      value: 0
-    },
-      '1': [ 'question', @question._id, _visitId ]
     return
-
 
 Template.slider.rendered = ->
   tmpl = @
@@ -754,11 +746,9 @@ goNext = ->
     _questionIndex.set question.index
     Session_.push 'questionIndices', question.index
   else
-    qi = _questionIndex.get()+1
-    if qi is _numQuestions
-      qi = 0
-    _questionIndex.set qi
-    Session_.push 'questionIndices', qi
+    if _questionIndex.get() is -1
+      _questionIndex.set(1)
+    Session.set 'showEvaluation', true
 
 updateAnswer = (consent, importance, question) ->
   answer = _answers[question._id]
@@ -1260,57 +1250,69 @@ class Chain
 _lastUploadTime = null
 _lastHash = null
 Template.evaluation.rendered = ->
-  #render SVG as PNG
-  #http://phrogz.net/SVG/svg_to_png.xhtml
-  return if !_network?
+  #track going to evaluation once
+  if !Session.get('trackedEvaluation')
+    Session.set 'trackedEvaluation', true
+    Meteor.Piwik.trackEvent Router.current().route.path(this), {
+      category: 'smartervote'
+      action: 'goto'
+      name: 'evaluation'
+      value: 0
+    }
 
-  svgElement = document.querySelector('#bubblesSVG')
-  svgAsXML = (new XMLSerializer).serializeToString( svgElement )
-  #svgSrc = 'data:image/svg+xml,' + encodeURIComponent( svgAsXML )
-  svgSrc = "data:image/svg+xml;base64,"+btoa(svgAsXML)
+  Meteor.setTimeout ->
+    #render SVG as PNG
+    #http://phrogz.net/SVG/svg_to_png.xhtml
+    return if !_network?
 
-  width = _network.width
-  height = _network.height
-  fieldWidth = getBubblesWidth()+_radiusMax
-  #scale aspect
-  #maxWidth = 1024
-  #maxHeight = 768
-  #if width > maxWidth
-  #  height = maxWidth/width*height
-  #  width = maxWidth
-  #if height > maxHeight
-  #  width = maxHeight/height*width
-  #  height = maxHeight
-  #fieldWidth = width/_network.width*fieldWidth
-  #console.log "width: #{width}  height: #{height}"
-  #console.log "fieldWidthScaled: #{fieldWidth}"
+    svgElement = document.querySelector('#bubblesSVG')
+    svgAsXML = (new XMLSerializer).serializeToString( svgElement )
+    #svgSrc = 'data:image/svg+xml,' + encodeURIComponent( svgAsXML )
+    svgSrc = "data:image/svg+xml;base64,"+btoa(svgAsXML)
 
-  canvas = document.createElement('canvas')
-  ctx = canvas.getContext('2d')
-  canvas.width = fieldWidth
-  canvas.height = height
+    width = _network.width
+    height = _network.height
+    fieldWidth = getBubblesWidth()+_radiusMax
+    #scale aspect
+    #maxWidth = 1024
+    #maxHeight = 768
+    #if width > maxWidth
+    #  height = maxWidth/width*height
+    #  width = maxWidth
+    #if height > maxHeight
+    #  width = maxHeight/height*width
+    #  height = maxHeight
+    #fieldWidth = width/_network.width*fieldWidth
+    #console.log "width: #{width}  height: #{height}"
+    #console.log "fieldWidthScaled: #{fieldWidth}"
 
-  image = new Image
-  image.width = width
-  image.height = height
+    canvas = document.createElement('canvas')
+    ctx = canvas.getContext('2d')
+    canvas.width = fieldWidth
+    canvas.height = height
 
-  image.onload = ->
-    ctx.drawImage image, 0, 0, fieldWidth, height, 0, 0, fieldWidth, height
-    pngData = canvas.toDataURL("image/png")
-    #TODO remove canvas
-    $('#mybubbles-preview').attr 'src', pngData
+    image = new Image
+    image.width = width
+    image.height = height
 
-    if _visitId?
-      if !_lastHash or _lastHash isnt svgSrc.hashCode()
-        _lastHash = svgSrc.hashCode()
-        if !_lastUploadTime? or _lastUploadTime < (Date.now() - 5000)
-          _lastUploadTime = Date.now()
-          console.log "upload"
-          Meteor.call "uploadMyBubbles", _visitId, pngData, (error, url) ->
-            throwError error if error?
+    image.onload = ->
+      ctx.drawImage image, 0, 0, fieldWidth, height, 0, 0, fieldWidth, height
+      pngData = canvas.toDataURL("image/png")
+      #TODO remove canvas
+      $('#mybubbles-preview').attr 'src', pngData
 
-    return
-  image.src = svgSrc
+      if _visitId?
+        if !_lastHash or _lastHash isnt svgSrc.hashCode()
+          _lastHash = svgSrc.hashCode()
+          if !_lastUploadTime? or _lastUploadTime < (Date.now() - 5000)
+            _lastUploadTime = Date.now()
+            console.log "upload"
+            Meteor.call "uploadMyBubbles", _visitId, pngData, (error, url) ->
+              throwError error if error?
+
+      return
+    image.src = svgSrc
+  , 1000
 
 
   return
