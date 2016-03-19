@@ -1,0 +1,15 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "mizzao:tutorials": {
+        "path": "../.."
+      }
+    },
+    "packages": {
+      "mizzao:tutorials": {
+        "path": "../.."
+      }
+    }
+  }
+}
