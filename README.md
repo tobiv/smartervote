@@ -1,7 +1,7 @@
-BGE 
-===
+smartervote 
+===========
 
-This repository holds the bedingungsloses Grundeinkommen website.
+This repository holds the smartervote.ch.
 
 ## Installation
 This webapp is based on [Meteor](http://meteor.com). If you haven't installed it already, this is how you get it.
@@ -11,8 +11,8 @@ curl https://install.meteor.com/ | sh
 
 ## Run
 ```
-git clone https://github.com/patte/bge.git
-cd bge/app
+git clone https://github.com/patte/smartervote.git
+cd smartervote/app
 meteor
 ```
 
