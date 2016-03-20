@@ -9,12 +9,8 @@
 
 // Admin
 @import "edit_questions.import.less";
-// import less/css from vendored libs
-@import "lib/bs_sidedanv.import.less";
 
 // Common/main site
-@import "overlay-menu.import.less";
-@import "blog.import.less";
 @import "helpers.import.less";
 
 // Smartervote app
@@ -110,8 +106,8 @@ a {
   margin-right: 1rem;
 
   border-radius: 50%;
-  background: @color-brand;
-  background: linear-gradient(141deg, #ffed00 0%, #ffcc00 100%);
+  //background: @color-brand;
+  //background: linear-gradient(141deg, #ffed00 0%, #ffcc00 100%);
 
   @media only screen and (min-width: @screen-sm-min) {
     margin-right: 1.5rem;
@@ -166,186 +162,9 @@ a {
     }
   }
 }
-
-.site-menu-toggle {
-  width: 33px;
-  height: 18px;
-  margin-top: 1.95 * @font-size-logo-min;
-
-  background: transparent url(/img/icon-menu.svg) 50% 50% no-repeat;
-  background-size: contain;
-  border: 0;
-
-  text-indent: -9999em;
-
-  @media only screen and (min-width: @screen-sm-min) {
-    width: 44px;
-    height: 24px;
-    margin: 0 @padding-body-horizontal;
-  }
-}
-
-
-/*
- * Main content
- */
-.container {
-  max-width: 42em; // make it readable
-  padding: 0 @padding-body-horizontal;
-
-  p {
-    margin-bottom: 1em;
-  }
-}
-
 #main {
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
-}
-
-#home {
-  padding-top: 1rem;
-}
-
-/*
- * Logos on homepage
- */
-.jumbotron {
-  margin: 0 @padding-body-horizontal @padding-body-vertical;
-  padding: 0;
-
-  background: transparent;
-  border-radius: 0 !important;
-
-  &.shrink {
-    display: none;
-  }
-
-  .svg-container {
-    position: relative;
-    height: 0;
-    padding-bottom: 100%;
-  }
-  
-  svg,
-  object {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-  }
-
-  p {
-    font-size: 1em;
-  }
-
-  a {
-    display: inline-block;
-    max-width: 200px;
-    margin: 0 auto;
-
-    &:hover {
-      .black {
-        fill: white;
-      }
-    }
-  }
-
-  .col-sm-4 {
-    padding: 0 0 1.5rem;
-    border-bottom: @border-default;
-    text-align: center;
-  }
-
-  @media only screen and (min-width: @screen-sm-min) {
-    border-bottom: @border-default;
-
-    a {
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .col-sm-4 {
-      border: 0;
-    }
-
-    &.shrink {
-      display: block;
-      margin-top: -1.5rem;
-
-      .svg-container {
-        padding-bottom: 40%;
-      }
-
-      .col-sm-4 {
-        padding-bottom: 0;
-      }
-    }
-  }
-}
-
-#link-smartervote,
-#link-debattenblog,
-#link-expo16 {
-  display: block;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-#link-smartervote:hover { background-image: url(/img/logobg-smartervote@2x.jpg); }
-#link-debattenblog:hover { background-image: url(/img/logobg-debattenblog@2x.jpg); }
-#link-expo16:hover { background-image: url(/img/logobg-expo16@2x.jpg); }
-
-.meteor-blog-index {
-  &:extend(.container);
-}
-
-.dropdown-menu {
-  z-index: 10000000;
-}
-
-.page-header {
-  margin: 0 auto;
-}
-#post .page-header h1 {
-  margin: 1em 0;
-  padding: 0;
-}
-
-#post {
-  margin-bottom: 3em;
-
-  h1 {
-    margin: 0.25em 0 0.5em;
-    font-size: 1.2em;
-  }
-
-  p {
-    margin-bottom: 1em;
-  }
-
-  @media only screen and (min-width: @screen-sm-min) {
-    font-size: 1.1em;
-
-    h1 {
-      font-size: 1.3em;
-    }
-  }
-
-  @media only screen and (min-width: @screen-lg-min) {
-    font-size: 1.2em;
-
-    h1 {
-      font-size: 1.5em;
-    }
-  }
-}
-
-footer {
-  text-align: center;
 }

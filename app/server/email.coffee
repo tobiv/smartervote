@@ -1,2 +1,2 @@
-Accounts.emailTemplates.from = "info@bedingungslos.ch"
-Accounts.emailTemplates.siteName = "bedingungslos.ch"
+Accounts.emailTemplates.from = "admin@smartervote.ch"
+Accounts.emailTemplates.siteName = "smartervote.ch"

@@ -1,15 +1,13 @@
 Router.plugin 'seo',
   defaults:
-    title: 'Volksinitiative Bedingungsloses Grundeinkommen (bedingungslos.ch)'
+    title: 'Smartervote: Volksinitiative Bedingungsloses Grundeinkommen'
     suffix: ''
     separator: ''
 
-    description: 'Infos und Smartervote'
-    #image: 'http://bge.patpat.org' #TODO
+    description: 'Smartervote'
 
     meta:
-      keywords: ['bedingungslos', 'inconditionnel', 'incondizionato', "Grundeinkommen", 'Volksinitiative', 'bge', 'ubi']
+      keywords: ['smartervote', 'Meinung', 'Fragebogen', 'bedingungslos', 'inconditionnel', 'incondizionato', "Grundeinkommen", 'Volksinitiative', 'bge', 'ubi']
 
     og:
-      site_name: 'Volksinitiative Bedingungsloses Grundeinkommen',
-      #image: '/images/custom-opengraph.png'#TODO
+      site_name: 'Smartervote: Volksinitiative Bedingungsloses Grundeinkommen'

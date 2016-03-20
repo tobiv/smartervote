@@ -55,9 +55,7 @@ accounts-twitter
 martino:iron-router-i18n
 tap:i18n
 tap:i18n-ui
-patte:meteor-page-crumbs
 ryw:blog
-patte:meteor-news
 rzymek:moment
 rzymek:moment-locale-de
 rzymek:moment-locale-fr
@@ -73,3 +71,4 @@ zimme:active-route
 ongoworks:spiderable
 davidsichau:piwik
 mizzao:tutorials
+chuangbo:marked

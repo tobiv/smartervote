@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 211.8 129.8"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="sv-logo.svg"
+   width="211.8"
+   height="129.8">
+  <metadata
+     id="metadata98">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>sv-logo-quad</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1182"
+     inkscape:window-height="881"
+     id="namedview96"
+     showgrid="false"
+     inkscape:zoom="1.6975"
+     inkscape:cx="105.69"
+     inkscape:cy="16.530003"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs4">
+    <style
+       id="style6">.sv-a{fill: transparent;}.sv-b{fill: url(#a);}.sv-c{fill: url(#b);}.sv-d{fill: url(#c);}.sv-e{fill: url(#d);}.sv-f{fill: url(#e);}.sv-g{fill: url(#f);}.black{fill:#000}</style>
+    <linearGradient
+       id="a"
+       data-name="Unbenannter Verlauf 338"
+       x1="89.230003"
+       y1="158.71001"
+       x2="463.25"
+       y2="158.71001"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#00ef77"
+         id="stop9" />
+      <stop
+         offset="0"
+         stop-color="#05ef75"
+         id="stop11" />
+      <stop
+         offset="0.04"
+         stop-color="#3ff15a"
+         id="stop13" />
+      <stop
+         offset="0.08"
+         stop-color="#72f342"
+         id="stop15" />
+      <stop
+         offset="0.12"
+         stop-color="#9df52e"
+         id="stop17" />
+      <stop
+         offset="0.16"
+         stop-color="#c1f71d"
+         id="stop19" />
+      <stop
+         offset="0.2"
+         stop-color="#dcf810"
+         id="stop21" />
+      <stop
+         offset="0.25"
+         stop-color="#eff807"
+         id="stop23" />
+      <stop
+         offset="0.29"
+         stop-color="#fbf902"
+         id="stop25" />
+      <stop
+         offset="0.33"
+         stop-color="#fff900"
+         id="stop27" />
+      <stop
+         offset="0.39"
+         stop-color="#ffd62a"
+         id="stop29" />
+      <stop
+         offset="0.53"
+         stop-color="#ff7e94"
+         id="stop31" />
+      <stop
+         offset="0.67"
+         stop-color="#ff25ff"
+         id="stop33" />
+      <stop
+         offset="0.72"
+         stop-color="#c15aff"
+         id="stop35" />
+      <stop
+         offset="0.78"
+         stop-color="#878cff"
+         id="stop37" />
+      <stop
+         offset="0.83"
+         stop-color="#57b5ff"
+         id="stop39" />
+      <stop
+         offset="0.88"
+         stop-color="#31d5ff"
+         id="stop41" />
+      <stop
+         offset="0.93"
+         stop-color="#16ecff"
+         id="stop43" />
+      <stop
+         offset="0.97"
+         stop-color="#06faff"
+         id="stop45" />
+      <stop
+         offset="1"
+         stop-color="aqua"
+         id="stop47" />
+    </linearGradient>
+    <linearGradient
+       id="b"
+       x1="91.800003"
+       y1="159"
+       x2="420.81"
+       y2="159"
+       xlink:href="#a" />
+    <linearGradient
+       id="c"
+       x1="64.709999"
+       y1="197.3"
+       x2="340.06"
+       y2="197.3"
+       xlink:href="#a" />
+    <linearGradient
+       id="d"
+       x1="9.21"
+       y1="120.38"
+       x2="366.94"
+       y2="120.38"
+       xlink:href="#a" />
+    <linearGradient
+       id="e"
+       x1="-41.040001"
+       y1="187.53999"
+       x2="330.60999"
+       y2="187.53999"
+       xlink:href="#a" />
+    <linearGradient
+       id="f"
+       x1="379.10999"
+       y1="676.78998"
+       x2="719.25"
+       y2="676.78998"
+       gradientTransform="matrix(1.12,0,0,1.12,-494.24,-600.83)"
+       xlink:href="#a" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#a"
+       id="linearGradient3715"
+       gradientUnits="userSpaceOnUse"
+       x1="89.230003"
+       y1="158.71001"
+       x2="463.25"
+       y2="158.71001" />
+  </defs>
+  <title
+     id="title54">sv-logo-quad</title>
+  <path
+     class="sv-a"
+     d="m 305.59,-86.63 0,399.8 -399.800001,0 0,-399.8 399.800001,0 m 0.1,-0.1 -400.000001,0 0,400 400.000001,0 0,-400 0,0 z"
+     id="path56"
+     inkscape:connector-curvature="0" />
+  <g
+     id="g58"
+     transform="translate(-94.310001,-86.73)">
+    <circle
+       class="sv-b"
+       cx="123.15"
+       cy="158.71001"
+       r="28.84"
+       id="circle84"
+       style="fill:url(#linearGradient3715)" />
+    <circle
+       class="sv-c"
+       cx="176.09"
+       cy="159"
+       r="11.54"
+       id="circle86"
+       style="fill:url(#b)" />
+    <circle
+       class="sv-d"
+       cx="180.83"
+       cy="197.3"
+       r="19.23"
+       id="circle88"
+       style="fill:url(#c)" />
+    <path
+       class="sv-e"
+       d="M 219.29,86.73"
+       id="path90"
+       inkscape:connector-curvature="0"
+       style="fill:url(#d)" />
+    <circle
+       class="sv-f"
+       cx="238.73"
+       cy="187.53999"
+       r="17.309999"
+       id="circle92"
+       style="fill:url(#e)" />
+    <circle
+       class="sv-g"
+       cx="282.07001"
+       cy="159"
+       r="24.040001"
+       id="circle94"
+       style="fill:url(#f)" />
+  </g>
+</svg>

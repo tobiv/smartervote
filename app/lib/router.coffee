@@ -4,7 +4,7 @@ Router.configure
   notFoundTemplate: "not_found"
   i18n:
     exclude: [
-      '\/admin', '\/blog', '\/img\/', '\/reset-password'
+      '\/admin', '\/img\/', '\/reset-password'
     ]
     server:
       exclude:
@@ -23,16 +23,7 @@ if Meteor.isClient
 
 
 Router.route '/',
-  name: 'home'
-  waitOn: ->
-    [
-      Meteor.subscribe('news')
-      Meteor.subscribe('newsImages')
-    ]
-  action: ->
-    @render 'home'
-
-Router.route 'smartervote',
+  name: 'smartervote'
   layoutTemplate: 'layoutSmartervote'
   waitOn: ->
     [

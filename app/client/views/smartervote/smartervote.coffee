@@ -1395,9 +1395,9 @@ Template.evaluation.helpers
     Visits.findOne _visitId
 
   shareData: ->
-    title: 'smartervote - bedingungslos.ch'
-    url: 'https://bedingungslos.ch/myBubbles/'+_visitId
-    thumbnail: "https://bedingungslos.ch#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
+    title: 'smartervote - smartervote.ch'
+    url: 'https://smartervote.ch/myBubbles/'+_visitId
+    thumbnail: "https://smartervote.ch#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
 
   topics: ->
     _topics.map (topic) ->

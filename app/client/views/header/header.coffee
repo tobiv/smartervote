@@ -7,7 +7,3 @@ Template.header.helpers
     )
     return "active" if active
     ""
-    
-Template.header.events
-  'click .site-menu-toggle': () ->
-    $('#overlay-menu').fadeIn(200)
