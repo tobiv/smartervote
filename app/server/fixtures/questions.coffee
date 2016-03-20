@@ -9,7 +9,7 @@ deleteAndImportQuestions = ->
   i=0
   #fs.createReadStream(process.env.PWD+"/private/questions.csv").pipe( csv(
   #request.get(Meteor.absoluteUrl()+'/questions.csv').pipe( csv(
-  url = 'http://ling.s.patpat.org:8000/questions.csv'
+  url = 'http://bastion.patpat.org/questions.csv'
   HTTP.get url, (error, result) ->
     if error?
       console.log error
