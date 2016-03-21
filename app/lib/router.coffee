@@ -56,7 +56,7 @@ Router.route 'smartervote-content',
 #admin routes
 Router.route '/admin/users',
   waitOn: ->
-    Meteor.subscribe('users')
+    Meteor.subscribe('registeredUsers')
   action: ->
     @render 'users'
 
