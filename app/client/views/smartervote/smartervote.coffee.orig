@@ -1395,9 +1395,15 @@ Template.evaluation.helpers
     Visits.findOne _visitId
 
   shareData: ->
-    title: TAPi18n.__('myResult', _proPercent.get())
+<<<<<<< HEAD
+    title: 'smartervote - smartervote.ch'
     url: 'https://smartervote.ch/myBubbles/'+_visitId
     thumbnail: "https://smartervote.ch#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
+=======
+    title: TAPi18n.__('myResult', _proPercent.get())
+    url: 'https://bedingungslos.ch/myBubbles/'+_visitId
+    thumbnail: "https://bedingungslos.ch#{@visit.myBubblesUrl}" if @visit? and @visit.myBubblesUrl?
+>>>>>>> cad249f... include proPercent into sharing message
 
   topics: ->
     _topics.map (topic) ->
