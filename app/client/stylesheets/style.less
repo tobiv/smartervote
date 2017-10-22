@@ -38,8 +38,12 @@ body {
 
 	background: white;
 	color: black;
-
-	font-family: 'SabonLTStd-Roman', serif;
+  
+  // Operating System font stack
+  // https://css-tricks.com/snippets/css/system-font-stack/
+	// font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  
 	line-height: @line-height-default;
 
 	@media only screen and (min-width: @screen-sm-min) {
@@ -50,7 +54,6 @@ body {
 h1, h2, h3, h4 {
   border: none;
   color: black;
-	font-family: 'BuenosAires', sans-serif;
 	font-weight: bold;
 
 	-webkit-font-smoothing: antialiased;
@@ -85,7 +88,6 @@ a {
 
   border-bottom: @border-default;
 
-  font-family: 'BuenosAires', sans-serif;
 	font-weight: bold;
 }
 
