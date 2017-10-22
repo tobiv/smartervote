@@ -17,48 +17,9 @@ html {
   //bottom: 0;
   //overflow: hidden;
   
-  
   background: white;
 
 	font-weight: normal;
-  
-  /*
-   * Reset bootstrap buttons
-   */
-  .btn {
-    background-color: transparent;
-    border: 0;
-    border-radius: 0;
-    color: black;
-    
-    &:focus,
-    &:hover,
-    &:active {
-      outline: 0;
-      background-color: transparent;
-      box-shadow: none;
-      color: black;
-    }
-    
-    &:hover,
-    &:focus {
-      background-color: rgba(0, 0, 0, 0.04);
-    }
-    
-    &:focus {
-      color: #444;
-      text-decoration: underline;
-    }
-    
-    &.active {
-      box-shadow: none;
-      text-decoration: underline;
-    }
-  }
-  
-  a {
-   color: black;
-  }
 }
 
 /*
@@ -277,20 +238,23 @@ html {
   position: relative;
   top: -0.1em;
   
-  height: 1em;
-  width: 1.2em;
-  background-image: url(/img/icon-star.svg);
-  background-position:  50% 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
+  background: transparent;
+  
+  &::before {
+    content: '☆';
+  }
   
   &:hover {
-    background-color: transparent !important;
-    background-image: url(/img/icon-star-hover.svg);
+    color: green;
   }
   
   &.active {
-    background-image: url(/img/icon-star-active.svg);
+    box-shadow: none !important;
+    
+    &::before {
+      content: '★';
+      color: green;
+    }
   }
 }
 
@@ -302,7 +266,7 @@ html {
   position: absolute;
   left: 10px;
   right: 10px;
-  bottom: 0;
+  bottom: @controls-vertical-padding-min;
   padding-top: @controls-vertical-padding-min;
   
   @media only screen and (min-width: @screen-sm-min) {
@@ -318,11 +282,12 @@ html {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  justify-content: space-between;
   
   button {
-    -webkit-flex: 1 0 50%;
-    -ms-flex: 1 0 50%;
-    flex: 1 0 50%;
+    -webkit-flex: 0 1 48%;
+    -ms-flex: 0 1 48%;
+    flex: 0 1 48%;
     
     //height: @height-answers;
     min-height: 6rem;
@@ -331,42 +296,14 @@ html {
     text-overflow: ellipsis;
     
     font-weight: bold;
-    font-size: 1em; // of viewport width
+    font-size: 1em;
     
     &.max {
-      text-align: left;
+      margin-right: 1%;
     }
     
     &.min {
-      text-align: right;
-    }
-    
-    span {
-      display: block;
-      overflow: visible;
-      //overflow: hidden;
-      text-overflow: ellipsis;
-      
-      font-size: 2.2em;
-      line-height: 0.8;
-      
-      text-transform: uppercase;
-    }
-  }
-  
-  @media only screen and (min-width: @screen-sm-min) {
-    button {
-      min-height: 8rem;
-    }
-  }
-  
-  @media only screen and (min-width: @screen-md-min) {
-    button {
-      font-size: 2vw; // of viewport width
-      
-      span {
-        font-size: 4vw; // of viewport width
-      }
+      margin-left: 1%;
     }
   }
 }
@@ -427,8 +364,6 @@ html {
   -ms-flex-wrap: wrap;
   flex-flow: wrap;
   
-  border-top: @border-default;
-  
   &:before,
   &:after {
     display: block;
@@ -465,39 +400,22 @@ html {
   
   #back,
   #gotoQuestions {
-    padding-left: 20px;
-    background-image: url(/img/arrow-left.svg);
-    background-position: 0 50%;
-    background-repeat: no-repeat;
-    background-size: 13px 26px;
-    
-    font-weight: bold;
-    text-align: left;
+    &::before {
+      content: '◀ ';
+    }
   }
   
   #next {
-    padding-right: 20px;
-    background-image: url(/img/arrow-right.svg);
-    background-position: 100% 50%;
-    background-repeat: no-repeat;
-    background-size: 13px 26px;
-
-    font-weight: bold;
-    text-align: right;
+    &::after {
+      content: ' ▶';
+    }
   }
   
   #gotoEvaluation {
     -webkit-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    
-    border: @border-default;
-    border-top: 0;
-    border-bottom: 0;
-    
-    @media only screen and (min-width: @screen-md-min) {
-      font-size: 1.2em;
-    }
+    margin: 0 5px;
   }
 }
 
@@ -505,35 +423,11 @@ html {
  * Button for resetting all answers
  */
 #reset {
-  width: 100%;
-  padding: 0;
+  display: block;
+  margin: 5px auto;
   
-  font-size: 0.9em;
-  line-height: @height-reset-button;
-  min-height: 3rem;
-  
-  &:hover {
-    color: red !important;
-  }
-  
-  &:before {
-    display: inline-block;
-    width: 20px;
-    height: 1em;
-    background: transparent url(/img/icon-trash.svg) 50% 50% no-repeat;
-    content: ' ';
-  }
-  
-  &:after {
-    display: block;
-    -webkit-flex: 0 0 100%;
-    -ms-flex:  0 0 100%;
-    flex: 0 0 100%;
-    
-    height: @controls-vertical-padding-base;
-    min-height: @controls-vertical-padding-min;
-    
-    content: ' ';
+  &::before {
+    content: '✕ ';
   }
 }
 
@@ -704,91 +598,42 @@ html {
       box-shadow: none;
     }
     
-
-    
     #login-email,
     #login-password,
     #forgot-password-email {
-      height: 2.5em;
-      padding: 0.2em 0 0;
       
-      background-color: rgba(0, 0, 0, 0.04);
-      color: black;
-      border-radius: 0;
-      border: 0;
-      border-bottom: 1px solid black;
-      box-shadow: none;
-      
-      line-height: 2.5em;
-      
-      &:focus {
-        background-color: white;
-      }
     }
     
     #login-email {
       margin-bottom: 0;
     }
     
-    .btn {
-      //margin-top: 0;
-      background-color: rgba(0,255,255, 0.5);
-    }
-    
-    // Selectors have to separate
-    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: @color-placeholder;
-    }
-    :-moz-placeholder { /* Firefox 18- */
-      color: @color-placeholder;
-    }
-    ::-moz-placeholder { /* Firefox 19+ */
-      color: @color-placeholder;
-      opacity: 1;
-    }
-    :-ms-input-placeholder { /* IE 10+ */
-      color: @color-placeholder;
-    }
-    ::-ms-input-placeholder { /* Edge */
-      color: @color-placeholder;
-    }
+    // // Selectors have to separate
+    // ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    //   color: @color-placeholder;
+    // }
+    // :-moz-placeholder { /* Firefox 18- */
+    //   color: @color-placeholder;
+    // }
+    // ::-moz-placeholder { /* Firefox 19+ */
+    //   color: @color-placeholder;
+    //   opacity: 1;
+    // }
+    // :-ms-input-placeholder { /* IE 10+ */
+    //   color: @color-placeholder;
+    // }
+    // ::-ms-input-placeholder { /* Edge */
+    //   color: @color-placeholder;
+    // }
   }
 }
 
 .topics .topic,
 .compare .person-of-interest {
   width: 100%;
-  padding: 0;
+  margin: 3px 0;
   
-  line-height: 2em;
   text-align: left;
-
-  &:before {
-    display: inline-block;
-    position: relative;
-    top: 0.3em;
-    
-    box-sizing: border-box;
-    height: 1.5em;
-    width: 1.5em;
-    margin-right: 0.2em;
-    
-    border: 2px solid rgba(0,0,0, 0.8);
-    border-radius: 50%;
-    
-    content: ' ';
-  }
-      
-  &.active {
-    text-decoration: none !important;
-    
-    &:before {
-      background-image: url(/img/icon-checkmark.svg);
-      background-repeat: no-repeat;
-      background-position: 50% 50%;
-      background-size: 50%;
-    }
-  }
 }
 
 #mobile-content-toggle-topics,

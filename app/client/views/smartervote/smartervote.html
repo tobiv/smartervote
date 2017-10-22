@@ -1,7 +1,7 @@
 <template name="smartervote">
   <div id="smartervote">
     <div id="app-header">
-      <img src="/img/sv-logo-horizontal.svg" alt="smartervote">
+      <strong>Smartervote</strong> &nbsp;
       {{> languageSwitcher}}
     </div>
     
@@ -129,7 +129,7 @@ Wir sind auf gemieteten Servern von [Exoscale](https://www.exoscale.ch/) in der 
           <button type="button" id="next" class="btn btn-default"><span>{{_ "next"}}</span></button>
         </div>
         
-        <button type="button" id="reset" class="btn btn-danger">{{_ "deleteAllAnswers"}}</button>
+        <button type="button" id="reset" class="btn btn-warning">{{_ "deleteAllAnswers"}}</button>
       </div>
     {{/with}}
   </div>
@@ -190,7 +190,7 @@ Wir sind auf gemieteten Servern von [Exoscale](https://www.exoscale.ch/) in der 
     <h2>{{_ "whereDoYouStand"}}</h2>
     {{#each topics}}
     <button type="button" class="topic {{topicCSS}} btn btn-default">
-      <strong>{{_ title}}</strong> ({{pp}} %)
+      <strong>{{_ title}}</strong> ({{pp}}&#8203;%)
     </button>
     {{/each}}
     <button type="button" id="mobile-content-toggle-topics" class="mobile-content-toggle"><i class="fa fa-eye"></i> Ansehen</button>
